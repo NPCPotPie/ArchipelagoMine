@@ -1,15 +1,16 @@
 from ..Connection import Connection
+from ..Requirement import PONRRequirement
+from ..VariableConnection import VariableConnection
+from ..Requirements import *
 from ..FusionLocation import FusionLocation
+
 from ..regions.MainDeck import *
 from ..regions.Sector1 import Sector1Hub
-from ..regions.Sector2 import Sector2Hub, Sector2NettoriZone
+from ..regions.Sector2 import Sector2NettoriZone, Sector2Hub
 from ..regions.Sector3 import Sector3Hub
 from ..regions.Sector4 import Sector4Hub
 from ..regions.Sector5 import Sector5Hub
 from ..regions.Sector6 import Sector6Hub
-from ..Requirement import PONRRequirement
-from ..Requirements import *
-from ..VariableConnection import VariableConnection
 
 MainDeckHub.connections = [
     Connection(OperationsDeckElevatorBottom, []),
@@ -21,7 +22,7 @@ MainDeckHub.connections = [
     Connection(HabitationDeckElevatorBottom, [HasKeycard2]),
     Connection(SectorHubElevatorTop, [HasMorph, CanDoAdvancedShinespark]),
     Connection(ReactorZone, [
-        Requirement(["Morph Ball"], [HasKeycard4, CanPowerBomb], level_2_e_tanks)
+        Requirement(["Morph Ball"], [HasKeycard4, CanPowerBomb], 5)
     ]),
     Connection(NexusStorage, [
         Level2KeycardRequirement([], [CanDefeatLargeGeron])
@@ -46,15 +47,7 @@ OperationsDeckElevatorTop.connections = [
 ]
 
 OperationsDeck.connections = [
-    Connection(VentilationZone, [HasMissile], one_way=True)
-]
-
-UpperArachnusArena.connections = [
-    Connection(LowerArachnusArena, [
-        PONRRequirement([], [HasMissile]),
-        CanBeatToughEnemyRequirement(["Morph Ball"], [CanDefeatSmallGeron]),
-        CanMorphRequirement(["Screw Attack"], [CanJumpHigh, CanDoSimpleWallJump])
-    ], one_way=True)
+    Connection(LowerArachnusArena, [HasMissile], one_way=True)
 ]
 
 HabitationDeckElevatorBottom.connections = [
@@ -156,13 +149,13 @@ LowerArachnusArena.locations = [
 
 HabitationDeck.locations = [
     FusionLocation("Main Deck -- Habitation Deck -- Animals", True, [
-        Requirement(["Speed Booster", "Level 2 Keycard"], [HasSpaceJump]),
-        CanFreezeEnemiesRequirement(["Level 2 Keycard", "Speed Booster"], [CanDoAdvancedWallJump, HasHiJump]),
-        CanFreezeEnemiesRequirement(["Level 2 Keycard", "Wave Beam"], [CanDoSimpleWallJump, HasHiJump])
+        Level2KeycardRequirement([], [CanReachAnimals]),
+        CanFreezeEnemies(["Level 2 Keycard", "Speed Booster"], [CanDoSimpleWallJump]),
+        CanFreezeEnemies(["Level 2 Keycard", "Wave Beam"], [CanDoSimpleWallJump, HasHiJump])
     ]),
     FusionLocation("Main Deck -- Habitation Deck -- Lower Item", False, [
-        Requirement(["Level 2 Keycard"], [HasSpaceJump, HasWaveBeam]),
-        CanFreezeEnemiesRequirement(["Level 2 Keycard"], [HasHiJump, CanDoAdvancedWallJump])
+        Level2KeycardRequirement([], [HasSpaceJump, HasWaveBeam]),
+        CanFreezeEnemies(["Level 2 Keycard"], [HasHiJump, CanDoAdvancedWallJump])
     ])
 ]
 
@@ -170,7 +163,7 @@ ReactorZone.locations = [
     FusionLocation("Main Deck -- Silo Catwalk", False, [CanDefeatStabilizerOrToughEnemy]),
     FusionLocation("Main Deck -- Silo Scaffolding", False, [
         PONRRequirement(["Morph Ball"], [CanDefeatStabilizerOrToughEnemy]),
-        CanDefeatStabilizerOrToughEnemyRequirement(["Morph Ball"], [CanJumpHigh, CanDoAdvancedWallJump])
+        CanDefeatStabilizerOrToughEnemy(["Morph Ball"], [CanJumpHigh, CanDoAdvancedWallJump])
     ])
 ]
 
