@@ -53,7 +53,7 @@ class MetroidFusionSettings(settings.Group):
         """File name of the Metroid Fusion ROM"""
         description = "Metroid Fusion (USA) ROM File"
         copy_to = "Metroid Fusion (USA).gba"
-        md5s = ["af5040fc0f579800151ee2a683e2e5b5", "5d07cc8a45eae858bea6dfc97f63e813"]
+        md5s = ["af5040fc0f579800151ee2a683e2e5b5"]
 
     rom_file: RomFile = RomFile(RomFile.copy_to)
     rom_start: bool = True
