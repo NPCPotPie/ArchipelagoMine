@@ -1,3 +1,5 @@
+import os
+import pkgutil
 from ..constants import game_data as gd
 from .auto_generated_types import MarsschemamfEnvironmentaldamage
 from .constants.reserved_space import ReservedPointersMF
@@ -13,8 +15,7 @@ def _get_patch_path(rom: Rom, subfolder: str, filename: str) -> str:
 
 def _internal_apply_ips_patch(rom: Rom, patch_name: str, subfolder: str) -> None:
     path = _get_patch_path(rom, subfolder, patch_name)
-    with open(path, "rb") as f:
-        patch = f.read()
+    patch = pkgutil.get_data("", path)
     IpsDecoder().apply_patch(patch, rom.data)
 
 
@@ -27,9 +28,8 @@ def apply_patch_in_asm_path(rom: Rom, patch_name: str) -> None:
 
 
 def apply_base_patch(rom: Rom) -> None:
-    path = _get_patch_path(rom, "asm", "m4rs.bps")
-    with open(path, "rb") as f:
-        patch = f.read()
+    path = os.path.join("data", "patches", "mf_u", "asm", "m4rs.bps")
+    patch = pkgutil.get_data(__name__, path)
     rom.data = BpsDecoder().apply_patch(patch, rom.data)
 
 

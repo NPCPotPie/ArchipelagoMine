@@ -1,4 +1,6 @@
 import json
+import os
+import pkgutil
 from collections.abc import Callable
 from os import PathLike
 
@@ -173,8 +175,8 @@ def patch_mf(
         apply_level_edits(rom, patch_data["LevelEdits"])
 
     # Apply base minimap edits
-    with open(get_data_path("base_minimap_edits.json")) as f:
-        edits_dict = json.load(f)
+    path = os.path.join("data", "base_minimap_edits.json")
+    edits_dict = json.loads(pkgutil.get_data(__name__, path).decode())
     apply_minimap_edits(rom, edits_dict)
 
     # Apply JSON minimap edits

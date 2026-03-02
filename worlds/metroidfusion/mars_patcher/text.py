@@ -1,4 +1,6 @@
 import json
+import os
+import pkgutil
 from enum import Enum
 from functools import cache
 
@@ -57,9 +59,8 @@ class MessageType(Enum):
 
 @cache
 def get_char_map(region: Region) -> dict[str, int]:
-    path = get_data_path("char_map_mf.json")
-    with open(path, encoding="utf-8") as f:
-        sections = json.load(f)
+    path = os.path.join("mf", "data", "char_map_mf.json")
+    sections = json.loads(pkgutil.get_data(__name__, path).decode())
     char_map: dict[str, int] = {}
     for section in sections:
         if region.name in section["regions"]:
