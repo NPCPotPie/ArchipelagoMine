@@ -1,4 +1,3 @@
-import os
 import pkgutil
 from ..constants import game_data as gd
 from .auto_generated_types import MarsschemamfEnvironmentaldamage
@@ -28,7 +27,7 @@ def apply_patch_in_asm_path(rom: Rom, patch_name: str) -> None:
 
 
 def apply_base_patch(rom: Rom) -> None:
-    path = os.path.join("data", "patches", "mf_u", "asm", "m4rs.bps")
+    path = _get_patch_path(rom, "asm", "m4rs.bps")
     patch = pkgutil.get_data(__name__, path)
     rom.data = BpsDecoder().apply_patch(patch, rom.data)
 

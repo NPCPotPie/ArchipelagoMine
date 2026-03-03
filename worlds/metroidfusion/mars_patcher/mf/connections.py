@@ -1,4 +1,3 @@
-import os
 import pkgutil
 from collections.abc import Sequence
 
@@ -197,10 +196,10 @@ class Connections:
                     break
 
         # Write new graphics and tilemap
-        path = os.path.join("data", "main_hub.gfx.lz")
+        path = get_data_path("main_hub.gfx.lz")
         gfx = pkgutil.get_data(__name__, path)
         self.rom.write_bytes(MAIN_HUB_GFX_ADDR, gfx)
-        path = os.path.join("data", "main_hub_tilemap.bin")
+        path = get_data_path("main_hub_tilemap.bin")
         tilemap = pkgutil.get_data(__name__, path)
         self.rom.write_bytes(MAIN_HUB_TILEMAP_ADDR + 2, tilemap)
 
