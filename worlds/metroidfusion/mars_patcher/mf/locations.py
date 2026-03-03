@@ -97,7 +97,7 @@ class LocationSettings:
 
     @classmethod
     def initialize(cls) -> Self:
-        path = os.path.join("data", "locations.json")
+        path = get_data_path("locations.json")
         data = json.loads(pkgutil.get_data(__name__, path).decode())
 
         major_locs = []
