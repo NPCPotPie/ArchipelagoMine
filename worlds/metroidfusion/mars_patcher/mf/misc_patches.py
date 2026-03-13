@@ -14,7 +14,7 @@ def _get_patch_path(rom: Rom, subfolder: str, filename: str) -> str:
 
 def _internal_apply_ips_patch(rom: Rom, patch_name: str, subfolder: str) -> None:
     path = _get_patch_path(rom, subfolder, patch_name)
-    patch = pkgutil.get_data("", path)
+    patch = pkgutil.get_data(__name__, path)
     IpsDecoder().apply_patch(patch, rom.data)
 
 
