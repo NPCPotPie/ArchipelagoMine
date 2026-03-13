@@ -826,6 +826,7 @@ class MetroidFusionWorld(World):
         patch_dict["RoomNames"] = room_names
         patch_dict["TitleText"] = [{"Text": "         Archipelago", "LineNum": 12}]
         patch_dict["CreditsText"] = self.build_credits_text()
+        patch_dict["NerfGerons"] = bool(self.options.NerfGeronWeaknesses.value)
 
         if self.options.PaletteRandomization:
             patch_dict["Palettes"] = self.create_palette_rando(self.multiworld.seed)

@@ -181,6 +181,10 @@ class FastDoorTransitions(DefaultOnToggle):
     """Enables fast door transitions between rooms."""
     display_name = "Fast Door Transitions"
 
+class NerfGeronWeaknesses(DefaultOnToggle):
+    """Makes Gerons only weak to their 'intended' values."""
+    display_name = "Nerf Geron Weaknesses"
+
 class MissileDataAmmo(Range):
     """The amount of missiles provided by a Missile Data item."""
     display_name = "Missile Data Ammo"
@@ -257,6 +261,7 @@ class MetroidFusionOptions(PerGameCommonOptions):
 
     PaletteRandomization: PaletteRandomization
     EnableHints: EnableHints
+    NerfGeronWeaknesses: NerfGeronWeaknesses
     RevealHiddenBlocks: RevealHiddenBlocks
     FastDoorTransitions: FastDoorTransitions
     MissileDataAmmo: MissileDataAmmo
@@ -299,6 +304,7 @@ metroid_fusion_option_groups = [
     OptionGroup("Minor Options", [
         PaletteRandomization,
         EnableHints,
+        NerfGeronWeaknesses,
         RevealHiddenBlocks,
         FastDoorTransitions,
         MissileDataAmmo,
