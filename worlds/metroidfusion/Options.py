@@ -181,7 +181,7 @@ class FastDoorTransitions(DefaultOnToggle):
     """Enables fast door transitions between rooms."""
     display_name = "Fast Door Transitions"
 
-class NerfGeronWeaknesses(Toggle):
+class NerfGeronWeaknesses(DefaultOnToggle):
     """Makes Gerons only weak to their 'intended' values."""
     display_name = "Nerf Geron Weaknesses"
 
