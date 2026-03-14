@@ -56,10 +56,13 @@ class LocationData:
     def __repr__(self):
         return self.name
 
+def escape_string(string: str) -> str:
+    return string.replace("[", "\\[").replace("]", "\\]")
+
 def build_item_message(item_name: str, player_name: str):
     return {
         "Languages": {
-            "English": f"Found {player_name}'s\n{item_name}",
+            "English": f"Found {escape_string(player_name)}'s\n{escape_string(item_name)}",
         },
         "Kind": "CustomMessage"
     }
