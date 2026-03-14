@@ -21,7 +21,7 @@ from .constants.main_hub_numbers import (
     MAIN_HUB_SMALL_NUM_BLOCK,
     MAIN_HUB_TILEMAP_ADDR,
 )
-from .data import get_data_path
+from .data import get_relative_data_path
 from ..minimap import Minimap
 from ..rom import Game, Rom
 from ..room_entry import BlockLayer, RoomEntry
@@ -196,10 +196,10 @@ class Connections:
                     break
 
         # Write new graphics and tilemap
-        path = get_data_path("main_hub.gfx.lz")
+        path = get_relative_data_path(__file__, "main_hub.gfx.lz")
         gfx = pkgutil.get_data(__name__, path)
         self.rom.write_bytes(MAIN_HUB_GFX_ADDR, gfx)
-        path = get_data_path("main_hub_tilemap.bin")
+        path = get_relative_data_path(__file__, "main_hub_tilemap.bin")
         tilemap = pkgutil.get_data(__name__, path)
         self.rom.write_bytes(MAIN_HUB_TILEMAP_ADDR + 2, tilemap)
 
