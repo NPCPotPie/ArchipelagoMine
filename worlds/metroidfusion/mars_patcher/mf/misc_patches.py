@@ -2,14 +2,14 @@ import pkgutil
 from ..constants import game_data as gd
 from .auto_generated_types import MarsschemamfEnvironmentaldamage
 from .constants.reserved_space import ReservedPointersMF
-from .data import get_data_path
+from .data import get_relative_data_path
 from ..patching import BpsDecoder, IpsDecoder
 from ..rom import Rom
 
 
 def _get_patch_path(rom: Rom, subfolder: str, filename: str) -> str:
     dir = f"{rom.game.name}_{rom.region.name}".lower()
-    return get_data_path("patches", dir, subfolder, filename)
+    return get_relative_data_path(__file__, "patches", dir, subfolder, filename)
 
 
 def _internal_apply_ips_patch(rom: Rom, patch_name: str, subfolder: str) -> None:

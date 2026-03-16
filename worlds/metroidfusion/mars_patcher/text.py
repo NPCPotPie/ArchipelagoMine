@@ -5,7 +5,7 @@ from functools import cache
 
 from .constants.game_data import character_widths
 from .mf.constants.game_data import file_screen_text_ptrs
-from .mf.data import get_data_path
+from .mf.data import get_relative_data_path
 from .rom import Region, Rom
 
 SPACE_CHAR = 0x40
@@ -58,7 +58,7 @@ class MessageType(Enum):
 
 @cache
 def get_char_map(region: Region) -> dict[str, int]:
-    path = get_data_path("char_map_mf.json")
+    path = get_relative_data_path(__file__, "char_map_mf.json")
     sections = json.loads(pkgutil.get_data(__name__, path).decode())
     char_map: dict[str, int] = {}
     for section in sections:
