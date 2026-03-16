@@ -52,7 +52,7 @@ Sector1SecondStabilizerZone.connections = [
     Connection(Sector1TourianExit, [
         Requirement(["Wave Beam", "Ice Beam"], [CanScrewAttackAndSpaceJump([],[CanBallJump])]),
         Requirement(["Wave Beam", "Missile Data", "Diffusion Missile"], [CanScrewAttackAndSpaceJump([],[CanBallJump])]),
-        PONRRequirement(["Missile Data", "Diffusion Missile", "ScrewAttack", "Space Jump"], [CanBallJump])
+        PONRRequirement(["Missile Data", "Diffusion Missile", "Screw Attack", "Space Jump"], [CanBallJump])
     ], one_way=True)
 ]
 

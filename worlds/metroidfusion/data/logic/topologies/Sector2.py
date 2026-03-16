@@ -34,9 +34,9 @@ Sector2TubeRight.connections = [
 Sector2LeftSide.connections = [
     Connection(Sector2Hub, [
         Requirement(["Morph Ball", "Hi-Jump"], [CanDestroyBombBlocks]),
-        CanBombRequirement([], [CanPowerBomb, HasScrewAttack]),
+        CanBomb([], [CanPowerBomb, HasScrewAttack]),
         #Loop around through Cathedral
-        CanBombRequirement([], [HasSpaceJump, CanDoSimpleWallJumpWithHiJump])
+        CanBomb([], [HasSpaceJump, CanDoSimpleWallJumpWithHiJump])
     ]),
     Connection(Sector2ZazabiZone, [CanBombOrPowerBomb], one_way=True)
 ]
@@ -44,8 +44,8 @@ Sector2LeftSide.connections = [
 Sector2ZazabiZone.connections = [
     Connection(Sector2LeftSide, [
         #Loop around through Cathedral
-        CanBombOrPowerBombRequirement(["Space Jump"], []),
-        CanBombOrPowerBombRequirement(["Screw Attack"], [HasSpaceJump, CanDoSimpleWallJumpWithHiJump])
+        CanBombOrPowerBomb(["Space Jump"], []),
+        CanBombOrPowerBomb(["Screw Attack"], [HasSpaceJump, CanDoSimpleWallJumpWithHiJump])
     ]),
     Connection(Sector2NettoriZone, [HasSpaceJump]),
     Connection(Sector2ZazabiZoneUpper, [HasSpaceJump, CanDoSimpleWallJumpWithHiJump])
@@ -89,7 +89,7 @@ Sector2LeftSide.locations = [
 
 Sector2ZazabiZone.locations = [
     FusionLocation("Sector 2 (TRO) -- Cultivation Station", False, [
-        CanBombOrPowerBombRequirement([], [CanJumpHigh, CanFreezeEnemies])
+        CanBombOrPowerBomb([], [CanJumpHigh, CanFreezeEnemies])
     ]),
     FusionLocation("Sector 2 (TRO) -- Oasis", False, [CanJumpHigh]),
     FusionLocation("Sector 2 (TRO) -- Oasis Storage", False, [
@@ -102,11 +102,11 @@ Sector2ZazabiZone.locations = [
     ]),
     FusionLocation("Sector 2 (TRO) -- Ripper Tower -- Upper Item", False, [
         PONRRequirement(["Morph Ball"], [CanFreezeEnemies]),
-        CanDestroyBombBlocksRequirement(["Morph Ball"], [CanFreezeEnemies])
+        CanDestroyBombBlocks(["Morph Ball"], [CanFreezeEnemies])
     ]),
     FusionLocation("Sector 2 (TRO) -- Zazabi Arena", True, [
         PONRRequirement([], [CanFightBoss]),
-        CanJumpHighRequirement([], [CanFightBoss]),
+        CanJumpHigh([], [CanFightBoss]),
     ]),
     FusionLocation("Sector 2 (TRO) -- Zazabi Arena Access", False, []),
     FusionLocation("Sector 2 (TRO) -- Zazabi Speedway -- Lower Item", False, [

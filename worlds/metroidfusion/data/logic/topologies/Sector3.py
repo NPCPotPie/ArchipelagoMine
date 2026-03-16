@@ -191,7 +191,7 @@ Sector3SecurityZone.locations = [
 Sector3MainShaft.locations = [
     FusionLocation("Sector 3 (PYR) -- Namihe's Lair", False, [
         CanPowerBombAndJumpHigh,
-        PONRRequirement(["Morph Ball", "Power Bomb"], [CanDoAdvancedShinespark])
+        PONRRequirement(["Morph Ball", "Power Bomb Data"], [CanDoAdvancedShinespark])
     ]),
     FusionLocation("Sector 3 (PYR) -- Processing Access", False, [
         Level2KeycardRequirement([], [])

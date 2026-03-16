@@ -41,14 +41,14 @@ Sector5TopLeftBigRoom.connections = [
 Sector5FrozenHub.connections = [
     Connection(Sector5DataRoom, [
         PONRRequirement(["Level 3 Keycard"], [HasVaria]),
-        HasKeycard3Requirement([], [HasVaria])
+        HasKeycard3([], [HasVaria])
     ], one_way=True),
     Connection(Sector5BeforeNightmareHub, [
         Level3KeycardRequirement([], [HasVaria])
     ]),
     Connection(Sector5SecurityZone, [
         PONRRequirement(["Speed Booster", "Varia Suit"], [CanBombOrPowerBomb], level_3_e_tanks),
-        HasSpaceJumpRequirement(["Speed Booster", "Varia Suit"], [CanBombOrPowerBomb], level_3_e_tanks),
+        HasSpaceJump(["Speed Booster", "Varia Suit"], [CanBombOrPowerBomb], level_3_e_tanks),
         #Level3KeycardRequirement(["Varia Suit"], [CanDoExpertShinespark]),
         Level3KeycardRequirement(["Varia Suit"], [HasWaveBeam])
     ], one_way=True),
@@ -59,14 +59,14 @@ Sector5FrozenHub.connections = [
 
 Sector5SecurityZone.connections = [
     Connection(Sector5DataRoom, [
-        HasSpaceJumpRequirement(["Varia Suit"], [HasKeycard3]),
-        CanDoAdvancedWallJumpWithHiJumpRequirement(["Varia Suit", "Level 3 Keycard"], [CanFreezeEnemies], level_3_e_tanks)
+        HasSpaceJump(["Varia Suit"], [HasKeycard3]),
+        CanDoAdvancedWallJumpWithHiJump(["Varia Suit", "Level 3 Keycard"], [CanFreezeEnemies], level_3_e_tanks)
         #ReverseIceLOLRequirement
     ]),
     Connection(Sector5FrozenHub, [
-        HasVariaRequirement(["Level 3 Keycard"], []),
-        HasVariaRequirement(["Space Jump"], [CanBombOrPowerBomb]),
-        HasVariaRequirement(["Space Jump", "Speed Booster", "Morph Ball", "Level 3 Keycard"], [CanFreezeEnemies])
+        HasVaria(["Level 3 Keycard"], []),
+        HasVaria(["Space Jump"], [CanBombOrPowerBomb]),
+        HasVaria(["Space Jump", "Speed Booster", "Morph Ball", "Level 3 Keycard"], [CanFreezeEnemies])
     ], one_way=True)
 ]
 
@@ -90,14 +90,14 @@ Sector5NightmareHub.connections = [
     Connection(Sector5BeforeNightmareHub, [
         Requirement(["Gravity Suit", "Screw Attack"], [
             HasSpaceJump,
-            CanDoBeginnerShinesparkRequirement([], [CanDoAdvancedWallJump])
+            CanDoBeginnerShinespark([], [CanDoAdvancedWallJump])
         ], level_3_e_tanks)
     ]),
     Connection(Sector5NightmareZoneArena, [CanSpeedBoosterUnderwater], one_way=True),
     Connection(Sector4UpperWaterZone, [CanSpeedBoosterUnderwater]),
     Connection(Sector5NightmareZoneUpper, [
-        CanJumpHighRequirement([], [CanBeatToughEnemy, CanPowerBomb, CanScrewAttackUnderwater], level_3_e_tanks),
-        CanDoBeginnerShinesparkRequirement(["Gravity Suit"], [CanDefeatStabilizerOrToughEnemy], level_3_e_tanks)
+        CanJumpHigh([], [CanBeatToughEnemy, CanPowerBomb, CanScrewAttackUnderwater], level_3_e_tanks),
+        CanDoBeginnerShinespark(["Gravity Suit"], [CanDefeatStabilizerOrToughEnemy], level_3_e_tanks)
     ])
 ]
 
@@ -107,15 +107,15 @@ Sector5NightmareZoneUpper.connections = [
     ], one_way=True),
     Connection(Sector5NightmareZoneArena, [
         PONRRequirement([], [
-            CanBeatToughEnemyRequirement([], [HasSpaceJump, CanDoSimpleWallJump])
+            CanBeatToughEnemy([], [HasSpaceJump, CanDoSimpleWallJump])
         ])
     ], one_way=True)
 ]
 
 Sector5NightmareZoneArena.connections = [
     Connection(Sector5NightmareHub, [
-        CanSpeedBoosterUnderwaterRequirement([], [
-            CanJumpHighRequirement([], [CanFightLateGameBoss, CanFightLategameBossOnAdvanced, CanFightBossOnExpert])
+        CanSpeedBoosterUnderwater([], [
+            CanJumpHigh([], [CanFightLateGameBoss, CanFightLategameBossOnAdvanced, CanFightBossOnExpert])
         ])
     ])
 ]
@@ -124,7 +124,7 @@ Sector5Hub.locations = [
     FusionLocation("Sector 5 (ARC) -- Gerubus Gully", False, [
         PONRRequirement(["Morph Ball", "Level 3 Keycard"], [HasScrewAttack, CanDoBeginnerShinespark]),
         Requirement(["Level 3 Keycard"], [CanPowerBomb]),
-        CanBombRequirement(["Level 3 Keycard"], [HasScrewAttack, HasHiJump, CanDoBeginnerShinespark])
+        CanBomb(["Level 3 Keycard"], [HasScrewAttack, HasHiJump, CanDoBeginnerShinespark])
     ]),
 ]
 
@@ -137,21 +137,21 @@ Sector5TopLeftBigRoom.locations = [
         Requirement(["Speed Booster"], [
             HasSpaceJump,
             CanFreezeEnemies,
-            CanDoBeginnerShinesparkRequirement(["Level 3 Keycard"], [CanDoAdvancedWallJump])
+            CanDoBeginnerShinespark(["Level 3 Keycard"], [CanDoAdvancedWallJump])
         ])
     ]),
     FusionLocation("Sector 5 (ARC) -- Training Aerie -- Right Item", False, [
         HasSpaceJump,
         CanFreezeEnemies,
-        CanDoBeginnerShinesparkRequirement(["Level 3 Keycard"], [CanDoAdvancedWallJump])
+        CanDoBeginnerShinespark(["Level 3 Keycard"], [CanDoAdvancedWallJump])
     ])
 ]
 
 Sector5FrozenHub.locations = [
     FusionLocation("Sector 5 (ARC) -- Ripper Road", False, [
-        CanFreezeEnemiesRequirement(["Varia Suit"], [
-            CanPowerBombRequirement([], [CanBallJump]),
-            CanBombRequirement([], [HasScrewAttack])
+        CanFreezeEnemies(["Varia Suit"], [
+            CanPowerBomb([], [CanBallJump]),
+            CanBomb([], [HasScrewAttack])
         ])
     ])
 ]
@@ -159,14 +159,14 @@ Sector5FrozenHub.locations = [
 Sector5BeforeNightmareHub.locations = [
     FusionLocation("Sector 5 (ARC) -- Crow's Nest", False, [
         PONRRequirement(["Morph Ball"], [
-            CanDoBeginnerShinesparkRequirement([], [
-                CanBeatToughEnemyRequirement([], [CanJumpHigh, CanDoSimpleWallJump], level_3_e_tanks)
+            CanDoBeginnerShinespark([], [
+                CanBeatToughEnemy([], [CanJumpHigh, CanDoSimpleWallJump], level_3_e_tanks)
             ])
         ]),
         Requirement(["Morph Ball", "Power Bomb Data"], [CanJumpHigh, CanDoAdvancedWallJump]),
         Requirement(["Morph Ball", "Screw Attack"], [CanJumpHigh, CanDoAdvancedWallJump]),
-        CanDoBeginnerShinesparkRequirement(["Morph Ball", "Bomb Data"], [
-            CanBeatToughEnemyRequirement([], [CanJumpHigh, CanDoSimpleWallJump], level_3_e_tanks)
+        CanDoBeginnerShinespark(["Morph Ball", "Bomb Data"], [
+            CanBeatToughEnemy([], [CanJumpHigh, CanDoSimpleWallJump], level_3_e_tanks)
         ])
     ])
 ]
@@ -179,20 +179,20 @@ Sector5SecurityZone.locations = [
     FusionLocation("Sector 5 (ARC) -- E-Tank Mimic Den", False, [
         PONRRequirement(["Morph Ball", "Power Bomb Data", "Level 3 Keycard", "Varia Suit"], [CanFreezeEnemies, HasSpaceJump]),
         PONRRequirement(["Morph Ball", "Screw Attack", "Level 3 Keycard", "Varia Suit"], [CanFreezeEnemies, HasSpaceJump]),
-        CanBallJumpAndBombRequirement(["Level 3 Keycard", "Varia Suit"], [CanFreezeEnemies, HasSpaceJump])
+        CanBallJumpAndBomb(["Level 3 Keycard", "Varia Suit"], [CanFreezeEnemies, HasSpaceJump])
     ]),
     FusionLocation("Sector 5 (ARC) -- Level 3 Security Room", True, [HasVaria]),
     FusionLocation("Sector 5 (ARC) -- Ripper's Treasure", False, [
-        CanPowerBombRequirement(["Varia Suit"], [
+        CanPowerBomb(["Varia Suit"], [
             HasSpaceJump,
-            CanFreezeEnemiesRequirement([], [HasHiJump, CanDoSimpleWallJump])
+            CanFreezeEnemies([], [HasHiJump, CanDoSimpleWallJump])
         ])
     ]),
     FusionLocation("Sector 5 (ARC) -- Security Shaft East", False, [
-        HasVariaRequirement([], [CanPowerBomb])
+        HasVaria([], [CanPowerBomb])
     ]),
     FusionLocation("Sector 5 (ARC) -- Transmutation Trial", False, [
-        CanBallJumpRequirement(["Level 3 Keycard", "Varia Suit"], [HasSpaceJump, CanFreezeEnemies])
+        CanBallJump(["Level 3 Keycard", "Varia Suit"], [HasSpaceJump, CanFreezeEnemies])
     ])
 ]
 
@@ -216,14 +216,14 @@ Sector5NightmareZoneUpper.locations = [
     FusionLocation("Sector 5 (ARC) -- Ruined Break Room", False, [CanPowerBomb]),
     FusionLocation("Sector 5 (ARC) -- Nightmare Nook", False, [
         PONRRequirement([], [
-            CanBeatToughEnemyRequirement([], [
-                CanBallJumpAndBombRequirement([], [HasSpaceJump, CanDoSimpleWallJump])
+            CanBeatToughEnemy([], [
+                CanBallJumpAndBomb([], [HasSpaceJump, CanDoSimpleWallJump])
             ])
         ]),
-        CanBallJumpAndBombRequirement(["Gravity Suit", "Speed Booster"], [
-            CanJumpHighRequirement([], [
-                HasSpaceJumpRequirement([], [CanFightLateGameBoss, CanFightLategameBossOnAdvanced, CanFightBossOnExpert]),
-                CanDoSimpleWallJumpRequirement([], [CanFightLateGameBoss, CanFightLategameBossOnAdvanced, CanFightBossOnExpert])
+        CanBallJumpAndBomb(["Gravity Suit", "Speed Booster"], [
+            CanJumpHigh([], [
+                HasSpaceJump([], [CanFightLateGameBoss, CanFightLategameBossOnAdvanced, CanFightBossOnExpert]),
+                CanDoSimpleWallJump([], [CanFightLateGameBoss, CanFightLategameBossOnAdvanced, CanFightBossOnExpert])
             ])
         ])
     ])
@@ -231,6 +231,6 @@ Sector5NightmareZoneUpper.locations = [
 
 Sector5NightmareZoneArena.locations = [
     FusionLocation("Sector 5 (ARC) -- Nightmare Arena", True, [
-        CanJumpHighRequirement([], [CanFightLateGameBoss, CanFightLategameBossOnAdvanced, CanFightBossOnExpert])
+        CanJumpHigh([], [CanFightLateGameBoss, CanFightLategameBossOnAdvanced, CanFightBossOnExpert])
     ])
 ]

@@ -277,10 +277,6 @@ Sector4UpperWaterZone.locations = [
     FusionLocation("Sector 4 (AQA) -- Aquarium Pirate Tank", False, [CanPowerBomb]),
 ]
 
-Sector4CargoHold.locations = [
-    FusionLocation("Sector 4 (AQA) -- Cargo Hold to Sector 5 (ARC)", False, [])
-    ]
-
 Sector4UpperSecurityZone.locations = [
     FusionLocation("Sector 4 (AQA) -- Yard Firing Range", False, [])
 ]
