@@ -13,7 +13,7 @@ from ..regions.Sector6 import *
 
 Sector6Hub.connections = [
     VariableConnection(SectorHubElevator6Top, []),
-    Connection(Sector6Crossroads, [CanDefeatMediumGeron, CanDoBeginnerShinespark]),
+    Connection(Sector6Crossroads, [CanDefeatMediumGeron, CanDefeatAnyGeron, CanDoBeginnerShinespark]),
     Connection(Sector6TubeLeft, [HasScrewAttack])
 ]
 

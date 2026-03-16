@@ -351,26 +351,27 @@ class Level4KeycardRequirement(Requirement):
 #region Enemy Requirements
 class CanDefeatSmallGeron(Requirement):
     name = "Can Defeat Small Geron"
-    other_requirements = [
-        Requirement(["Missile Data"], []),
-        CanPowerBomb,
-        Requirement(["Screw Attack"], [])
-    ]
+    items_needed = ["Missile Data"]
 
 class CanDefeatMediumGeron(Requirement):
     name = "Can Defeat Medium Geron"
-    other_requirements = [
-        Requirement(["Missile Data", "Super Missile"], []),
-        CanPowerBomb,
-        Requirement(["Screw Attack"], [])
-    ]
+    items_needed = ["Missile Data", "Super Missile"]
 
 class CanDefeatLargeGeron(Requirement):
     name = "Can Defeat Large Geron"
-    other_requirements = [
-        CanPowerBomb,
-        Requirement(["Screw Attack"], [])
-    ]
+    other_requirements = [CanPowerBomb]
+
+class CanDefeatStabilizer(Requirement):
+    name = "Can Defeat Stabilizer"
+    other_requirements = [HasMissile, HasChargeBeam]
+
+class CanDefeatAnyGeron(Requirement):
+    name = "Can Defeat Any Geron"
+    other_requirements = [CanPowerBomb, HasScrewAttack]
+
+    @staticmethod
+    def check_option_enabled(options: "MetroidFusionOptions"):
+        return not options.NerfGeronWeaknesses
 
 class CanBeatToughEnemy(Requirement):
     name = "Can Beat Tough Enemy"

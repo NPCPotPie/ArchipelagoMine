@@ -20,6 +20,7 @@ Sector1Hub.connections = [
     ]),
     Connection(Sector1FirstStabilizerZone, [
         CanDefeatSmallGeron,
+        CanDefeatAnyGeron,
         Level1And2KeycardRequirement([], [CanLavaDive]),
         CanDoAdvancedShinespark
     ]),
@@ -42,12 +43,12 @@ Sector1TubeLeft.connections = [
 ]
 
 Sector1FirstStabilizerZone.connections = [
-    Connection(Sector1SecondStabilizerZone, [CanDefeatStabilizerOrToughEnemy]),
+    Connection(Sector1SecondStabilizerZone, [CanDefeatStabilizer,CanDefeatAnyGeron]),
     Connection(Sector1AfterChargeCoreZone, [HasWaveBeam], one_way=True),
 ]
 
 Sector1SecondStabilizerZone.connections = [
-    Connection(Sector1ThirdStabilizerZone, [CanDefeatStabilizerOrToughEnemy]),
+    Connection(Sector1ThirdStabilizerZone, [CanDefeatStabilizer,CanDefeatAnyGeron]),
     Connection(Sector1TourianExit, [
         Requirement(["Screw Attack"], [])
     ], one_way=True)

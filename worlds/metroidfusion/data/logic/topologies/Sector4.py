@@ -139,7 +139,7 @@ Sector4RightDataZone.connections = [
 
 Sector4Hub.locations = [
     FusionLocation("Sector 4 (AQA) -- Drain Pipe", False, [
-        CanDrainAQARequirement(["Morph Ball"], [CanDefeatLargeGeron]),
+        CanDrainAQARequirement(["Morph Ball"], [CanDefeatMediumGeron,CanDefeatAnyGeron]),
         CanDrainAQARequirement(["Morph Ball"], [HasWaveBeam]),
 
     ]),

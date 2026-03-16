@@ -14,7 +14,7 @@ from ..regions.Sector6 import Sector6Hub
 
 MainDeckHub.connections = [
     Connection(OperationsDeckElevatorBottom, []),
-    Connection(VentilationZone, [CanDefeatSmallGeron]),
+    Connection(VentilationZone, [CanDefeatSmallGeron,CanDefeatAnyGeron]),
     Connection(LowerArachnusArena, [HasMorph]),
     Connection(UpperArachnusArena, [
         Requirement(["Morph Ball", "Screw Attack"], [CanJumpHigh, CanDoSimpleWallJump])
@@ -25,14 +25,14 @@ MainDeckHub.connections = [
         Requirement(["Morph Ball"], [HasKeycard4, CanPowerBomb], 5)
     ]),
     Connection(NexusStorage, [
-        Level2KeycardRequirement([], [CanDefeatLargeGeron])
+        Level2KeycardRequirement([], [CanDefeatLargeGeron,CanDefeatAnyGeron])
     ])
 ]
 
 VentilationZone.connections = [
     Connection(UpperArachnusArena, [
         Requirement(["Morph Ball"], [HasMissile]),
-        Requirement(["Morph Ball", "Charge Beam"], [CanDefeatSmallGeron]),
+        Requirement(["Morph Ball", "Charge Beam"], [CanDefeatSmallGeron,CanDefeatAnyGeron]),
         PONRRequirement([], [CanBeatToughEnemy])
     ], one_way=True)
 ]
