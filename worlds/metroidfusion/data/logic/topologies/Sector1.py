@@ -44,7 +44,6 @@ Sector1TubeLeft.connections = [
 
 Sector1FirstStabilizerZone.connections = [
     Connection(Sector1SecondStabilizerZone, [CanDefeatStabilizer,CanDefeatAnyGeron]),
-    Connection(Sector1AfterChargeCoreZone, [HasWaveBeam], one_way=True),
     Connection(Sector1AfterChargeCoreZone, [HasWaveBeam]),
 ]
 
