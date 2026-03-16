@@ -17,7 +17,7 @@ Sector3Hub.connections = [
         Requirement(["Morph Ball", "Speed Booster"], [])
     ]),
     Connection(Sector3BobZone, [
-        Level2KeycardRequirement([], [CanDefeatMediumGeron])
+        Level2KeycardRequirement([], [CanDefeatMediumGeron,CanDefeatAnyGeron])
     ]),
     Connection(Sector3LowerAttic, [
         Requirement(["Screw Attack", "Space Jump", "Morph Ball"], [])
@@ -163,7 +163,7 @@ Sector3BOXZone.locations = [
     FusionLocation("Sector 3 (PYR) -- Data Room", True, [
         Level2KeycardRequirement([], [CanFightBoss])
     ]),
-    FusionLocation("Sector 3 (PYR) -- Geron's Treasure", False, [CanDefeatMediumGeron])
+    FusionLocation("Sector 3 (PYR) -- Geron's Treasure", False, [CanDefeatMediumGeron,CanDefeatAnyGeron])
 ]
 
 Sector3LowerAttic.locations = [
