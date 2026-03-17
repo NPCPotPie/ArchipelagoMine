@@ -57,7 +57,7 @@ class LocationData:
         return self.name
 
 def escape_string(string: str) -> str:
-    return string.replace("[", "\\[").replace("]", "\\]")
+    return string.replace("\\", "\\\\").replace("[", "\\[").replace("]", "\\]")
 
 def build_item_message(item_name: str, player_name: str):
     return {
