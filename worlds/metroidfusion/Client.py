@@ -416,6 +416,13 @@ class MetroidFusionClient(BizHawkClient):
         current_room_list = [room for room in room_names if room["Area"] == current_sector and room["Room"] == current_room]
         if len(current_room_list) > 0:
             self.current_room_name = current_room_list.pop()["Name"]
+            await ctx.send_msgs([{
+                "cmd": "Bounce",
+                "slots": [ctx.slot],
+                "data": {
+                    "Current Room": self.current_room_name
+                }
+            }])
         if current_sector is None:
             return
         if current_sector != self.current_sector:
