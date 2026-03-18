@@ -16,16 +16,15 @@ Sector3Hub.connections = [
     ], one_way=True),
     Connection(Sector3SecurityZone, [HasSpeedBooster]),
     Connection(Sector3MainShaft, [
-        Requirement(["Morph Ball", "Speed Booster"], [])
-    ]),
-    Connection(Sector3BobZone, [
-        Level2KeycardRequirement([], [CanDefeatMediumGeron,CanDefeatAnyGeron]),
+        Requirement(["Morph Ball", "Speed Booster"], []),
         PONRRequirement(["Speed Booster"], [
-            HasMorph,
             CanDefeatStabilizerOrToughEnemy,
             CanDoBeginnerShinespark,
             HasWaveBeam
-        ]),
+        ])
+    ]),
+    Connection(Sector3BobZone, [
+        Level2KeycardRequirement([], [CanDefeatMediumGeron,CanDefeatAnyGeron]),
         Requirement(["Speed Booster", "Morph Ball"], [CanDestroyBombBlocks])
     ], one_way=True),
     Connection(Sector3BOXZone, [
