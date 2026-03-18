@@ -923,6 +923,7 @@ class MetroidFusionWorld(World):
             "PowerBombTankAmmo": self.options.PowerBombTankAmmo.value,
             "PONRsInLogic": self.options.PointOfNoReturnsInLogic.value,
             "ShinesparkDifficulty": self.options.ShinesparkTrickDifficulty.value,
+            "NerfGeronWeaknesses": self.options.NerfGeronWeaknesses.value,
             "WallJumpDifficulty": self.options.WallJumpTrickDifficulty.value,
             "CombatDifficulty": self.options.CombatDifficulty.value,
             "GameMode": self.options.GameMode.value,
