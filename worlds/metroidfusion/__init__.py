@@ -187,7 +187,7 @@ class MetroidFusionWorld(World):
                     self.starting_location_object = main_deck_hub
             self.starting_major_upgrades = self.options.StartingMajorUpgrades.value
             self.starting_energy_tanks = self.options.StartingEnergyTanks.value
-            self.filler_items = self.options.FillerItems.value
+            self.filler_items = sorted(self.options.FillerItems.value)
             self.open_sector_elevators = bool(self.options.OpenSectorElevators.value)
             self.navigation_room_hint_locks = bool(self.options.SectorNavigationRoomHintLocks.value)
 
