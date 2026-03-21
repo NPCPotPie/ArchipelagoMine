@@ -52,7 +52,7 @@ OperationsDeck.connections = [
 UpperArachnusArena.connections = [
     Connection(LowerArachnusArena, [
         PONRRequirement([], [HasMissile]),
-        CanBeatToughEnemy(["Morph Ball"], [CanDefeatSmallGeron]),
+        CanBeatToughEnemy(["Morph Ball"], [CanDefeatSmallGeron,CanDefeatAnyGeron]),
         HasMorph(["Screw Attack"], [CanJumpHigh, CanDoSimpleWallJump])
     ], one_way=True)
 ]
