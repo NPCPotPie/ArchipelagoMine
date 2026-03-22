@@ -391,14 +391,11 @@ class CanDefeatStabilizerOrToughEnemy(Requirement):
 class CanDefeatThirdStabilizer(Requirement):
     name = "Can Defeat Third Stabilizer"
     other_requirements = [
-        Requirement(["Screw Attack"], [
-            HasSpaceJump,
-            CanDoAdvancedWallJump,
-            CanDoSimpleWallJumpWithHiJump
+        CanDefeatAnyGeron([], [
+            HasScrewAttack([],[HasSpaceJump, CanDoAdvancedWallJump, CanDoSimpleWallJumpWithHiJump]),
+            CanPowerBomb
         ]),
-        Requirement(["Charge Beam"], []),
-        Requirement(["Missile Data"], []),
-        CanPowerBomb
+        CanDefeatStabilizer
     ]
 
 #endregion

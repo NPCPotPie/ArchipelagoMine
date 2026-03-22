@@ -21,8 +21,10 @@ Sector1Hub.connections = [
     Connection(Sector1FirstStabilizerZone, [
         CanDefeatSmallGeron,
         CanDefeatAnyGeron,
-        Level1And2KeycardRequirement([], [CanLavaDive]),
         CanDoAdvancedShinespark
+    ]),
+    Connection(Sector1SecondStabilizerZone, [
+        Level1And2KeycardRequirement([], [CanLavaDive]),
     ]),
 ]
 
@@ -43,12 +45,16 @@ Sector1TubeLeft.connections = [
 ]
 
 Sector1FirstStabilizerZone.connections = [
-    Connection(Sector1SecondStabilizerZone, [CanDefeatStabilizer,CanDefeatAnyGeron]),
+    Connection(Sector1SecondStabilizerZone, []),
     Connection(Sector1AfterChargeCoreZone, [HasWaveBeam]),
 ]
 
 Sector1SecondStabilizerZone.connections = [
-    Connection(Sector1ThirdStabilizerZone, [CanDefeatStabilizer,CanDefeatAnyGeron]),
+    Connection(Sector1ThirdStabilizerZone, [CanDefeatStabilizer,CanDefeatAnyGeron])
+]
+
+Sector1ThirdStabilizerZone.connections = [
+    Connection(Sector1FourthStabilizerZone, [CanDefeatStabilizer,CanDefeatAnyGeron]),
     Connection(Sector1TourianExit, [
         Requirement(["Wave Beam", "Ice Beam"], [CanScrewAttackAndSpaceJump([],[CanBallJump])]),
         Requirement(["Wave Beam", "Missile Data", "Diffusion Missile"], [CanScrewAttackAndSpaceJump([],[CanBallJump])]),
@@ -56,7 +62,7 @@ Sector1SecondStabilizerZone.connections = [
     ], one_way=True)
 ]
 
-Sector1ThirdStabilizerZone.connections = [
+Sector1FourthStabilizerZone.connections = [
     Connection(Sector1ChargeCoreZone, [
         PONRRequirement(["Morph Ball"], [CanDefeatThirdStabilizer]),
         Requirement(["Morph Ball", "Missile Data"],[])
@@ -72,7 +78,7 @@ Sector1AfterChargeCoreZone.connections = [
 ]
 
 Sector1TourianExit.connections = [
-    Connection(Sector1SecondStabilizerZone, [
+    Connection(Sector1ThirdStabilizerZone, [
         Requirement(["Wave Beam", "Ice Beam"], [CanScrewAttackAndSpaceJump([],[CanBallJump])]),
         Requirement(["Wave Beam", "Missile Data", "Diffusion Missile"], [CanScrewAttackAndSpaceJump([],[CanBallJump])]),
         PONRRequirement(["Morph Ball", "Wave Beam"], [CanScrewAttackAndSpaceJump])
@@ -109,7 +115,7 @@ Sector1Antechamber.locations = [
 Sector1FirstStabilizerZone.locations = [
     FusionLocation("Sector 1 (SRX) -- Atmospheric Stabilizer Northeast", False, [
         PONRRequirement(["Nothing"], []),
-        Requirement([], [CanDefeatStabilizer, CanDoAdvancedShinespark])
+        Requirement([], [CanDefeatStabilizer, CanDefeatAnyGeron, CanDoAdvancedShinespark])
     ]),
     FusionLocation("Sector 1 (SRX) -- Hornoad Hole", False, [HasMorph]),
     FusionLocation("Sector 1 (SRX) -- Wall Jump Tutorial", False, [
@@ -128,7 +134,7 @@ Sector1SecondStabilizerZone.locations = [
     FusionLocation("Sector 1 (SRX) -- Lava Lake -- Upper Right Item", False, []),
 ]
 
-Sector1ThirdStabilizerZone.locations = [
+Sector1FourthStabilizerZone.locations = [
     FusionLocation("Sector 1 (SRX) -- Stabilizer Storage", False, [CanDefeatThirdStabilizer])
 ]
 
