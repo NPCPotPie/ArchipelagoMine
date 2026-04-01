@@ -170,7 +170,7 @@ class CanDoSimpleWallJumpWithHiJump(Requirement):
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
-        return options.WallJumpTrickDifficulty >= 1
+        return options.WallJumpTrickDifficulty >= options.WallJumpTrickDifficulty.option_beginner
 
 class CanDoSimpleWallJumpWithScrewAttack(Requirement):
     name = "Can Do Simple Wall Jump with Screw Attack"
