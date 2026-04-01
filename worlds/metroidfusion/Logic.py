@@ -114,6 +114,7 @@ def unpack_requirement(
         options: "MetroidFusionOptions",
         parent_energy_tanks: int = 0,
         debug = False) -> None:
+    logging.info(f"Requirement {requirement.name}. Items needed {requirement.items_needed}. Other requirements {requirement.other_requirements}. Possibilities {possibilities}. Parent items {parent_items}. Energy Tanks {energy_tanks}. Parent Energy Tanks Needed {parent_energy_tanks}.")
     if requirement.check_option_enabled(options):
         if len(requirement.other_requirements) > 0:
             for nested_requirement in requirement.other_requirements:
