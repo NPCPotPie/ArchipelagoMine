@@ -25,7 +25,7 @@ class Requirement:
     energy_tanks_needed: int = 0
     name: str = __name__
 
-    def __init__(self, items_needed: list[str] = None, requirements1: list[Self] = None, requirements2: list[Self] = None, energy_tanks_needed = 0):
+    def __init__(self, items_needed: list[str] = None, requirements1 = None, requirements2 = None, energy_tanks_needed = 0):
         if items_needed is None:
             items_needed = []
         if requirements1 is None:
@@ -61,7 +61,7 @@ class PONRRequirement(Requirement):
     These should always be more minimal than any surrounding requirements."""
     additional_requirements: tuple[list[str], typing.Literal["and", "or"]]
 
-    def __init__(self, items_needed: list[str] = None, requirements1: list[Requirement] = None, requirements2: list[Requirement] = None, energy_tanks_needed = 0, additional_requirements = ([], "or")):
+    def __init__(self, items_needed: list[str] = None, requirements1 = None, requirements2 = None, energy_tanks_needed = 0, additional_requirements = ([], "or")):
         if items_needed is None:
             items_needed = []
         if requirements1 is None:
