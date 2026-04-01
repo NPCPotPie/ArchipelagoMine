@@ -105,23 +105,63 @@ def unpack_requirement(
         parent_energy_tanks: int = 0,
         debug = False) -> None:
     if requirement.check_option_enabled(options):
-        if len(requirement.other_requirements) > 0:
-            for nested_requirement in requirement.other_requirements:
-                current_parent_items = copy(parent_items)
-                for item_needed in requirement.items_needed:
-                    assert item_needed in valid_item_names, (item_needed, requirement)
-                parent_items.extend(requirement.items_needed)
-                unpack_requirement(
-                    nested_requirement,
-                    possibilities,
-                    parent_items,
-                    energy_tanks,
-                    options,
-                    max(requirement.energy_tanks_needed, parent_energy_tanks),
-                    debug
-                )
-                parent_items = copy(current_parent_items)
-        elif len(requirement.items_needed) > 0:
+        for item_needed in requirement.items_needed:
+            assert item_needed in valid_item_names, (item_needed, requirement)
+        if requirement.requirements1 or requirement.requirements2:
+            if requirement.requirements1 and requirement.requirements2:
+                and_possibilities: list[list[str]] = []
+                for nested_requirement in requirement.requirements1:
+                    current_parent_items = copy(parent_items)
+                    parent_items.extend(requirement.items_needed)
+                    unpack_requirement(
+                        nested_requirement,
+                        and_possibilities,
+                        parent_items,
+                        energy_tanks,
+                        options,
+                        max(requirement.energy_tanks_needed, parent_energy_tanks),
+                        debug
+                    )
+                    for nested_requirement2 in requirement.requirements2:
+                        for possibility in and_possibilities:
+                            unpack_requirement(
+                                nested_requirement2,
+                                possibilities,
+                                possibility,
+                                energy_tanks,
+                                options,
+                                max(requirement.energy_tanks_needed, parent_energy_tanks),
+                                debug
+                            )
+                    parent_items = copy(current_parent_items)
+            else:
+                for nested_requirement in requirement.requirements1:
+                    current_parent_items = copy(parent_items)
+                    parent_items.extend(requirement.items_needed)
+                    unpack_requirement(
+                        nested_requirement,
+                        possibilities,
+                        parent_items,
+                        energy_tanks,
+                        options,
+                        max(requirement.energy_tanks_needed, parent_energy_tanks),
+                        debug
+                    )
+                    parent_items = copy(current_parent_items)
+                for nested_requirement in requirement.requirements2:
+                    current_parent_items = copy(parent_items)
+                    parent_items.extend(requirement.items_needed)
+                    unpack_requirement(
+                        nested_requirement,
+                        possibilities,
+                        parent_items,
+                        energy_tanks,
+                        options,
+                        max(requirement.energy_tanks_needed, parent_energy_tanks),
+                        debug
+                    )
+                    parent_items = copy(current_parent_items)
+        elif requirement.items_needed:
             items_needed = copy(requirement.items_needed)
             for item_needed in items_needed:
                 assert item_needed in valid_item_names, (item_needed, requirement)
