@@ -163,8 +163,6 @@ def unpack_requirement(
                     parent_items = copy(current_parent_items)
         elif requirement.items_needed:
             items_needed = copy(requirement.items_needed)
-            for item_needed in items_needed:
-                assert item_needed in valid_item_names, (item_needed, requirement)
             items_needed.extend(parent_items)
             possibilities.append(items_needed)
             energy_tanks.append(max(requirement.energy_tanks_needed, parent_energy_tanks))
