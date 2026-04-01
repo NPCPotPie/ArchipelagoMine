@@ -84,7 +84,7 @@ def create_logic_rule(
             debug)
         if debug:
             print("Create logic rule...")
-            print(f"Requirement: {requirement}")
+            print(f"Requirement: {requirement.name}")
             print(f"Requirements List: [")
             for requirement in requirements_list:
                 print(f"  {requirement}")
