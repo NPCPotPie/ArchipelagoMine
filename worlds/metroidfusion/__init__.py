@@ -19,7 +19,7 @@ from .Items import item_table, default_item_quantities, ap_name_to_mars_name, ma
 from .Locations import all_locations, MetroidFusionLocation, get_location_data_by_name, build_item_message, \
     location_groups, build_shiny_item_message, ERGroups
 from .Logic import create_logic_rule, create_logic_rule_for_list, LogicObject
-from .Options import MetroidFusionOptions, metroid_fusion_option_groups
+from .MFOptions import MetroidFusionOptions, metroid_fusion_option_groups
 from .Rom import MetroidFusionProcedurePatch
 from .StartingLocations import main_deck_hub, StartingLocation, sector_hub, starting_location_data, operations_deck
 from .data import memory
