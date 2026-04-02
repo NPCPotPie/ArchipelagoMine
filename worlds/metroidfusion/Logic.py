@@ -1,5 +1,6 @@
 from copy import copy
 from typing import TYPE_CHECKING
+import logging
 
 from BaseClasses import CollectionState
 from .data.logic.Requirement import Requirement
@@ -58,13 +59,17 @@ def create_logic_rule_for_list(
             requirements_list.append(requirement2)
             energy_tanks.append(energy_tanks2)
         continue
-    if debug:
-        print("Create logic rule for list...")
-        for requirement, energy_tanks_amount in zip(requirements_list, energy_tanks):
-            print("Logic rule:")
-            print(f"Requirements: {requirement}")
-            print(f"Energy Tanks: {energy_tanks_amount}")
+    print("Create logic rule for list...")
+    logging.info("Create logic rule for list...")
+    for requirement, energy_tanks_amount in zip(requirements_list, energy_tanks):
+        print("Logic rule:")
+        print(f"Requirements: {requirement}")
+        print(f"Energy Tanks: {energy_tanks_amount}")
         print("===\n")
+        logging.info("Logic rule:")
+        logging.info(f"Requirements: {requirement}")
+        logging.info(f"Energy Tanks: {energy_tanks_amount}")
+        logging.info("===\n")
     return requirements_list, energy_tanks
 
 def create_logic_rule(
@@ -90,10 +95,13 @@ def create_logic_rule(
                 print(f"  {requirement}")
             print(f"]")
             print(f"Energy Tanks Needed: {energy_tanks_needed}")
+            logging.info(f"  {requirement}")
+            logging.info(f"]")
+            logging.info(f"Energy Tanks Needed: {energy_tanks_needed}")
         return requirements_list, energy_tanks_needed
     else:
-        if debug:
-            print(f"Requirement {requirement.name} disabled due to options.")
+        print(f"Requirement {requirement.name} disabled due to options.")
+        logging.info(f"Requirement {requirement.name} disabled due to options.")
         return [], []
 
 def unpack_requirement(
@@ -104,6 +112,7 @@ def unpack_requirement(
         options: "MetroidFusionOptions",
         parent_energy_tanks: int = 0,
         debug = False) -> None:
+    logging.info(f"Requirement {requirement.name}. Items needed {requirement.items_needed}. Other requirements {requirement.other_requirements}. Possibilities {possibilities}. Parent items {parent_items}. Energy Tanks {energy_tanks}. Parent Energy Tanks Needed {parent_energy_tanks}.")
     if requirement.check_option_enabled(options):
         for item_needed in requirement.items_needed:
             assert item_needed in valid_item_names, (item_needed, requirement)
@@ -167,5 +176,5 @@ def unpack_requirement(
             possibilities.append(items_needed)
             energy_tanks.append(max(requirement.energy_tanks_needed, parent_energy_tanks))
     else:
-        if debug:
-            print(f"Requirement {requirement.name} disabled due to options.")
+        print(f"Requirement {requirement.name} disabled due to options.")
+        logging.info(f"Requirement {requirement.name} disabled due to options.")
