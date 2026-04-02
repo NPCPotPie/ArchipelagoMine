@@ -21,10 +21,10 @@ MainDeckHub.connections = [
     Connection(HabitationDeckElevatorBottom, [HasKeycard2]),
     Connection(SectorHubElevatorTop, [HasMorph, CanDoAdvancedShinespark]),
     Connection(ReactorZone, [
-        Requirement(["Morph Ball"], [HasKeycard4, CanPowerBomb], level_2_e_tanks)
+        Requirement(["Morph Ball"], [HasKeycard4, CanPowerBomb], [], level_2_e_tanks)
     ]),
     Connection(NexusStorage, [
-        Level2KeycardRequirement([], [CanDefeatLargeGeron,CanDefeatAnyGeron])
+        Level2KeycardRequirement([], [CanDefeatLargeGeron,CanDefeatAnyGeron],[])
     ])
 ]
 
@@ -132,7 +132,7 @@ MainDeckHub.locations = [
     FusionLocation("Main Deck -- Quarantine Bay", False, []),
     FusionLocation("Main Deck -- Station Entrance", False, [CanPowerBomb]),
     FusionLocation("Main Deck -- Sub-Zero Containment", False, [
-        Level3KeycardRequirement([], [HasVaria])
+        Level3KeycardRequirement([], [HasVaria],[])
     ])
 ]
 

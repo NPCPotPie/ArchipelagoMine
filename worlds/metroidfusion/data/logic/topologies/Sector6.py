@@ -48,8 +48,8 @@ Sector6Crossroads.connections = [
 
 Sector6Catacombs.connections = [
     Connection(Sector6Crossroads, [
-        CanDoBeginnerShinespark(["Hi-Jump"], [HasSpaceJump], level_1_e_tanks),
-        CanDoAdvancedShinespark([], [], level_1_e_tanks)
+        CanDoBeginnerShinespark(["Hi-Jump"], [HasSpaceJump], [], level_1_e_tanks),
+        CanDoAdvancedShinespark([], [], [], level_1_e_tanks)
     ]),
     Connection(Sector6BeforeVariaCoreXZone, [
         PONRRequirement([], [CanBombOrPowerBomb]),
@@ -59,9 +59,9 @@ Sector6Catacombs.connections = [
 
 Sector6BeforeXBOXZone.connections = [
     Connection(Sector6XBOXZone, [
-        PONRRequirement(["Nothing"], [], level_4_e_tanks),
-        HasScrewAttack([], [HasSpaceJump, CanDoSimpleWallJump], level_4_e_tanks),
-        CanFreezeEnemies(["Hi-Jump"], [HasScrewAttack], level_4_e_tanks)
+        PONRRequirement(["Nothing"], [], [], level_4_e_tanks),
+        HasScrewAttack([], [HasSpaceJump, CanDoSimpleWallJump], [], level_4_e_tanks),
+        CanFreezeEnemies(["Hi-Jump"], [HasScrewAttack], [], level_4_e_tanks)
     ], one_way=True)
 ]
 
@@ -80,15 +80,15 @@ Sector6AfterXBOXZone.connections = [
     ], one_way=True),
     Connection(Sector6XBOXSave, [
         PONRRequirement(["Nothing"], []),
-        Requirement([], [HasSpaceJump, CanFreezeEnemies, CanDoSimpleWallJumpWithHiJump, CanDoAdvancedWallJump], level_4_e_tanks),
-        CanDoBeginnerShinespark([], [CanDoSimpleWallJumpWithScrewAttack], level_4_e_tanks)
+        Requirement([], [HasSpaceJump, CanFreezeEnemies, CanDoSimpleWallJumpWithHiJump, CanDoAdvancedWallJump], [], level_4_e_tanks),
+        CanDoBeginnerShinespark([], [CanDoSimpleWallJumpWithScrewAttack], [], level_4_e_tanks)
     ], one_way=True)
 ]
 
 Sector6XBOXSave.connections = [
     Connection(Sector6XBOXZone, [
-        Requirement([], [HasSpaceJump, CanFreezeEnemies, CanDoSimpleWallJumpWithHiJump, CanDoAdvancedWallJump], level_4_e_tanks),
-        CanDoBeginnerShinespark([], [CanDoSimpleWallJumpWithScrewAttack], level_4_e_tanks)
+        Requirement([], [HasSpaceJump, CanFreezeEnemies, CanDoSimpleWallJumpWithHiJump, CanDoAdvancedWallJump], [], level_4_e_tanks),
+        CanDoBeginnerShinespark([], [CanDoSimpleWallJumpWithScrewAttack], [], level_4_e_tanks)
     ], one_way=True),
     Connection(Sector6RestrictedZone, [
         PONRRequirement([], [HasWaveBeam])

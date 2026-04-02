@@ -318,33 +318,33 @@ class HasKeycard4(Requirement):
 
 class Level1KeycardRequirement(Requirement):
     name = "Level 1 Keycard Requirement"
-    def __init__(self, items_needed, requirements1, energy_tanks_needed=3):
-        super().__init__(items_needed, requirements1, energy_tanks_needed)
+    def __init__(self, items_needed, requirements1, requirements2, energy_tanks_needed=3):
+        super().__init__(items_needed, requirements1, requirements2, energy_tanks_needed)
         self.items_needed.append("Level 1 Keycard")
 
 class Level2KeycardRequirement(Requirement):
     name = "Level 2 Keycard Requirement"
-    def __init__(self, items_needed, requirements1, energy_tanks_needed=5):
-        super().__init__(items_needed, requirements1, energy_tanks_needed)
+    def __init__(self, items_needed, requirements1, requirements2, energy_tanks_needed=5):
+        super().__init__(items_needed, requirements1, requirements2, energy_tanks_needed)
         self.items_needed.append("Level 2 Keycard")
 
 class Level1And2KeycardRequirement(Requirement):
     name = "Level 1 and 2 Keycard Requirement"
-    def __init__(self, items_needed, requirements1, energy_tanks_needed=5):
-        super().__init__(items_needed, requirements1, energy_tanks_needed)
+    def __init__(self, items_needed, requirements1, requirements2, energy_tanks_needed=5):
+        super().__init__(items_needed, requirements1, requirements2, energy_tanks_needed)
         self.items_needed.append("Level 1 Keycard")
         self.items_needed.append("Level 2 Keycard")
 
 class Level3KeycardRequirement(Requirement):
     name = "Level 3 Keycard Requirement"
-    def __init__(self, items_needed, requirements1, energy_tanks_needed=7):
-        super().__init__(items_needed, requirements1, energy_tanks_needed)
+    def __init__(self, items_needed, requirements1, requirements2, energy_tanks_needed=7):
+        super().__init__(items_needed, requirements1, requirements2, energy_tanks_needed)
         self.items_needed.append("Level 3 Keycard")
 
 class Level4KeycardRequirement(Requirement):
     name = "Level 4 Keycard Requirement"
-    def __init__(self, items_needed, requirements1, energy_tanks_needed=10):
-        super().__init__(items_needed, requirements1, energy_tanks_needed)
+    def __init__(self, items_needed, requirements1, requirements2, energy_tanks_needed=10):
+        super().__init__(items_needed, requirements1, requirements2, energy_tanks_needed)
         self.items_needed.append("Level 4 Keycard")
 #endregion
 
@@ -679,7 +679,7 @@ class CanAccessRipperTreasure(Requirement):
 #region Event Requirements
 class CanDrainAQARequirement(Requirement):
     name = "Can Drain AQA Requirement"
-    def __init__(self, items_needed, requirements1, energy_tanks_needed=3):
-        super().__init__(items_needed, requirements1, energy_tanks_needed)
+    def __init__(self, items_needed, requirements1, requirements2, energy_tanks_needed=3):
+        super().__init__(items_needed, requirements1, requirements2, energy_tanks_needed)
         self.items_needed.append("Pump Control Activated")
 #endregion

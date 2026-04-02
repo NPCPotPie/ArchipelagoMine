@@ -13,10 +13,10 @@ from ..regions.Sector6 import Sector6RestrictedZoneElevatorToTourian
 Sector1Hub.connections = [
     VariableConnection(SectorHubElevator1Top, []),
     Connection(Sector1Antechamber, [
-        Level2KeycardRequirement(["Screw Attack"], [HasSpaceJump, CanDoAdvancedWallJumpWithHiJump])
+        Level2KeycardRequirement(["Screw Attack"], [HasSpaceJump, CanDoAdvancedWallJumpWithHiJump],[])
     ]),
     Connection(Sector1TubeLeft, [
-        Level1KeycardRequirement(["Morph Ball", "Screw Attack"], [])
+        Level1KeycardRequirement(["Morph Ball", "Screw Attack"], [],[])
     ]),
     Connection(Sector1FirstStabilizerZone, [
         CanDefeatSmallGeron,
@@ -24,13 +24,13 @@ Sector1Hub.connections = [
         CanDoAdvancedShinespark
     ]),
     Connection(Sector1SecondStabilizerZone, [
-        Level1And2KeycardRequirement([], [CanLavaDive]),
+        Level1And2KeycardRequirement([], [CanLavaDive],[]),
     ]),
 ]
 
 Sector1Antechamber.connections = [
     Connection(Sector1Hub, [
-        Level2KeycardRequirement([], [HasScrewAttack])
+        Level2KeycardRequirement([], [HasScrewAttack],[])
     ], one_way=True),
     Connection(Sector1TubeRight, [HasMorph], one_way=True)
 ]
@@ -87,6 +87,7 @@ Sector1TourianExit.connections = [
         PONRRequirement(
             ["Missile Data", "Morph Ball", "Screw Attack"],
             [HasSpaceJump, CanDoSimpleWallJump],
+            [],
             level_4_e_tanks)
     ], one_way=True)
 ]
@@ -96,6 +97,7 @@ Sector1TourianHub.connections = [
         Requirement(
             ["Missile Data", "Morph Ball", "Screw Attack", "Wave Beam"],
             [HasSpaceJump, CanDoAdvancedWallJump],
+            [],
             level_4_e_tanks)
     ]),
     Connection(Sector1TourianHubElevatorTop, [
@@ -105,7 +107,7 @@ Sector1TourianHub.connections = [
 
 Sector1TourianHubElevatorTop.connections = [
     VariableConnection(Sector6RestrictedZoneElevatorToTourian, []),
-    Connection(Sector1TourianHub, [PONRRequirement(["Nothing"], [], level_4_e_tanks)], one_way=True)
+    Connection(Sector1TourianHub, [PONRRequirement(["Nothing"], [], [], level_4_e_tanks)], one_way=True)
 ]
 
 Sector1Antechamber.locations = [

@@ -24,7 +24,7 @@ Sector3Hub.connections = [
         ])
     ]),
     Connection(Sector3BobZone, [
-        Level2KeycardRequirement([], [CanDefeatMediumGeron,CanDefeatAnyGeron]),
+        Level2KeycardRequirement([], [CanDefeatMediumGeron,CanDefeatAnyGeron],[]),
         Requirement(["Speed Booster", "Morph Ball"], [CanDestroyBombBlocks])
     ], one_way=True),
     Connection(Sector3BOXZone, [
@@ -74,7 +74,7 @@ Sector3MainShaft.connections = [
         CanDefeatMediumGeron(["Morph Ball", "Level 2 Keycard"], [CanDestroyBombBlocks]),
         CanDefeatAnyGeron(["Morph Ball", "Level 2 Keycard"], [CanDestroyBombBlocks])
     ], one_way=True),
-    Connection(Sector3BoilerZone, [Level2KeycardRequirement([], [HasVaria])]),
+    Connection(Sector3BoilerZone, [Level2KeycardRequirement([], [HasVaria],[])]),
     Connection(Sector3BobZone, [
         Requirement(["Morph Ball", "Hi-Jump"], [HasScrewAttack])
     ], one_way=True),
@@ -86,7 +86,7 @@ Sector3MainShaft.connections = [
                 HasWaveBeam,
                 CanBeatToughEnemy([], [CanDoBeginnerShinespark]),
                 CanFreezeEnemies(["Hi-Jump"], [])
-            ], level_2_e_tanks
+            ], [], level_2_e_tanks
         )
     ])
 ]
@@ -114,7 +114,7 @@ Sector3BOXZone.connections = [
         CanDefeatAnyGeron(["Level 2 Keycard", "Morph Ball"], [CanDestroyBombBlocks])
     ], one_way=True),
     Connection(Sector3UpperAttic, [
-        PONRRequirement([], [HasSpaceJump], level_2_e_tanks)
+        PONRRequirement([], [HasSpaceJump], [], level_2_e_tanks)
     ], one_way=True)
 ]
 
@@ -134,7 +134,7 @@ Sector3LowerAttic.connections = [
 
 Sector3UpperAttic.connections = [
     Connection(Sector3BOXZone, [
-        CanFightBoss([], [CanJumpHigh, CanDoSimpleWallJump], level_2_e_tanks)
+        CanFightBoss([], [CanJumpHigh, CanDoSimpleWallJump], [], level_2_e_tanks)
     ]),
     Connection(Sector3TubeRight, [
         Requirement(["Screw Attack"], [CanJumpHigh, CanDoBeginnerShinespark])
@@ -193,7 +193,7 @@ Sector3MainShaft.locations = [
         PONRRequirement(["Morph Ball", "Power Bomb Data"], [CanDoAdvancedShinespark])
     ]),
     FusionLocation("Sector 3 (PYR) -- Processing Access", False, [
-        Level2KeycardRequirement([], [])
+        Level2KeycardRequirement([], [],[])
     ]),
 ]
 
@@ -217,7 +217,7 @@ Sector3BobZone.locations = [
 
 Sector3BOXZone.locations = [
     FusionLocation("Sector 3 (PYR) -- Data Room", True, [
-        CanFightBoss(["Level 2 Keycard"], [CanJumpHigh, CanDoSimpleWallJump], level_2_e_tanks)
+        CanFightBoss(["Level 2 Keycard"], [CanJumpHigh, CanDoSimpleWallJump], [], level_2_e_tanks)
     ]),
     FusionLocation("Sector 3 (PYR) -- Geron's Treasure", False, [CanDefeatMediumGeron,CanDefeatAnyGeron])
 ]
