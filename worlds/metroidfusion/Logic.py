@@ -87,14 +87,12 @@ def create_logic_rule(
             options,
             0,
             debug)
-        print("Create logic rule...")
-        print(f"Requirement: {requirement}")
-        print(f"Requirements List: [")
-        logging.info("Create logic rule...")
-        logging.info(f"Requirement: {requirement}")
-        logging.info(f"Requirements List: [")
-        for requirement in requirements_list:
-            print(f"  {requirement}")
+        if debug:
+            print("Create logic rule...")
+            print(f"Requirement: {requirement.name}")
+            print(f"Requirements List: [")
+            for requirement in requirements_list:
+                print(f"  {requirement}")
             print(f"]")
             print(f"Energy Tanks Needed: {energy_tanks_needed}")
             logging.info(f"  {requirement}")
@@ -116,26 +114,64 @@ def unpack_requirement(
         debug = False) -> None:
     logging.info(f"Requirement {requirement.name}. Items needed {requirement.items_needed}. Other requirements {requirement.other_requirements}. Possibilities {possibilities}. Parent items {parent_items}. Energy Tanks {energy_tanks}. Parent Energy Tanks Needed {parent_energy_tanks}.")
     if requirement.check_option_enabled(options):
-        if len(requirement.other_requirements) > 0:
-            for nested_requirement in requirement.other_requirements:
-                current_parent_items = copy(parent_items)
-                for item_needed in requirement.items_needed:
-                    assert item_needed in valid_item_names, (item_needed, requirement)
-                parent_items.extend(requirement.items_needed)
-                unpack_requirement(
-                    nested_requirement,
-                    possibilities,
-                    parent_items,
-                    energy_tanks,
-                    options,
-                    max(requirement.energy_tanks_needed, parent_energy_tanks),
-                    debug
-                )
-                parent_items = copy(current_parent_items)
-        elif len(requirement.items_needed) > 0:
+        for item_needed in requirement.items_needed:
+            assert item_needed in valid_item_names, (item_needed, requirement)
+        if requirement.requirements1 or requirement.requirements2:
+            if requirement.requirements1 and requirement.requirements2:
+                and_possibilities: list[list[str]] = []
+                for nested_requirement in requirement.requirements1:
+                    current_parent_items = copy(parent_items)
+                    parent_items.extend(requirement.items_needed)
+                    unpack_requirement(
+                        nested_requirement,
+                        and_possibilities,
+                        parent_items,
+                        energy_tanks,
+                        options,
+                        max(requirement.energy_tanks_needed, parent_energy_tanks),
+                        debug
+                    )
+                    for nested_requirement2 in requirement.requirements2:
+                        for possibility in and_possibilities:
+                            unpack_requirement(
+                                nested_requirement2,
+                                possibilities,
+                                possibility,
+                                energy_tanks,
+                                options,
+                                max(requirement.energy_tanks_needed, parent_energy_tanks),
+                                debug
+                            )
+                    parent_items = copy(current_parent_items)
+            else:
+                for nested_requirement in requirement.requirements1:
+                    current_parent_items = copy(parent_items)
+                    parent_items.extend(requirement.items_needed)
+                    unpack_requirement(
+                        nested_requirement,
+                        possibilities,
+                        parent_items,
+                        energy_tanks,
+                        options,
+                        max(requirement.energy_tanks_needed, parent_energy_tanks),
+                        debug
+                    )
+                    parent_items = copy(current_parent_items)
+                for nested_requirement in requirement.requirements2:
+                    current_parent_items = copy(parent_items)
+                    parent_items.extend(requirement.items_needed)
+                    unpack_requirement(
+                        nested_requirement,
+                        possibilities,
+                        parent_items,
+                        energy_tanks,
+                        options,
+                        max(requirement.energy_tanks_needed, parent_energy_tanks),
+                        debug
+                    )
+                    parent_items = copy(current_parent_items)
+        elif requirement.items_needed:
             items_needed = copy(requirement.items_needed)
-            for item_needed in items_needed:
-                assert item_needed in valid_item_names, (item_needed, requirement)
             items_needed.extend(parent_items)
             possibilities.append(items_needed)
             energy_tanks.append(max(requirement.energy_tanks_needed, parent_energy_tanks))
