@@ -97,10 +97,7 @@ class HasIceBeam(Requirement):
 #region Combined Item Requirements
 class CanJumpHigh(Requirement):
     name = "Can Jump High"
-    requirements1 = [
-        Requirement(["Hi-Jump"], []),
-        Requirement(["Space Jump"], [])
-    ]
+    requirements1 = [HasHiJump, HasSpaceJump]
 
 class CanLavaDive(Requirement):
     name = "Can Lava Dive"
