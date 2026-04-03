@@ -19,11 +19,11 @@ class Requirement:
     :param requirements2: A list of Requirement objects. When not given, defaults to an empty list.
     :param energy_tanks_needed: The number of energy tanks required. When not given, defaults to 0.
     """
-    items_needed: list[str] = []
-    requirements1: list[Self] = []
-    requirements2: list[Self] = []
-    energy_tanks_needed: int = 0
-    name: str = __name__
+    name: str
+    items_needed: list[str]
+    requirements1: list[Self]
+    requirements2: list[Self]
+    energy_tanks_needed: int
 
     def __init__(self, items_needed: list[str] = None, requirements1 = None, requirements2 = None, energy_tanks_needed = 0):
         if items_needed is None:
