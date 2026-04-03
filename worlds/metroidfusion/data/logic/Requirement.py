@@ -8,16 +8,13 @@ if TYPE_CHECKING:
 class Requirement:
     """
     Defines a set of requirements for a Connection or Location.
-    \n The parameters are unpacked into a series of logical requirements where all ``items_needed`` and entries in ``requirements1`` and ``requirements2`` must be met for this Requirement to be passed.
-    \n If either ``requirements1`` or ``requirements2`` are not empty, at least one Requirement object must be fulfilled.
-    \n If both ``requirements1`` and ``requirements2`` are not empty, at least one Requirement object from each list must be fulfilled.
+    \n The parameters are unpacked into a series of logical requirements where all housed in ``items_needed`` and one each of entries in ``requirements1`` and ``requirements2`` must be met for this Requirement to be passed.
 
-    Attribute "name": The String name of the requirement. When not given, the class name will be used in its place.
-
-    :param items_needed: A list of items named by Strings that are all required to be had. When not given, defaults to an empty list.
-    :param requirements1: A list of Requirement objects. When not given, defaults to an empty list.
-    :param requirements2: A list of Requirement objects. When not given, defaults to an empty list.
-    :param energy_tanks_needed: The number of energy tanks required. When not given, defaults to 0.
+    :param name: A String to label this Requirement. Defaults to the class name.
+    :param items_needed: A list of items as Strings. Defaults to an empty list.
+    :param requirements1: A list of Requirement objects. Defaults to an empty list.
+    :param requirements2: A list of Requirement objects. Defaults to an empty list.
+    :param energy_tanks_needed: An integer number of energy tanks required. Defaults to 0.
     """
     name: str
     items_needed: list[str]
