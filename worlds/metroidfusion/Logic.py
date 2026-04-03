@@ -9,7 +9,7 @@ from .Items import valid_item_names
 if TYPE_CHECKING:
     from worlds.metroidfusion import MetroidFusionOptions
 
-class LogicObject():
+class LogicObject:
     requirements: list[list[str]] = []
     energy_tanks: list[int] = []
     calculated_energy_tanks: int = 0
