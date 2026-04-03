@@ -63,17 +63,14 @@ class Requirement:
 class PONRRequirement(Requirement):
     """Defines a set of requirements to be used when Point of No Returns are disabled.
     These should always be more minimal than any surrounding requirements."""
-    additional_requirements: tuple[list[str], typing.Literal["and", "or"]]
 
-    def __init__(self, items_needed: list[str] = None, requirements1 = None, requirements2 = None, energy_tanks_needed = 0, additional_requirements = ([], "or")):
-        if items_needed is None:
-            items_needed = []
-        if requirements1 is None:
-            requirements1 = []
-        if requirements2 is None:
-            requirements2 = []
-        super().__init__(items_needed, requirements1, requirements2, energy_tanks_needed)
-        self.additional_requirements = additional_requirements
+    def __init__(self,
+                 name: str = None,
+                 items_needed: list[str] = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
