@@ -55,7 +55,7 @@ class HasWaveBeam(Requirement):
 #region Combined Item Requirements
 class CanJumpHigh(Requirement):
     name = "Can Jump High"
-    other_requirements = [
+    requirements1 = [
         Requirement(["Hi-Jump"], []),
         Requirement(["Space Jump"], [])
     ]
@@ -74,24 +74,24 @@ class CanPowerBomb(Requirement):
 
 class CanBombOrPowerBomb(Requirement):
     name = "Can Bomb or Power Bomb"
-    other_requirements = [CanBomb, CanPowerBomb]
+    requirements1 = [CanBomb, CanPowerBomb]
 
 class CanPowerBombAndJumpHigh(Requirement):
     name = "Can Power Bomb and Jump High"
     items_needed = ["Morph Ball", "Power Bomb Data"]
-    other_requirements = [CanJumpHigh]
+    requirements1 = [CanJumpHigh]
 
 class CanBallJump(Requirement):
     name = "Can Ball Jump"
     items_needed = ["Morph Ball"]
-    other_requirements = [
+    requirements1 = [
         Requirement(["Bomb Data"], []),
         Requirement(["Hi-Jump"], [])
     ]
 
 class CanBallJumpAndBomb(Requirement):
     name = "Can Ball Jump and Bomb"
-    other_requirements = [
+    requirements1 = [
         Requirement(["Morph Ball", "Bomb Data"], []),
         Requirement(["Hi-Jump"], [CanPowerBomb])
     ]
@@ -103,7 +103,7 @@ class CanScrewAttackAndSpaceJump(Requirement):
 class CanJumpHighUnderwater(Requirement):
     name = "Can Jump High underwater"
     items_needed = ["Gravity Suit"]
-    other_requirements = [CanJumpHigh]
+    requirements1 = [CanJumpHigh]
 
 class CanSpeedBoosterUnderwater(Requirement):
     name = "Can Speed Booster Underwater"
@@ -114,7 +114,7 @@ class CanScrewAttackUnderwater(Requirement):
 
 class CanFreezeEnemies(Requirement):
     name = "Can Freeze Enemies"
-    other_requirements = [
+    requirements1 = [
         Requirement(["Ice Missile"], [HasMissile]),
         Requirement(["Diffusion Missile"], [HasMissile]),
         Requirement(["Ice Beam"], [])
@@ -122,7 +122,7 @@ class CanFreezeEnemies(Requirement):
 
 class CanActivatePillar(Requirement):
     name = "Can Activate Pillar"
-    other_requirements = [CanBombOrPowerBomb, HasWaveBeam]
+    requirements1 = [CanBombOrPowerBomb, HasWaveBeam]
 
 class CanDiffusionMissile(Requirement):
     name = "Can Diffusion Missile"
@@ -130,7 +130,7 @@ class CanDiffusionMissile(Requirement):
 
 class CanDestroyBombBlocks(Requirement):
     name = "Can Destroy Bomb Blocks"
-    other_requirements = [CanBombOrPowerBomb, HasScrewAttack]
+    requirements1 = [CanBombOrPowerBomb, HasScrewAttack]
 
 class CanChargedWaveShot(Requirement):
     name = "Can Charged Wave Shot"
@@ -190,7 +190,7 @@ class CanDoSimpleWallJumpWithHiJumpAndScrewAttack(Requirement):
 
 class CanDoSimpleWallJumpAndFreezeEnemies(Requirement):
     name = "Can Do Simple Wall Jump and Freeze Enemies"
-    other_requirements = [CanFreezeEnemies]
+    requirements1 = [CanFreezeEnemies]
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
@@ -318,33 +318,33 @@ class HasKeycard4(Requirement):
 
 class Level1KeycardRequirement(Requirement):
     name = "Level 1 Keycard Requirement"
-    def __init__(self, items_needed, other_requirements, energy_tanks_needed=3):
-        super().__init__(items_needed, other_requirements, energy_tanks_needed)
+    def __init__(self, items_needed, requirements1, energy_tanks_needed=3):
+        super().__init__(items_needed, requirements1, energy_tanks_needed)
         self.items_needed.append("Level 1 Keycard")
 
 class Level2KeycardRequirement(Requirement):
     name = "Level 2 Keycard Requirement"
-    def __init__(self, items_needed, other_requirements, energy_tanks_needed=5):
-        super().__init__(items_needed, other_requirements, energy_tanks_needed)
+    def __init__(self, items_needed, requirements1, energy_tanks_needed=5):
+        super().__init__(items_needed, requirements1, energy_tanks_needed)
         self.items_needed.append("Level 2 Keycard")
 
 class Level1And2KeycardRequirement(Requirement):
     name = "Level 1 and 2 Keycard Requirement"
-    def __init__(self, items_needed, other_requirements, energy_tanks_needed=5):
-        super().__init__(items_needed, other_requirements, energy_tanks_needed)
+    def __init__(self, items_needed, requirements1, energy_tanks_needed=5):
+        super().__init__(items_needed, requirements1, energy_tanks_needed)
         self.items_needed.append("Level 1 Keycard")
         self.items_needed.append("Level 2 Keycard")
 
 class Level3KeycardRequirement(Requirement):
     name = "Level 3 Keycard Requirement"
-    def __init__(self, items_needed, other_requirements, energy_tanks_needed=7):
-        super().__init__(items_needed, other_requirements, energy_tanks_needed)
+    def __init__(self, items_needed, requirements1, energy_tanks_needed=7):
+        super().__init__(items_needed, requirements1, energy_tanks_needed)
         self.items_needed.append("Level 3 Keycard")
 
 class Level4KeycardRequirement(Requirement):
     name = "Level 4 Keycard Requirement"
-    def __init__(self, items_needed, other_requirements, energy_tanks_needed=10):
-        super().__init__(items_needed, other_requirements, energy_tanks_needed)
+    def __init__(self, items_needed, requirements1, energy_tanks_needed=10):
+        super().__init__(items_needed, requirements1, energy_tanks_needed)
         self.items_needed.append("Level 4 Keycard")
 #endregion
 
@@ -359,15 +359,15 @@ class CanDefeatMediumGeron(Requirement):
 
 class CanDefeatLargeGeron(Requirement):
     name = "Can Defeat Large Geron"
-    other_requirements = [CanPowerBomb]
+    requirements1 = [CanPowerBomb]
 
 class CanDefeatStabilizer(Requirement):
     name = "Can Defeat Stabilizer"
-    other_requirements = [HasMissile, HasChargeBeam]
+    requirements1 = [HasMissile, HasChargeBeam]
 
 class CanDefeatAnyGeron(Requirement):
     name = "Can Defeat Any Geron"
-    other_requirements = [CanPowerBomb, HasScrewAttack]
+    requirements1 = [CanPowerBomb, HasScrewAttack]
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions"):
@@ -375,22 +375,22 @@ class CanDefeatAnyGeron(Requirement):
 
 class CanBeatToughEnemy(Requirement):
     name = "Can Beat Tough Enemy"
-    other_requirements = [HasChargeBeam, HasMissile]
+    requirements1 = [HasChargeBeam, HasMissile]
 
 class CanBeatToughEnemyAndJumpHigh(Requirement):
     name = "Can Beat Tough Enemy and Jump High"
-    other_requirements = [
+    requirements1 = [
         Requirement(["Hi-Jump"], [CanBeatToughEnemy]),
         Requirement(["Space Jump"], [CanBeatToughEnemy])
     ]
 
 class CanDefeatStabilizerOrToughEnemy(Requirement):
     name = "Can Defeat Stabilizer"
-    other_requirements = [HasScrewAttack, HasMissile, HasChargeBeam, CanPowerBomb]
+    requirements1 = [HasScrewAttack, HasMissile, HasChargeBeam, CanPowerBomb]
 
 class CanDefeatThirdStabilizer(Requirement):
     name = "Can Defeat Third Stabilizer"
-    other_requirements = [
+    requirements1 = [
         CanDefeatAnyGeron([], [
             HasScrewAttack([],[HasSpaceJump, CanDoAdvancedWallJump, CanDoSimpleWallJumpWithHiJump]),
             CanPowerBomb
@@ -414,13 +414,13 @@ class CanFightMidgameBoss(Requirement):
     name = "Can Fight Midgame Boss"
     energy_tanks_needed = level_2_e_tanks
     items_needed = ["Super Missile"]
-    other_requirements = [CanFightBoss]
+    requirements1 = [CanFightBoss]
 
 class CanFightLateGameBoss(Requirement):
     name = "Can Fight Lategame Boss"
     energy_tanks_needed = level_3_e_tanks
     items_needed = ["Plasma Beam", "Space Jump"]
-    other_requirements = [CanFightMidgameBoss]
+    requirements1 = [CanFightMidgameBoss]
 
 #endregion
 
@@ -430,7 +430,7 @@ class CanFightLateGameBoss(Requirement):
 class CanReachAnimals(Requirement):
     name = "Can Reach Animals"
     items_needed = ["Speed Booster"]
-    other_requirements = [
+    requirements1 = [
         Requirement(["Hi-Jump"], [CanFreezeEnemies]),
         HasSpaceJump
     ]
@@ -438,7 +438,7 @@ class CanReachAnimals(Requirement):
 class CanReachGenesisSpeedway(Requirement):
     name = "Can Reach Genesis Speedway"
     items_needed = ["Morph Ball", "Power Bomb Data"]
-    other_requirements = [
+    requirements1 = [
         Requirement(["Bomb Data"], [CanDoSimpleWallJump, CanJumpHigh]),
         HasHiJump
     ]
@@ -446,11 +446,11 @@ class CanReachGenesisSpeedway(Requirement):
 class CanCrossFromReactorToSector2(Requirement):
     name = "Can Cross from Reactor to Sector 2"
     items_needed = ["Space Jump", "Missile Data"]
-    other_requirements = [CanBombOrPowerBomb]
+    requirements1 = [CanBombOrPowerBomb]
 
 class CanAccessYakuza(Requirement):
     name = "Can Access Yakuza"
-    other_requirements = [
+    requirements1 = [
         Requirement(["Morph Ball", "Bomb Data"], [CanBeatToughEnemy]),
         Requirement(["Morph Ball", "Power Bomb Data"], [CanBeatToughEnemy]),
         Requirement(["Morph Ball", "Wave Beam"], [CanBeatToughEnemy]),
@@ -464,7 +464,7 @@ class CanAccessYakuza(Requirement):
 #region Sector 1 Individual Requirements
 class CanReachAnimorphs(Requirement):
     name = "Can Reach Animorphs"
-    other_requirements = [
+    requirements1 = [
         # Wave or PB for the crab, Supers for the other two.
         Requirement(["Missile Data", "Super Missile"], [CanChargedWaveShot, CanPowerBomb]),
         # Wave or PB for the crab, Screw Attack for the other two
@@ -475,11 +475,11 @@ class CanReachAnimorphs(Requirement):
 class CanAccessWallJumpTutorialWithSpaceJump(Requirement):
     name = "Can Access Wall Jump Tutorial with Space Jump"
     items_needed = ["Space Jump"]
-    other_requirements = [CanBallJump]
+    requirements1 = [CanBallJump]
 
 class CanAccessWallJumpTutorialWithWallJump(Requirement):
     name = "Can Access Wall Jump Tutorial with Wall Jump"
-    other_requirements = [
+    requirements1 = [
         Requirement(["Morph Ball", "Hi-Jump"], [CanDoSimpleWallJump]),
         Requirement(["Morph Ball", "Bomb Data"], [CanDoSimpleWallJump]),
     ]
@@ -488,7 +488,7 @@ class CanAccessWallJumpTutorialWithWallJump(Requirement):
 #region Sector 2 Individual Requirements
 class CanReachOasisStorage(Requirement):
     name = "Can Reach Oasis Storage"
-    other_requirements = [
+    requirements1 = [
         CanPowerBomb,
         Requirement(["Hi-Jump"], [CanBombOrPowerBomb]),
         Requirement(["Morph Ball", "Screw Attack"], [CanJumpHighUnderwater])
@@ -497,12 +497,12 @@ class CanReachOasisStorage(Requirement):
 class CanAccessZazabiSpeedway(Requirement):
     name = "Can Access Zazabi Speedway"
     items_needed = ["Space Jump", "Speed Booster", "Screw Attack"]
-    other_requirements = [CanFightBoss]
+    requirements1 = [CanFightBoss]
 
 class CanAccessWateringHole(Requirement):
     name = "Can Access Watering Hole"
     items_needed = ["Gravity Suit", "Speed Booster", "Morph Ball"]
-    other_requirements = [
+    requirements1 = [
         # The first three are straightforward, but other crab killing methods are made much easier with a recharge.
         Requirement(["Charge Beam"], [CanBallJump]),
         Requirement(["Plasma Beam"], [CanBallJump]),
@@ -524,7 +524,7 @@ class CanAccessWateringHole(Requirement):
 
 class CanBacktrackToCultivationStation(Requirement):
     name = "Can Backtrack to Cultivation Station"
-    other_requirements = [
+    requirements1 = [
         Requirement(["Hi-Jump"], [CanBombOrPowerBomb]),
         Requirement(["Space Jump"], [CanBombOrPowerBomb])
     ]
@@ -534,22 +534,22 @@ class CanBacktrackToCultivationStation(Requirement):
 class CanAscendBOXRoom(Requirement):
     name = "Can Ascend BOX Room"
     items_needed = ["Charge Beam", "Missile Data"]
-    other_requirements = [CanJumpHigh, CanDoSimpleWallJump]
+    requirements1 = [CanJumpHigh, CanDoSimpleWallJump]
 
 class CanNavigateLavaMaze(Requirement):
     name = "Can Navigate Lava Maze"
     items_needed = ["Morph Ball", "Power Bomb Data"]
-    other_requirements = [CanLavaDive]
+    requirements1 = [CanLavaDive]
 
 class CanAccessLevel2SecurityRoom(Requirement):
     name = "Can Access Level 2 Security Room"
     items_needed = ["Speed Booster"]
-    other_requirements = [CanBallJumpAndBomb]
+    requirements1 = [CanBallJumpAndBomb]
 
 class CanAccessFieryStorage(Requirement):
     name = "Can Access Fiery Storage"
     items_needed = ["Varia Suit"]
-    other_requirements = [
+    requirements1 = [
         CanBeatToughEnemy,
         CanLavaDive,
         CanDoBeginnerShinespark
@@ -558,7 +558,7 @@ class CanAccessFieryStorage(Requirement):
 class CanAccessFieryStorageUpper(Requirement):
     name = "Can Access Fiery Storage Upper"
     items_needed = ["Speed Booster"]
-    other_requirements = [
+    requirements1 = [
         Requirement(["Morph Ball", "Bomb Data"],[CanActivatePillar, HasSpaceJump]),
         Requirement(["Morph Ball", "Power Bomb Data"], [CanActivatePillar, HasSpaceJump]),
         Requirement(["Screw Attack"], [CanActivatePillar, HasSpaceJump]),
@@ -566,7 +566,7 @@ class CanAccessFieryStorageUpper(Requirement):
 
 class CanAccessGlassTubeItem(Requirement):
     name = "Can Access Glass Tube Item"
-    other_requirements = [
+    requirements1 = [
         Requirement(["Hi-Jump"], [CanBomb]),
         CanPowerBomb,
         Requirement(["Screw Attack"], []),
@@ -575,14 +575,14 @@ class CanAccessGlassTubeItem(Requirement):
 class CanAccessGarbageChute(Requirement):
     name = "Can Access Garbage Chute"
     items_needed = ["Screw Attack", "Speed Booster"]
-    other_requirements = [
+    requirements1 = [
         CanLavaDive
     ]
 
 class CanAccessSector3LowerAlcove(Requirement):
     name = "Can Access Sector 3 Lower Alcove"
     items_needed = ["Morph Ball"]
-    other_requirements = [
+    requirements1 = [
         CanBombOrPowerBomb,
         Requirement(["Screw Attack"], [CanActivatePillar, HasSpeedBooster, CanJumpHigh])
     ]
@@ -592,16 +592,16 @@ class CanAccessSector3LowerAlcove(Requirement):
 class CanDrainAQA(Requirement):
     name = "Can Drain AQA"
     items_needed = ["Speed Booster", "Level 1 Keycard"]
-    other_requirements = [CanBombOrPowerBomb]
+    requirements1 = [CanBombOrPowerBomb]
 
 class CanAscendCheddarBay(Requirement):
     name = "Can Ascend Cheddar Bay"
     items_needed = ["Missile Data"]
-    other_requirements = [CanBombOrPowerBomb]
+    requirements1 = [CanBombOrPowerBomb]
 
 class CanAccessReservoirVault(Requirement):
     name = "Can Access Reservoir Vault"
-    other_requirements = [
+    requirements1 = [
         Requirement(["Hi-Jump", "Morph Ball", "Bomb Data"], [CanDoSimpleWallJump]),
         Requirement(["Hi-Jump", "Morph Ball", "Power Bomb Data"], [CanDoSimpleWallJump]),
         Requirement(["Space Jump"], [CanBallJumpAndBomb])
@@ -609,7 +609,7 @@ class CanAccessReservoirVault(Requirement):
 
 class CanAccessSanctuaryCache(Requirement):
     name = "Can Access Sanctuary Cache"
-    other_requirements = [
+    requirements1 = [
         Requirement(["Wave Beam", "Charge Beam"], [CanDoSimpleWallJump, HasSpaceJump]),
         Requirement(
             ["Wave Beam", "Missile Data", "Morph Ball"],
@@ -628,7 +628,7 @@ class CanAccessSanctuaryCache(Requirement):
 class CanCrossSector4RightWaterCorner(Requirement):
     name = "Can Cross Sector 4 Right Water Corner"
     items_needed = ["Missile Data", "Morph Ball", "Gravity Suit"]
-    other_requirements = [
+    requirements1 = [
         CanFreezeEnemies,
         Requirement(["Space Jump"], []),
     ]
@@ -636,7 +636,7 @@ class CanCrossSector4RightWaterCorner(Requirement):
 class CanCrossSector4LowerSecurityToRightWaterZone(Requirement):
     name = "Can Cross Sector 4 Lower Security to Right Water Zone"
     items_needed = ["Morph Ball", "Level 4 Keycard"]
-    other_requirements = [
+    requirements1 = [
         Requirement(["Speed Booster"], [CanFreezeEnemies]),
         HasScrewAttack
     ]
@@ -647,14 +647,14 @@ class CanCrossSector4LowerSecurityToRightWaterZone(Requirement):
 class CanEscapeNightmareRoom(Requirement):
     name = "Can Escape Nightmare Room"
     items_needed = ["Gravity Suit", "Speed Booster"]
-    other_requirements = [
+    requirements1 = [
         CanFightLateGameBoss, CanFightLategameBossOnAdvanced, CanFightBossOnExpert
     ]
 
 class CanAccessRipperRoad(Requirement):
     name = "Can Access Ripper Road"
     items_needed = ["Morph Ball", "Hi-Jump"]
-    other_requirements = [
+    requirements1 = [
         Requirement(["Bomb Data", "Screw Attack"], [CanFreezeEnemies]),
         Requirement(["Power Bomb Data"], [CanFreezeEnemies]),
     ]
@@ -662,7 +662,7 @@ class CanAccessRipperRoad(Requirement):
 class CanAccessRipperTreasure(Requirement):
     name = "Can Access Ripper Treasure"
     items_needed = ["Morph Ball", "Power Bomb Data"]
-    other_requirements = [
+    requirements1 = [
         HasSpaceJump,
         Requirement(["Hi-Jump"], [CanFreezeEnemies]),
         Requirement(["Ice Beam"], [CanDoSimpleWallJump]),
@@ -679,7 +679,7 @@ class CanAccessRipperTreasure(Requirement):
 #region Event Requirements
 class CanDrainAQARequirement(Requirement):
     name = "Can Drain AQA Requirement"
-    def __init__(self, items_needed, other_requirements, energy_tanks_needed=3):
-        super().__init__(items_needed, other_requirements, energy_tanks_needed)
+    def __init__(self, items_needed, requirements1, energy_tanks_needed=3):
+        super().__init__(items_needed, requirements1, energy_tanks_needed)
         self.items_needed.append("Pump Control Activated")
 #endregion
