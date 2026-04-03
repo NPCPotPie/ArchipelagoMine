@@ -680,6 +680,148 @@ class CanChargedWaveShot(HasChargeBeam, HasWaveBeam):
             name = "Can Shoot Charged Wave Beam"
         super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
+class CanUseOneBeamUpgrade(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [
+            HasChargeBeam(),
+            HasWideBeam(),
+            HasPlasmaBeam(),
+            HasWaveBeam(),
+            HasIceBeam()
+        ]
+        if name is None:
+            name = "Can Use One Beam Upgrade"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class CanUseTwoBeamUpgrades(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [
+            Requirement("Charge Wide", ["Charge Beam", "Wide Beam"]),
+            Requirement("Charge Plasma", ["Charge Beam", "Plasma Beam"]),
+            Requirement("Charge Wave", ["Charge Beam", "Wave Beam"]),
+            Requirement("Charge Ice", ["Charge Beam", "Ice Beam"]),
+            Requirement("Wide Plasma", ["Wide Beam", "Plasma Beam"]),
+            Requirement("Wide Wave", ["Wide Beam", "Wave Beam"]),
+            Requirement("Wide Ice", ["Wide Beam", "Ice Beam"]),
+            Requirement("Plasma Wave", ["Plasma Beam", "Wave Beam"]),
+            Requirement("Plasma Ice", ["Plasma Beam", "Ice Beam"]),
+            Requirement("Wave Ice", ["Wave Beam", "Ice Beam"])
+        ]
+        if name is None:
+            name = "Can Use Two Beam Upgrades"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class CanUseThreeBeamUpgrades(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [
+            Requirement("Charge Wide Plasma", ["Charge Beam", "Wide Beam", "Plasma Beam"]),
+            Requirement("Charge Wide Wave", ["Charge Beam", "Wide Beam", "Wave Beam"]),
+            Requirement("Charge Wide Ice", ["Charge Beam", "Wide Beam", "Ice Beam"]),
+            Requirement("Charge Plasma Wave", ["Charge Beam", "Plasma Beam", "Wave Beam"]),
+            Requirement("Charge Plasma Ice", ["Charge Beam", "Plasma Beam", "Ice Beam"]),
+            Requirement("Charge Wave Ice", ["Charge Beam", "Wave Beam", "Ice Beam"]),
+            Requirement("Wide Plasma Wave", ["Wide Beam", "Plasma Beam", "Wave Beam"]),
+            Requirement("Wide Plasma Ice", ["Wide Beam", "Plasma Beam", "Ice Beam"]),
+            Requirement("Wide Wave Ice", ["Wide Beam", "Wave Beam", "Ice Beam"]),
+            Requirement("Plasma Wave Ice", ["Plasma Beam", "Wave Beam", "Ice Beam"])
+        ]
+        if name is None:
+            name = "Can Use Three Beam Upgrades"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class CanUseFourBeamUpgrades(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [
+            Requirement("Charge Wide Plasma Wave",
+                        ["Charge Beam", "Wide Beam", "Plasma Beam", "Wave Beam"]),
+            Requirement("Charge Wide Plasma Ice",
+                        ["Charge Beam", "Wide Beam", "Plasma Beam", "Ice Beam"]),
+            Requirement("Charge Wide Wave Ice",
+                        ["Charge Beam", "Wide Beam", "Wave Beam", "Ice Beam"]),
+            Requirement("Charge Plasma Wave Ice",
+                        ["Charge Beam", "Plasma Beam", "Wave Beam", "Ice Beam"]),
+            Requirement("Wide Plasma Wave Ice",
+                        ["Wide Beam", "Plasma Beam", "Wave Beam", "Ice Beam"]),
+        ]
+        if name is None:
+            name = "Can Use Four Beam Upgrades"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class CanUseAllBeamUpgrades(HasChargeBeam, HasWideBeam, HasPlasmaBeam, HasWaveBeam, HasIceBeam):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Use All Beam Upgrades"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
 #endregion
 
 #region Enemy Requirements
