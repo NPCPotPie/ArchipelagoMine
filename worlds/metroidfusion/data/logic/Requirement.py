@@ -46,7 +46,7 @@ class RequirementBase(ABC):
         self.energy_tanks_needed = energy_tanks_needed
 
     def __repr__(self):
-        return_string = f"{self.name}\n"
+        return_string = f"Name: {self.name}\n"
         return_string += f"ItemsNeeded: [{', '.join(self.items_needed)}]\n"
         return_string += (f"Requirements1: "
                           f"[{', '.join([requirement.name for requirement in self.requirements1])}]\n")
