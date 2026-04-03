@@ -22,19 +22,26 @@ class Requirement:
     requirements2: list[Self]
     energy_tanks_needed: int
 
-    def __init__(self, items_needed: list[str] = None, requirements1 = None, requirements2 = None, energy_tanks_needed = 0):
+    def __init__(self,
+                 name: str = None,
+                 items_needed: list[str] = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            self.name = self.__class__.__name__
+        else:
+            self.name = name
         if items_needed is None:
             items_needed = []
+        self.items_needed = items_needed
         if requirements1 is None:
             requirements1 = []
+        self.requirements1 = requirements1
         if requirements2 is None:
             requirements2 = []
-
-        self.items_needed = items_needed
-        self.requirements1 = requirements1
         self.requirements2 = requirements2
         self.energy_tanks_needed = energy_tanks_needed
-        self.name: str = self.__class__.__name__
 
     def __repr__(self):
         return_string = f"{self.name}\n"
