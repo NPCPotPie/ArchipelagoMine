@@ -12,288 +12,919 @@ level_4_e_tanks = 10
 #region Individual Item Requirements
 #Morph Ball Items
 class HasMorph(Requirement):
-    name = "Has Morph Ball"
-    items_needed = ["Morph Ball"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Morph Ball"
+        if items_needed is None:
+            items_needed = ["Morph Ball"]
+        elif items_needed:
+            items_needed.append("Morph Ball")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasBombData(Requirement):
-    name = "Has Bomb Data"
-    items_needed = ["Bomb Data"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Bomb Data"
+        if items_needed is None:
+            items_needed = ["Bomb Data"]
+        elif items_needed:
+            items_needed.append("Bomb Data")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasPowerBombData(Requirement):
-    name = "Has Power Bomb Data"
-    items_needed = ["Power Bomb Data"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Power Bomb Data"
+        if items_needed is None:
+            items_needed = ["Power Bomb Data"]
+        elif items_needed:
+            items_needed.append("Power Bomb Data")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 #Suit Items
 class HasVaria(Requirement):
-    name = "Has Varia Suit"
-    items_needed = ["Varia Suit"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Varia Suit"
+        if items_needed is None:
+            items_needed = ["Varia Suit"]
+        elif items_needed:
+            items_needed.append("Varia Suit")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasGravity(Requirement):
-    name = "Has Gravity Suit"
-    items_needed = ["Gravity Suit"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Gravity Suit"
+        if items_needed is None:
+            items_needed = ["Gravity Suit"]
+        elif items_needed:
+            items_needed.append("Gravity Suit")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 #Mobility Items
 # Reserved for when Wall Jump Boots enter the fray
 class HasWallJump(Requirement):
-    name = "Has Wall Jump"
-    items_needed = ["Wall Jump Boots"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Wall Jump"
+        if items_needed is None:
+            items_needed = ["Wall Jump Boots"]
+        elif items_needed:
+            items_needed.append("Wall Jump Boots")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasHiJump(Requirement):
-    name = "Has Hi-Jump"
-    items_needed = ["Hi-Jump"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Hi-Jump"
+        if items_needed is None:
+            items_needed = ["Hi-Jump"]
+        elif items_needed:
+            items_needed.append("Hi-Jump")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasSpaceJump(Requirement):
-    name = "Has Space Jump"
-    items_needed = ["Space Jump"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Space Jump"
+        if items_needed is None:
+            items_needed = ["Space Jump"]
+        elif items_needed:
+            items_needed.append("Space Jump")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasSpeedBooster(Requirement):
-    name = "Has Speed Booster"
-    items_needed = ["Speed Booster"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Speed Booster"
+        if items_needed is None:
+            items_needed = ["Speed Booster"]
+        elif items_needed:
+            items_needed.append("Speed Booster")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasScrewAttack(Requirement):
-    name = "Has Screw Attack"
-    items_needed = ["Screw Attack"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Screw Attack"
+        if items_needed is None:
+            items_needed = ["Screw Attack"]
+        elif items_needed:
+            items_needed.append("Screw Attack")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 #Missile Items
 class HasMissile(Requirement):
-    name = "Has Missile Data"
-    items_needed = ["Missile Data"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Missile Data"
+        if items_needed is None:
+            items_needed = ["Missile Data"]
+        elif items_needed:
+            items_needed.append("Missile Data")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasSuperMissile(Requirement):
-    name = "Has Super Missile"
-    items_needed = ["Super Missile"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Super Missile"
+        if items_needed is None:
+            items_needed = ["Super Missile"]
+        elif items_needed:
+            items_needed.append("Super Missile")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasIceMissile(Requirement):
-    name = "Has Ice Missile"
-    items_needed = ["Ice Missile"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Ice Missile"
+        if items_needed is None:
+            items_needed = ["Ice Missile"]
+        elif items_needed:
+            items_needed.append("Ice Missile")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasDiffusionMissile(Requirement):
-    name = "Has Diffusion Missile"
-    items_needed = ["Diffusion Missile"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Diffusion Missile"
+        if items_needed is None:
+            items_needed = ["Diffusion Missile"]
+        elif items_needed:
+            items_needed.append("Diffusion Missile")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 #Beam Items
 class HasChargeBeam(Requirement):
-    name = "Has Charge Beam"
-    items_needed = ["Charge Beam"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Charge Beam"
+        if items_needed is None:
+            items_needed = ["Charge Beam"]
+        elif items_needed:
+            items_needed.append("Charge Beam")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasWideBeam(Requirement):
-    name = "Has Wide Beam"
-    items_needed = ["Wide Beam"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Wide Beam"
+        if items_needed is None:
+            items_needed = ["Wide Beam"]
+        elif items_needed:
+            items_needed.append("Wide Beam")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasPlasmaBeam(Requirement):
-    name = "Has Plasma Beam"
-    items_needed = ["Plasma Beam"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Plasma Beam"
+        if items_needed is None:
+            items_needed = ["Plasma Beam"]
+        elif items_needed:
+            items_needed.append("Plasma Beam")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasWaveBeam(Requirement):
-    name = "Has Wave Beam"
-    items_needed = ["Wave Beam"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Wave Beam"
+        if items_needed is None:
+            items_needed = ["Wave Beam"]
+        elif items_needed:
+            items_needed.append("Wave Beam")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class HasIceBeam(Requirement):
-    name = "Has Ice Beam"
-    items_needed = ["Ice Beam"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Ice Beam"
+        if items_needed is None:
+            items_needed = ["Ice Beam"]
+        elif items_needed:
+            items_needed.append("Ice Beam")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
+#Keycard Items
+class HasKeycard1(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Level 1 Keycard"
+        if items_needed is None:
+            items_needed = ["Level 1 Keycard"]
+        elif items_needed:
+            items_needed.append("Level 1 Keycard")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class HasKeycard2(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Level 2 Keycard"
+        if items_needed is None:
+            items_needed = ["Level 2 Keycard"]
+        elif items_needed:
+            items_needed.append("Level 2 Keycard")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class HasKeycard3(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Level 3 Keycard"
+        if items_needed is None:
+            items_needed = ["Level 3 Keycard"]
+        elif items_needed:
+            items_needed.append("Level 3 Keycard")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class HasKeycard4(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Has Level 4 Keycard"
+        if items_needed is None:
+            items_needed = ["Level 4 Keycard"]
+        elif items_needed:
+            items_needed.append("Level 4 Keycard")
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 #endregion
 
 #region Combined Item Requirements
+class CanBomb(HasMorph, HasBombData):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Bomb"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class CanPowerBomb(HasMorph, HasPowerBombData):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Power Bomb"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class CanBallJump(HasMorph):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [HasBombData(), HasHiJump()]
+        if name is None:
+            name = "Can Ball Jump"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
 class CanJumpHigh(Requirement):
-    name = "Can Jump High"
-    requirements1 = [HasHiJump, HasSpaceJump]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [HasHiJump(), HasSpaceJump()]
+        if name is None:
+            name = "Can Jump High"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
-class CanLavaDive(Requirement):
-    name = "Can Lava Dive"
-    items_needed = ["Varia Suit", "Gravity Suit"]
+class CanLavaDive(HasVaria, HasGravity):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Lava Dive"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
-class CanBomb(Requirement):
-    name = "Can Bomb"
-    items_needed = ["Morph Ball", "Bomb Data"]
+class CanJumpHighUnderwater(HasGravity):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [CanJumpHigh()]
+        if name is None:
+            name = "Can Jump High Underwater"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
-class CanPowerBomb(Requirement):
-    name = "Can Power Bomb"
-    items_needed = ["Morph Ball", "Power Bomb Data"]
+class CanSpeedBoosterUnderwater(HasGravity, HasSpeedBooster):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Speed Booster Underwater"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
-class CanBombOrPowerBomb(Requirement):
-    name = "Can Bomb or Power Bomb"
-    requirements1 = [CanBomb, CanPowerBomb]
+class CanScrewAttackUnderwater(HasGravity, HasScrewAttack):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Screw Attack Underwater"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
-class CanPowerBombAndJumpHigh(Requirement):
-    name = "Can Power Bomb and Jump High"
-    items_needed = ["Morph Ball", "Power Bomb Data"]
-    requirements1 = [CanJumpHigh]
+class CanUseSuperMissile(HasMissile, HasSuperMissile):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Use Super Missile"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
-class CanBallJump(Requirement):
-    name = "Can Ball Jump"
-    items_needed = ["Morph Ball"]
-    requirements1 = [
-        Requirement(["Bomb Data"], []),
-        Requirement(["Hi-Jump"], [])
-    ]
+class CanUseIceMissile(HasMissile, HasIceMissile):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Use Ice Missile"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
-class CanBallJumpAndBomb(Requirement):
-    name = "Can Ball Jump and Bomb"
-    requirements1 = [
-        Requirement(["Morph Ball", "Bomb Data"], []),
-        Requirement(["Hi-Jump"], [CanPowerBomb])
-    ]
-
-class CanScrewAttackAndSpaceJump(Requirement):
-    name = "Can Screw Attack and Space Jump"
-    items_needed = ["Screw Attack", "Space Jump"]
-
-class CanJumpHighUnderwater(Requirement):
-    name = "Can Jump High underwater"
-    items_needed = ["Gravity Suit"]
-    requirements1 = [CanJumpHigh]
-
-class CanSpeedBoosterUnderwater(Requirement):
-    name = "Can Speed Booster Underwater"
-    items_needed = ["Gravity Suit", "Speed Booster"]
-
-class CanScrewAttackUnderwater(Requirement):
-    items_needed = ["Gravity Suit", "Screw Attack"]
+class CanUseDiffusionMissile(HasMissile, HasDiffusionMissile):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Use Diffusion Missile"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class CanFreezeEnemies(Requirement):
-    name = "Can Freeze Enemies"
-    requirements1 = [
-        Requirement(["Ice Missile"], [HasMissile]),
-        Requirement(["Diffusion Missile"], [HasMissile]),
-        Requirement(["Ice Beam"], [])
-    ]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [HasIceBeam(), CanUseIceMissile(), CanUseDiffusionMissile()]
+        if name is None:
+            name = "Can Freeze Enemies"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class CanActivatePillar(Requirement):
-    name = "Can Activate Pillar"
-    requirements1 = [CanBombOrPowerBomb, HasWaveBeam]
-
-class CanDiffusionMissile(Requirement):
-    name = "Can Diffusion Missile"
-    items_needed = ["Missile Data", "Diffusion Missile"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [CanBomb(), CanPowerBomb(), HasWaveBeam()]
+        if name is None:
+            name = "Can Activate Pillar"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 class CanDestroyBombBlocks(Requirement):
-    name = "Can Destroy Bomb Blocks"
-    requirements1 = [CanBombOrPowerBomb, HasScrewAttack]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [CanBomb(), CanPowerBomb(), HasScrewAttack()]
+        if name is None:
+            name = "Can Destroy Bomb Blocks"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
-class CanChargedWaveShot(Requirement):
-    name = "Can Charged Wave Shot"
-    items_needed = ["Charge Beam", "Wave Beam"]
+class CanDestroyBombBlocksUnderwater(HasGravity, CanDestroyBombBlocks):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Destroy Bomb Blocks Underwater"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class CanChargedWaveShot(HasChargeBeam, HasWaveBeam):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Shoot Charged Wave Beam"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
 #endregion
 
-#region Optional Requirements
+#region Enemy Requirements
+class CanDamageSmallGeron(HasMissile):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Damage Small Geron"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
-class CanDoBeginnerShinespark(Requirement):
-    name = "Can Do Beginner Shinespark"
-    items_needed = ["Speed Booster"]
+class CanDamageMediumGeron(CanUseSuperMissile):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Damage Medium Geron"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class CanDamageLargeGeron(CanPowerBomb):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Damage Large Geron"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class CanDamageStabilizer(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [HasMissile(), HasChargeBeam()]
+        if name is None:
+            name = "Can Damage Stabilizer"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class CanDamageAnyGeron(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [CanPowerBomb(), HasScrewAttack()]
+        if name is None:
+            name = "Can Damage Any Geron"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+    @staticmethod
+    def check_option_enabled(options: "MetroidFusionOptions"):
+        return not options.NerfGeronWeaknesses
+
+class CanDamageToughEnemy(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [HasMissile(), HasChargeBeam()]
+        if name is None:
+            name = "Can Damage Tough Enemy"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class CanDamageToughEnemyThroughWalls(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [CanChargedWaveShot(), CanPowerBomb()]
+        if name is None:
+            name = "Can Damage Tough Enemy Through Walls"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None,[], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+#endregion
+
+#region Boss Requirements
+class CanDamageCoreX(HasMissile):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Damage Core X"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class CanFightEarlyGameBoss(CanDamageCoreX):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Fight Early Game Boss"
+        super().__init__(name, items_needed, requirements1, requirements2, max(energy_tanks_needed, level_1_e_tanks))
+
+class CanFightMidGameBoss(CanDamageCoreX, CanUseSuperMissile):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Fight Mid Game Boss"
+        super().__init__(name, items_needed, requirements1, requirements2, max(energy_tanks_needed, level_2_e_tanks))
+
+class CanFightLateGameBoss(CanDamageCoreX, CanUseSuperMissile, HasPlasmaBeam, HasSpaceJump):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Fight Late Game Boss"
+        super().__init__(name, items_needed, requirements1, requirements2, max(energy_tanks_needed, level_3_e_tanks))
+
+#endregion
+
+#region Trick Options Requirements
+
+class CanDoBeginnerShinespark(HasSpeedBooster):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Do Beginner Shinespark"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return options.ShinesparkTrickDifficulty.value >= options.ShinesparkTrickDifficulty.option_beginner
 
-class CanDoAdvancedShinespark(Requirement):
-    name = "Can Do Advanced Shinespark"
-    items_needed = ["Speed Booster"]
+class CanDoAdvancedShinespark(HasSpeedBooster):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Do Advanced Shinespark"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return options.ShinesparkTrickDifficulty >= options.ShinesparkTrickDifficulty.option_advanced
 
-class CanDoSimpleWallJump(Requirement):
-    name = "Can Do Simple Wall Jump"
-    items_needed = ["Wall Jump Boots"]
+class CanDoSimpleWallJump(HasWallJump):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Do Simple Wall Jump"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return options.WallJumpTrickDifficulty >= options.WallJumpTrickDifficulty.option_beginner
 
-class CanDoSimpleWallJumpWithHiJump(Requirement):
-    name = "Can Do Simple Wall Jump with Hi-Jump"
-    items_needed = ["Hi-Jump"]
-
-    @staticmethod
-    def check_option_enabled(options: "MetroidFusionOptions") -> bool:
-        return options.WallJumpTrickDifficulty >= options.WallJumpTrickDifficulty.option_beginner
-
-class CanDoSimpleWallJumpWithScrewAttack(Requirement):
-    name = "Can Do Simple Wall Jump with Screw Attack"
-    items_needed = ["Screw Attack"]
-
-    @staticmethod
-    def check_option_enabled(options: "MetroidFusionOptions") -> bool:
-        return options.WallJumpTrickDifficulty >= options.WallJumpTrickDifficulty.option_beginner
-
-class CanDoSimpleWallJumpWithHiJumpAndScrewAttack(Requirement):
-    name = "Can Do Simple Wall Jump with Hi-Jump and Screw Attack"
-    items_needed = ["Hi-Jump", "Screw Attack"]
-
-    @staticmethod
-    def check_option_enabled(options: "MetroidFusionOptions") -> bool:
-        return options.WallJumpTrickDifficulty >= options.WallJumpTrickDifficulty.option_beginner
-
-class CanDoSimpleWallJumpAndFreezeEnemies(Requirement):
-    name = "Can Do Simple Wall Jump and Freeze Enemies"
-    requirements1 = [CanFreezeEnemies]
-
-    @staticmethod
-    def check_option_enabled(options: "MetroidFusionOptions") -> bool:
-        return options.WallJumpTrickDifficulty >= options.WallJumpTrickDifficulty.option_beginner
-
-class CanDoAdvancedWallJump(Requirement):
-    name = "Can Do Advanced Wall Jump"
-    items_needed = ["Wall Jump Boots"]
-
-    @staticmethod
-    def check_option_enabled(options: "MetroidFusionOptions") -> bool:
-        return options.WallJumpTrickDifficulty >= options.WallJumpTrickDifficulty.option_advanced
-
-class CanDoAdvancedWallJumpWithHiJump(Requirement):
-    name = "Can Do Advanced Wall Jump with Hi-Jump"
-    items_needed = ["Hi-Jump"]
-
-    @staticmethod
-    def check_option_enabled(options: "MetroidFusionOptions") -> bool:
-        return options.WallJumpTrickDifficulty >= options.WallJumpTrickDifficulty.option_advanced
-
-class CanDoAdvancedWallJumpWithScrewAttack(Requirement):
-    name = "Can Do Advanced Wall Jump with Screw Attack"
-    items_needed = ["Screw Attack"]
+class CanDoAdvancedWallJump(HasWallJump):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Do Advanced Wall Jump"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return options.WallJumpTrickDifficulty >= options.WallJumpTrickDifficulty.option_advanced
 
 class CanDoAdvancedCombat(Requirement):
-    name = "Can Do Advanced Combat"
-    items_needed = ["Nothing"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Do Advanced Combat"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return options.CombatDifficulty >= options.CombatDifficulty.option_advanced
 
 class CanDoExpertCombat(Requirement):
-    name = "Can Do Expert Combat"
-    items_needed = ["Nothing"]
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Do Expert Combat"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return options.CombatDifficulty >= options.CombatDifficulty.option_expert
 
-class CanFightBossOnAdvanced(Requirement):
-    name = "Can Fight Boss on Advanced"
-    items_needed = ["Missile Data", "Charge Beam"]
-    energy_tanks_needed = level_1_e_tanks
+class CanFightMidGameBossOnAdvanced(CanDamageCoreX, HasChargeBeam):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Fight Mid Game Boss On Advanced"
+        super().__init__(name, items_needed, requirements1, requirements2, max(energy_tanks_needed, level_1_e_tanks))
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return options.CombatDifficulty >= options.CombatDifficulty.option_advanced
 
-class CanFightLategameBossOnAdvanced(Requirement):
-    name = "Can Fight Lategame Boss on Advanced"
-    items_needed = ["Missile Data", "Charge Beam", "Super Missile"]
-    energy_tanks_needed = level_2_e_tanks
+class CanFightLateGameBossOnAdvanced(CanDamageCoreX, HasChargeBeam, CanUseSuperMissile):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Fight Late Game Boss on Advanced"
+        super().__init__(name, items_needed, requirements1, requirements2, max(energy_tanks_needed, level_2_e_tanks))
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return options.CombatDifficulty >= options.CombatDifficulty.option_advanced
 
-class CanFightBossOnExpert(Requirement):
+class CanFightBossOnExpert(CanDamageCoreX, HasChargeBeam):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Fight Boss on Expert"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
     name = "Can Fight Boss on Expert"
     items_needed = ["Missile Data", "Charge Beam"]
 
@@ -301,10 +932,16 @@ class CanFightBossOnExpert(Requirement):
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return options.CombatDifficulty >= options.CombatDifficulty.option_expert
 
-class SectorHubLevel1KeycardRequirement(Requirement):
-    name = "Sector Hub Level 1 Keycard Requirement"
-    items_needed = ["Level 1 Keycard"]
-    energy_tanks_needed = level_1_e_tanks
+class SectorHubLevel1KeycardRequirement(HasKeycard1):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Sector Hub Level 1 Keycard Requirement"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions"):
@@ -314,10 +951,16 @@ class SectorHubLevel1KeycardRequirement(Requirement):
             return options.GameMode == options.GameMode.option_vanilla
 
 
-class SectorHubLevel1And2KeycardRequirement(Requirement):
-    name = "Sector Hub Level 1 and 2 Keycard Requirement"
-    items_needed = ["Level 1 Keycard", "Level 2 Keycard"]
-    energy_tanks_needed = level_2_e_tanks
+class SectorHubLevel1And2KeycardRequirement(HasKeycard1, HasKeycard2):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Sector Hub Level 1 and 2 Keycard Requirement"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions"):
@@ -328,397 +971,3 @@ class SectorHubLevel1And2KeycardRequirement(Requirement):
 
 
 # endregion
-
-#region Keycard Requirements
-class HasKeycard1(Requirement):
-    name = "Has Keycard 1"
-    energy_tanks_needed = level_1_e_tanks
-    items_needed = ["Level 1 Keycard"]
-
-class HasKeycard2(Requirement):
-    name = "Has Keycard 2"
-    energy_tanks_needed = level_2_e_tanks
-    items_needed = ["Level 2 Keycard"]
-
-class HasKeycard1And2(Requirement):
-    name = "Has Keycard 1 and 2"
-    energy_tanks_needed = level_2_e_tanks
-    items_needed = ["Level 1 Keycard", "Level 2 Keycard"]
-
-class HasKeycard3(Requirement):
-    name = "Has Keycard 3"
-    energy_tanks_needed = level_3_e_tanks
-    items_needed = ["Level 3 Keycard"]
-
-class HasKeycard4(Requirement):
-    name = "Has Keycard 4"
-    energy_tanks_needed = level_4_e_tanks
-    items_needed = ["Level 4 Keycard"]
-
-class Level1KeycardRequirement(Requirement):
-    name = "Level 1 Keycard Requirement"
-    def __init__(self, items_needed, requirements1, energy_tanks_needed=3):
-        super().__init__(items_needed, requirements1, energy_tanks_needed)
-        self.items_needed.append("Level 1 Keycard")
-
-class Level2KeycardRequirement(Requirement):
-    name = "Level 2 Keycard Requirement"
-    def __init__(self, items_needed, requirements1, energy_tanks_needed=5):
-        super().__init__(items_needed, requirements1, energy_tanks_needed)
-        self.items_needed.append("Level 2 Keycard")
-
-class Level1And2KeycardRequirement(Requirement):
-    name = "Level 1 and 2 Keycard Requirement"
-    def __init__(self, items_needed, requirements1, energy_tanks_needed=5):
-        super().__init__(items_needed, requirements1, energy_tanks_needed)
-        self.items_needed.append("Level 1 Keycard")
-        self.items_needed.append("Level 2 Keycard")
-
-class Level3KeycardRequirement(Requirement):
-    name = "Level 3 Keycard Requirement"
-    def __init__(self, items_needed, requirements1, energy_tanks_needed=7):
-        super().__init__(items_needed, requirements1, energy_tanks_needed)
-        self.items_needed.append("Level 3 Keycard")
-
-class Level4KeycardRequirement(Requirement):
-    name = "Level 4 Keycard Requirement"
-    def __init__(self, items_needed, requirements1, energy_tanks_needed=10):
-        super().__init__(items_needed, requirements1, energy_tanks_needed)
-        self.items_needed.append("Level 4 Keycard")
-#endregion
-
-#region Enemy Requirements
-class CanDefeatSmallGeron(Requirement):
-    name = "Can Defeat Small Geron"
-    items_needed = ["Missile Data"]
-
-class CanDefeatMediumGeron(Requirement):
-    name = "Can Defeat Medium Geron"
-    items_needed = ["Missile Data", "Super Missile"]
-
-class CanDefeatLargeGeron(Requirement):
-    name = "Can Defeat Large Geron"
-    requirements1 = [CanPowerBomb]
-
-class CanDefeatStabilizer(Requirement):
-    name = "Can Defeat Stabilizer"
-    requirements1 = [HasMissile, HasChargeBeam]
-
-class CanDefeatAnyGeron(Requirement):
-    name = "Can Defeat Any Geron"
-    requirements1 = [CanPowerBomb, HasScrewAttack]
-
-    @staticmethod
-    def check_option_enabled(options: "MetroidFusionOptions"):
-        return not options.NerfGeronWeaknesses
-
-class CanBeatToughEnemy(Requirement):
-    name = "Can Beat Tough Enemy"
-    requirements1 = [HasChargeBeam, HasMissile]
-
-class CanBeatToughEnemyAndJumpHigh(Requirement):
-    name = "Can Beat Tough Enemy and Jump High"
-    requirements1 = [
-        Requirement(["Hi-Jump"], [CanBeatToughEnemy]),
-        Requirement(["Space Jump"], [CanBeatToughEnemy])
-    ]
-
-class CanDefeatStabilizerOrToughEnemy(Requirement):
-    name = "Can Defeat Stabilizer"
-    requirements1 = [HasScrewAttack, HasMissile, HasChargeBeam, CanPowerBomb]
-
-class CanDefeatThirdStabilizer(Requirement):
-    name = "Can Defeat Third Stabilizer"
-    requirements1 = [
-        CanDefeatAnyGeron([], [
-            HasScrewAttack([],[HasSpaceJump, CanDoAdvancedWallJump, CanDoSimpleWallJumpWithHiJump]),
-            CanPowerBomb
-        ]),
-        CanDefeatStabilizer
-    ]
-
-#endregion
-
-#region Boss Requirements
-class CanFightBeginnerBoss(Requirement):
-    name = "Can Fight Beginner Boss"
-    items_needed = ["Missile Data"]
-
-class CanFightBoss(Requirement):
-    name = "Can Fight Boss"
-    energy_tanks_needed = level_1_e_tanks
-    items_needed = ["Missile Data", "Charge Beam"]
-
-class CanFightMidgameBoss(Requirement):
-    name = "Can Fight Midgame Boss"
-    energy_tanks_needed = level_2_e_tanks
-    items_needed = ["Super Missile"]
-    requirements1 = [CanFightBoss]
-
-class CanFightLateGameBoss(Requirement):
-    name = "Can Fight Lategame Boss"
-    energy_tanks_needed = level_3_e_tanks
-    items_needed = ["Plasma Beam", "Space Jump"]
-    requirements1 = [CanFightMidgameBoss]
-
-#endregion
-
-#region Individual Location Requirements
-
-#region Main Deck Individual Requirements
-class CanReachAnimals(Requirement):
-    name = "Can Reach Animals"
-    items_needed = ["Speed Booster"]
-    requirements1 = [
-        Requirement(["Hi-Jump"], [CanFreezeEnemies]),
-        HasSpaceJump
-    ]
-
-class CanReachGenesisSpeedway(Requirement):
-    name = "Can Reach Genesis Speedway"
-    items_needed = ["Morph Ball", "Power Bomb Data"]
-    requirements1 = [
-        Requirement(["Bomb Data"], [CanDoSimpleWallJump, CanJumpHigh]),
-        HasHiJump
-    ]
-
-class CanCrossFromReactorToSector2(Requirement):
-    name = "Can Cross from Reactor to Sector 2"
-    items_needed = ["Space Jump", "Missile Data"]
-    requirements1 = [CanBombOrPowerBomb]
-
-class CanAccessYakuza(Requirement):
-    name = "Can Access Yakuza"
-    requirements1 = [
-        Requirement(["Morph Ball", "Bomb Data"], [CanBeatToughEnemy]),
-        Requirement(["Morph Ball", "Power Bomb Data"], [CanBeatToughEnemy]),
-        Requirement(["Morph Ball", "Wave Beam"], [CanBeatToughEnemy]),
-        Requirement(
-            ["Morph Ball", "Missile Data", "Diffusion Missile"],
-            [CanBeatToughEnemy]
-        )
-    ]
-#endregion
-
-#region Sector 1 Individual Requirements
-class CanReachAnimorphs(Requirement):
-    name = "Can Reach Animorphs"
-    requirements1 = [
-        # Wave or PB for the crab, Supers for the other two.
-        Requirement(["Missile Data", "Super Missile"], [CanChargedWaveShot, CanPowerBomb]),
-        # Wave or PB for the crab, Screw Attack for the other two
-        Requirement(["Screw Attack"], [CanChargedWaveShot, CanPowerBomb]),
-        # Technically don't need Supers with enough of other missiles but we don't have ammo requirements in logic yet.
-    ]
-
-class CanAccessWallJumpTutorialWithSpaceJump(Requirement):
-    name = "Can Access Wall Jump Tutorial with Space Jump"
-    items_needed = ["Space Jump"]
-    requirements1 = [CanBallJump]
-
-class CanAccessWallJumpTutorialWithWallJump(Requirement):
-    name = "Can Access Wall Jump Tutorial with Wall Jump"
-    requirements1 = [
-        Requirement(["Morph Ball", "Hi-Jump"], [CanDoSimpleWallJump]),
-        Requirement(["Morph Ball", "Bomb Data"], [CanDoSimpleWallJump]),
-    ]
-#endregion
-
-#region Sector 2 Individual Requirements
-class CanReachOasisStorage(Requirement):
-    name = "Can Reach Oasis Storage"
-    requirements1 = [
-        CanPowerBomb,
-        Requirement(["Hi-Jump"], [CanBombOrPowerBomb]),
-        Requirement(["Morph Ball", "Screw Attack"], [CanJumpHighUnderwater])
-    ]
-
-class CanAccessZazabiSpeedway(Requirement):
-    name = "Can Access Zazabi Speedway"
-    items_needed = ["Space Jump", "Speed Booster", "Screw Attack"]
-    requirements1 = [CanFightBoss]
-
-class CanAccessWateringHole(Requirement):
-    name = "Can Access Watering Hole"
-    items_needed = ["Gravity Suit", "Speed Booster", "Morph Ball"]
-    requirements1 = [
-        # The first three are straightforward, but other crab killing methods are made much easier with a recharge.
-        Requirement(["Charge Beam"], [CanBallJump]),
-        Requirement(["Plasma Beam"], [CanBallJump]),
-        Requirement(["Screw Attack"], [CanBallJump]),
-        Requirement(["Missile Data", "Bomb Data"], [CanDoBeginnerShinespark]),
-        Requirement(["Missile Data", "Hi-Jump"], [CanDoBeginnerShinespark]),
-        Requirement(["Wide Beam", "Bomb Data"], [CanDoBeginnerShinespark]),
-        Requirement(["Wide Beam", "Hi-Jump"], [CanDoBeginnerShinespark]),
-        Requirement(["Wave Beam", "Bomb Data"], [CanDoBeginnerShinespark]),
-        Requirement(["Wave Beam", "Hi-Jump"], [CanDoBeginnerShinespark]),
-        Requirement(["Ice Beam", "Bomb Data"], [CanDoBeginnerShinespark]),
-        Requirement(["Ice Beam", "Hi-Jump"], [CanDoBeginnerShinespark]),
-        Requirement(["Power Bomb Data", "Bomb Data"], [CanDoBeginnerShinespark]),
-        Requirement(["Power Bomb Data", "Hi-Jump"], [CanDoBeginnerShinespark]),
-        Requirement([], [CanDoAdvancedShinespark]),
-        Requirement([], [CanDoAdvancedCombat]),
-
-    ]
-
-class CanBacktrackToCultivationStation(Requirement):
-    name = "Can Backtrack to Cultivation Station"
-    requirements1 = [
-        Requirement(["Hi-Jump"], [CanBombOrPowerBomb]),
-        Requirement(["Space Jump"], [CanBombOrPowerBomb])
-    ]
-#endregion
-
-#region Sector 3 Individual Requirements
-class CanAscendBOXRoom(Requirement):
-    name = "Can Ascend BOX Room"
-    items_needed = ["Charge Beam", "Missile Data"]
-    requirements1 = [CanJumpHigh, CanDoSimpleWallJump]
-
-class CanNavigateLavaMaze(Requirement):
-    name = "Can Navigate Lava Maze"
-    items_needed = ["Morph Ball", "Power Bomb Data"]
-    requirements1 = [CanLavaDive]
-
-class CanAccessLevel2SecurityRoom(Requirement):
-    name = "Can Access Level 2 Security Room"
-    items_needed = ["Speed Booster"]
-    requirements1 = [CanBallJumpAndBomb]
-
-class CanAccessFieryStorage(Requirement):
-    name = "Can Access Fiery Storage"
-    items_needed = ["Varia Suit"]
-    requirements1 = [
-        CanBeatToughEnemy,
-        CanLavaDive,
-        CanDoBeginnerShinespark
-    ]
-
-class CanAccessFieryStorageUpper(Requirement):
-    name = "Can Access Fiery Storage Upper"
-    items_needed = ["Speed Booster"]
-    requirements1 = [
-        Requirement(["Morph Ball", "Bomb Data"],[CanActivatePillar, HasSpaceJump]),
-        Requirement(["Morph Ball", "Power Bomb Data"], [CanActivatePillar, HasSpaceJump]),
-        Requirement(["Screw Attack"], [CanActivatePillar, HasSpaceJump]),
-    ]
-
-class CanAccessGlassTubeItem(Requirement):
-    name = "Can Access Glass Tube Item"
-    requirements1 = [
-        Requirement(["Hi-Jump"], [CanBomb]),
-        CanPowerBomb,
-        Requirement(["Screw Attack"], []),
-    ]
-
-class CanAccessGarbageChute(Requirement):
-    name = "Can Access Garbage Chute"
-    items_needed = ["Screw Attack", "Speed Booster"]
-    requirements1 = [
-        CanLavaDive
-    ]
-
-class CanAccessSector3LowerAlcove(Requirement):
-    name = "Can Access Sector 3 Lower Alcove"
-    items_needed = ["Morph Ball"]
-    requirements1 = [
-        CanBombOrPowerBomb,
-        Requirement(["Screw Attack"], [CanActivatePillar, HasSpeedBooster, CanJumpHigh])
-    ]
-#endregion
-
-#region Sector 4 Individual Requirements
-class CanDrainAQA(Requirement):
-    name = "Can Drain AQA"
-    items_needed = ["Speed Booster", "Level 1 Keycard"]
-    requirements1 = [CanBombOrPowerBomb]
-
-class CanAscendCheddarBay(Requirement):
-    name = "Can Ascend Cheddar Bay"
-    items_needed = ["Missile Data"]
-    requirements1 = [CanBombOrPowerBomb]
-
-class CanAccessReservoirVault(Requirement):
-    name = "Can Access Reservoir Vault"
-    requirements1 = [
-        Requirement(["Hi-Jump", "Morph Ball", "Bomb Data"], [CanDoSimpleWallJump]),
-        Requirement(["Hi-Jump", "Morph Ball", "Power Bomb Data"], [CanDoSimpleWallJump]),
-        Requirement(["Space Jump"], [CanBallJumpAndBomb])
-    ]
-
-class CanAccessSanctuaryCache(Requirement):
-    name = "Can Access Sanctuary Cache"
-    requirements1 = [
-        Requirement(["Wave Beam", "Charge Beam"], [CanDoSimpleWallJump, HasSpaceJump]),
-        Requirement(
-            ["Wave Beam", "Missile Data", "Morph Ball"],
-            [CanDoSimpleWallJump, HasSpaceJump]
-        ),
-        Requirement(
-            ["Power Bomb Data", "Missile Data", "Morph Ball"],
-            [CanDoSimpleWallJump, HasSpaceJump]
-        ),
-        Requirement(
-            ["Power Bomb Data", "Charge Beam", "Morph Ball"],
-            [CanDoSimpleWallJump, HasSpaceJump]
-        ),
-    ]
-
-class CanCrossSector4RightWaterCorner(Requirement):
-    name = "Can Cross Sector 4 Right Water Corner"
-    items_needed = ["Missile Data", "Morph Ball", "Gravity Suit"]
-    requirements1 = [
-        CanFreezeEnemies,
-        Requirement(["Space Jump"], []),
-    ]
-
-class CanCrossSector4LowerSecurityToRightWaterZone(Requirement):
-    name = "Can Cross Sector 4 Lower Security to Right Water Zone"
-    items_needed = ["Morph Ball", "Level 4 Keycard"]
-    requirements1 = [
-        Requirement(["Speed Booster"], [CanFreezeEnemies]),
-        HasScrewAttack
-    ]
-    energy_tanks_needed = level_4_e_tanks
-#endregion
-
-#region Sector 5 Individual Requirements
-class CanEscapeNightmareRoom(Requirement):
-    name = "Can Escape Nightmare Room"
-    items_needed = ["Gravity Suit", "Speed Booster"]
-    requirements1 = [
-        CanFightLateGameBoss, CanFightLategameBossOnAdvanced, CanFightBossOnExpert
-    ]
-
-class CanAccessRipperRoad(Requirement):
-    name = "Can Access Ripper Road"
-    items_needed = ["Morph Ball", "Hi-Jump"]
-    requirements1 = [
-        Requirement(["Bomb Data", "Screw Attack"], [CanFreezeEnemies]),
-        Requirement(["Power Bomb Data"], [CanFreezeEnemies]),
-    ]
-
-class CanAccessRipperTreasure(Requirement):
-    name = "Can Access Ripper Treasure"
-    items_needed = ["Morph Ball", "Power Bomb Data"]
-    requirements1 = [
-        HasSpaceJump,
-        Requirement(["Hi-Jump"], [CanFreezeEnemies]),
-        Requirement(["Ice Beam"], [CanDoSimpleWallJump]),
-        Requirement(["Missile Data", "Ice Missile"], [CanDoSimpleWallJump]),
-        Requirement(["Missile Data", "Diffusion Missile"], [CanDoSimpleWallJump])
-    ]
-#endregion
-
-#region Sector 6 Individual Requirements
-#endregion
-
-#endregion
-
-#region Event Requirements
-class CanDrainAQARequirement(Requirement):
-    name = "Can Drain AQA Requirement"
-    def __init__(self, items_needed, requirements1, energy_tanks_needed=3):
-        super().__init__(items_needed, requirements1, energy_tanks_needed)
-        self.items_needed.append("Pump Control Activated")
-#endregion
