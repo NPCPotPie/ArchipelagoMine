@@ -76,7 +76,7 @@ class PONRRequirement(Requirement):
     These should always be more minimal than any surrounding requirements."""
 
     def __init__(self,
-                 name: str = None,
+                 name: str = "Point of No Return Requirement",
                  items_needed: list[str] = None,
                  requirements1: list[RequirementBase] = None,
                  requirements2: list[RequirementBase] = None,
