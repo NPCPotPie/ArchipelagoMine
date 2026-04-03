@@ -25,9 +25,9 @@ class Requirement:
     def __init__(self,
                  name: str = None,
                  items_needed: list[str] = None,
-                 requirements1 = None,
-                 requirements2 = None,
-                 energy_tanks_needed = 0):
+                 requirements1: list[Self] = None,
+                 requirements2: list[Self] = None,
+                 energy_tanks_needed: int = 0):
         if name is None:
             self.name = self.__class__.__name__
         else:
