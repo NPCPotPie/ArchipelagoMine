@@ -1,11 +1,12 @@
 import typing
 from typing import TYPE_CHECKING, Self
+from abc import ABC, abstractmethod
 
 if TYPE_CHECKING:
     from ... import MetroidFusionOptions
 
 
-class Requirement:
+class RequirementBase(ABC):
     """
     Defines a set of requirements for a Connection or Location.
     \n The parameters are unpacked into a series of logical requirements where all housed in ``items_needed`` and one each of entries in ``requirements1`` and ``requirements2`` must be met for this Requirement to be passed.
@@ -22,6 +23,7 @@ class Requirement:
     requirements2: list[Self]
     energy_tanks_needed: int
 
+    @abstractmethod
     def __init__(self,
                  name: str = None,
                  items_needed: list[str] = None,
@@ -60,6 +62,15 @@ class Requirement:
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return True
 
+class Requirement(RequirementBase):
+    def __init__(self,
+                 name: str = None,
+                 items_needed: list[str] = None,
+                 requirements1: list[RequirementBase] = None,
+                 requirements2: list[RequirementBase] = None,
+                 energy_tanks_needed: int = 0):
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
 class PONRRequirement(Requirement):
     """Defines a set of requirements to be used when Point of No Returns are disabled.
     These should always be more minimal than any surrounding requirements."""
@@ -67,8 +78,8 @@ class PONRRequirement(Requirement):
     def __init__(self,
                  name: str = None,
                  items_needed: list[str] = None,
-                 requirements1 = None,
-                 requirements2 = None,
+                 requirements1: list[RequirementBase] = None,
+                 requirements2: list[RequirementBase] = None,
                  energy_tanks_needed = 0):
         super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
