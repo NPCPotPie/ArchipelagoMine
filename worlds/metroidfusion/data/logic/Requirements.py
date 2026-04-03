@@ -14,6 +14,14 @@ class HasMorph(Requirement):
     name = "Has Morph Ball"
     items_needed = ["Morph Ball"]
 
+class HasBombData(Requirement):
+    name = "Has Bomb Data"
+    items_needed = ["Bomb Data"]
+
+class HasPowerBombData(Requirement):
+    name = "Has Power Bomb Data"
+    items_needed = ["Power Bomb Data"]
+
 class HasVaria(Requirement):
     name = "Has Varia Suit"
     items_needed = ["Varia Suit"]
@@ -21,6 +29,11 @@ class HasVaria(Requirement):
 class HasGravity(Requirement):
     name = "Has Gravity Suit"
     items_needed = ["Gravity Suit"]
+
+# Reserved for when Wall Jump Boots enter the fray
+class HasWallJump(Requirement):
+    name = "Has Wall Jump"
+    items_needed = ["Wall Jump Boots"]
 
 class HasHiJump(Requirement):
     name = "Has Hi-Jump"
@@ -42,13 +55,37 @@ class HasMissile(Requirement):
     name = "Has Missile Data"
     items_needed = ["Missile Data"]
 
+class HasSuperMissile(Requirement):
+    name = "Has Super Missile"
+    items_needed = ["Super Missile"]
+
+class HasIceMissile(Requirement):
+    name = "Has Ice Missile"
+    items_needed = ["Ice Missile"]
+
+class HasDiffusionMissile(Requirement):
+    name = "Has Diffusion Missile"
+    items_needed = ["Diffusion Missile"]
+
 class HasChargeBeam(Requirement):
     name = "Has Charge Beam"
     items_needed = ["Charge Beam"]
 
+class HasWideBeam(Requirement):
+    name = "Has Wide Beam"
+    items_needed = ["Wide Beam"]
+
+class HasPlasmaBeam(Requirement):
+    name = "Has Plasma Beam"
+    items_needed = ["Plasma Beam"]
+
 class HasWaveBeam(Requirement):
     name = "Has Wave Beam"
     items_needed = ["Wave Beam"]
+
+class HasIceBeam(Requirement):
+    name = "Has Ice Beam"
+    items_needed = ["Ice Beam"]
 
 #endregion
 
