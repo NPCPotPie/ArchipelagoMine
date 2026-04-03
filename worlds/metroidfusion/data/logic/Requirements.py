@@ -10,6 +10,7 @@ level_3_e_tanks = 7
 level_4_e_tanks = 10
 
 #region Individual Item Requirements
+#Morph Ball Items
 class HasMorph(Requirement):
     name = "Has Morph Ball"
     items_needed = ["Morph Ball"]
@@ -22,6 +23,7 @@ class HasPowerBombData(Requirement):
     name = "Has Power Bomb Data"
     items_needed = ["Power Bomb Data"]
 
+#Suit Items
 class HasVaria(Requirement):
     name = "Has Varia Suit"
     items_needed = ["Varia Suit"]
@@ -30,6 +32,7 @@ class HasGravity(Requirement):
     name = "Has Gravity Suit"
     items_needed = ["Gravity Suit"]
 
+#Mobility Items
 # Reserved for when Wall Jump Boots enter the fray
 class HasWallJump(Requirement):
     name = "Has Wall Jump"
@@ -51,6 +54,7 @@ class HasScrewAttack(Requirement):
     name = "Has Screw Attack"
     items_needed = ["Screw Attack"]
 
+#Missile Items
 class HasMissile(Requirement):
     name = "Has Missile Data"
     items_needed = ["Missile Data"]
@@ -67,6 +71,7 @@ class HasDiffusionMissile(Requirement):
     name = "Has Diffusion Missile"
     items_needed = ["Diffusion Missile"]
 
+#Beam Items
 class HasChargeBeam(Requirement):
     name = "Has Charge Beam"
     items_needed = ["Charge Beam"]
