@@ -521,6 +521,74 @@ class CanUseDiffusionMissile(HasMissile, HasDiffusionMissile):
             name = "Can Use Diffusion Missile"
         super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
 
+class CanUseOneMissileUpgrade(HasMissile):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [CanUseSuperMissile(), CanUseIceMissile(), CanUseDiffusionMissile()]
+        if name is None:
+            name = "Can Use One Missile Upgrade"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+
+class CanUseTwoMissileUpgrades(HasMissile):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        this_req: list[Requirement] = [
+            Requirement("Can Use Super Missile and Ice Missile",
+                        ["Super Missile", "Ice Missile"]
+            ),
+            Requirement("Can Use Ice Missile and Diffusion Missile",
+                        ["Ice Missile", "Diffusion Missile"]
+            ),
+            Requirement("Can Use Super Missile and Diffusion Missile",
+                        ["Super Missile", "Diffusion Missile"]
+            )
+        ]
+        if name is None:
+            name = "Can Use Two Missile Upgrades"
+        if requirements1 is None:
+            requirements1 = this_req
+        elif (requirements2 is None and requirements1) or (not requirements2 and requirements1):
+            requirements2 = requirements1
+            requirements1 = this_req
+        elif requirements1 and requirements2:
+            sub_requirements = [Requirement(None, [], requirements1, requirements2)]
+            requirements1 = this_req
+            requirements2 = sub_requirements
+        else:
+            requirements1 = this_req
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
+class CanUseAllMissileUpgrades(HasMissile, HasSuperMissile, HasIceMissile, HasDiffusionMissile):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 requirements1 = None,
+                 requirements2 = None,
+                 energy_tanks_needed = 0):
+        if name is None:
+            name = "Can Use All Missiles"
+        super().__init__(name, items_needed, requirements1, requirements2, energy_tanks_needed)
+
 class CanFreezeEnemies(Requirement):
     def __init__(self,
                  name = None,
