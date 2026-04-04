@@ -9,6 +9,7 @@ from ..regions.Sector1 import Sector1TubeRight
 from ..regions.Sector2 import *
 from ..regions.Sector4 import Sector4TubeLeft
 
+# Region Connections
 Sector2Hub.connections = [
     VariableConnection(SectorHubElevator2Top, []),
     Connection(Sector2TubeLeft, [HasScrewAttack()]),
@@ -38,14 +39,6 @@ Sector2Hub.connections = [
     ])
 ]
 
-Sector2TubeLeft.connections = [
-    VariableConnection(Sector1TubeRight, [])
-]
-
-Sector2TubeRight.connections = [
-    VariableConnection(Sector4TubeLeft, [])
-]
-
 Sector2LeftSide.connections = [
     Connection(Sector2Hub, [
         Requirement("Climb Zig-Zag-Zone from Maintenance Wing",
@@ -66,6 +59,14 @@ Sector2LeftSide.connections = [
                     ])
     ]),
     Connection(Sector2ZazabiZone, [CanBomb(), CanPowerBomb()], one_way=True)
+]
+
+Sector2TubeLeft.connections = [
+    VariableConnection(Sector1TubeRight, [])
+]
+
+Sector2TubeRight.connections = [
+    VariableConnection(Sector4TubeLeft, [])
 ]
 
 Sector2ZazabiZone.connections = [
@@ -113,6 +114,7 @@ Sector2ZazabiZoneUpper.connections = [
     ], one_way=True)
 ]
 
+# Item Locations
 Sector2Hub.locations = [
     FusionLocation("Sector 2 (TRO) -- Crumble City -- Lower Item", False, [
         CanCollectCrumbleCity()
@@ -154,6 +156,23 @@ Sector2LeftSide.locations = [
                     [
                         CanActivatePillar(),
                         CanJumpHigh()
+                    ])
+    ])
+]
+
+Sector2NettoriZone.locations = [
+    FusionLocation("Sector 2 (TRO) -- Nettori Arena", True, [
+        CanFightMidGameBoss(),
+        CanFightMidGameBossOnAdvanced()
+    ]),
+    FusionLocation("Sector 2 (TRO) -- Overgrown Cache", False, [HasMorph()]),
+    FusionLocation("Sector 2 (TRO) -- Puyo Palace", False, [
+        Requirement("Obtain Puyo Palace Item from Above",
+                    [],
+                    0,
+                    [
+                        PONRRequirement("PONR - Puyo Palace Item from Above"),
+                        HasSpaceJump("Obtain Puyo Palace Item and Return")
                     ])
     ])
 ]
@@ -245,22 +264,5 @@ Sector2ZazabiZoneUpper.locations = [
                        [PONRRequirement("PONR - Dessgeega Dorm")]),
         CanBomb(),
         CanPowerBomb()
-    ])
-]
-
-Sector2NettoriZone.locations = [
-    FusionLocation("Sector 2 (TRO) -- Nettori Arena", True, [
-        CanFightMidGameBoss(),
-        CanFightMidGameBossOnAdvanced()
-    ]),
-    FusionLocation("Sector 2 (TRO) -- Overgrown Cache", False, [HasMorph()]),
-    FusionLocation("Sector 2 (TRO) -- Puyo Palace", False, [
-        Requirement("Obtain Puyo Palace Item from Above",
-                    [],
-                    0,
-                    [
-                        PONRRequirement("PONR - Puyo Palace Item from Above"),
-                        HasSpaceJump("Obtain Puyo Palace Item and Return")
-                    ])
     ])
 ]
