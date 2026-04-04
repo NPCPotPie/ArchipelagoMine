@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from .Requirement import Requirement
+from .Requirement import Requirement, PONRRequirement
 if TYPE_CHECKING:
     from ... import MetroidFusionOptions
 
@@ -955,7 +955,8 @@ class CanCollectCrumbleCity(Requirement):
                                                # Awaiting trick option evaluation. This is masochistic to perform.
                                                # [CanDoExpertCrumbleJank()]
                                            ]
-                                           # MARS changes the door type to a Level 0 Security Door. This is the original door requirement.
+                                           # MARS changes the door type to a Level 0 Security Door.
+                                           #    This is the original door requirement.
                                            # , [HasKeycard4()]
                                            )
                         ])
@@ -975,7 +976,88 @@ class CanObtainRipperTower(Requirement):
                         ["Morph Ball"],
                         0,
                         [CanFreezeEnemies()])
-        ])
+        ],)
         if name is None:
             name = "Can Obtain Ripper Tower"
+        super().__init__(name, items_needed, energy_tanks_needed, *requirements)
+
+class PONREnterBobsTunnelFromAbove(PONRRequirement, HasMorph, HasKeycard2):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 energy_tanks_needed = 0,
+                 *requirements):
+        if name is None:
+            name = "Can Enter Bob's Tunnel From Above"
+        super().__init__(name, items_needed, energy_tanks_needed, *requirements)
+
+class CanFightBOX(CanDamageToughEnemy):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 energy_tanks_needed = 0,
+                 *requirements):
+        requirements += ([CanJumpHigh(), CanDoSimpleWallJump()],)
+        if name is None:
+            name = "Can Fight BOX"
+        super().__init__(name, items_needed, max(energy_tanks_needed, level_2_e_tanks), *requirements)
+
+class CanClimbSector3Attic(Requirement):
+    def __init__(self,
+                 name=None,
+                 items_needed=None,
+                 energy_tanks_needed=0,
+                 *requirements):
+        requirements += ([
+                             CanDestroyBombBlocks()
+                         ], [
+            HasHiJump("Wall Jump Good",
+                      [],
+                      0,
+                      [CanDoAdvancedWallJump()]),
+            HasSpaceJump("Fly through Bomb Blocks", ["Screw Attack"]),
+            CanActivatePillar(),
+            CanFreezeEnemies("Step on Sidehopper",
+                             [],
+                             0,
+                             [
+                                 CanBomb("Bomb without killing your platform", ["Hi-Jump"]),
+                                 HasScrewAttack("Needed a stool")
+                             ], [CanDoSimpleWallJump()])
+        ],)
+        if name is None:
+            name = "Can Climb Sector 3 Attic"
+        super().__init__(name, items_needed, energy_tanks_needed, *requirements)
+
+class CanDoBoiler(CanDamageCoreX):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 energy_tanks_needed = 0,
+                 *requirements):
+        requirements += ([
+            # Required to get to the Boiler Control Room
+            # Main blocker is Pyrochamber Access
+            HasSpaceJump("Fly"),
+            CanFreezeEnemies("Freeze Funes",
+                             [],
+                             0,
+                             [
+                                 CanDoSimpleWallJump(),
+                                 HasHiJump()
+                             ])
+        ],)
+        if name is None:
+            name = "Can Do Boiler"
+        super().__init__(name, items_needed, max(energy_tanks_needed, level_2_e_tanks), *requirements)
+
+class CanGetSovaProcessingItem(HasMorph):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 energy_tanks_needed = 0,
+                 *requirements):
+        requirements += ([HasSpaceJump(), CanFreezeEnemies()],)
+        if name is None:
+            name = "Can Get Sova Processing Item"
         super().__init__(name, items_needed, energy_tanks_needed, *requirements)

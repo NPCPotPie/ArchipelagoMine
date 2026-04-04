@@ -161,12 +161,12 @@ Sector1TourianHubElevatorTop.connections = [
 ]
 
 Sector1TubeLeft.connections = [
-    VariableConnection(Sector3TubeRight, [])
+    VariableConnection(Sector3TubeRight, [Requirement("Walking")])
 ]
 
 Sector1TubeRight.connections = [
     Connection(Sector1Antechamber, [CanBallJump("Jump Into Tunnel")]),
-    VariableConnection(Sector2TubeLeft, [])
+    VariableConnection(Sector2TubeLeft, [Requirement("Walking")])
 ]
 
 # Item Locations
@@ -177,7 +177,9 @@ Sector1AfterChargeCoreZone.locations = [
 ]
 
 Sector1Antechamber.locations = [
-    FusionLocation("Sector 1 (SRX) -- Antechamber", False, [])
+    FusionLocation("Sector 1 (SRX) -- Antechamber", False, [
+        Requirement("Freestanding Item")
+    ])
 ]
 
 Sector1ChargeCoreZone.locations = [
@@ -271,7 +273,9 @@ Sector1SecondStabilizerZone.locations = [
         HasSpaceJump("Lava Lake Far Shelf - Fly"),
         CanDoBeginnerShinespark("Lava Lake Far Shelf - Shinespark")
     ]),
-    FusionLocation("Sector 1 (SRX) -- Lava Lake -- Upper Right Item", False, []),
+    FusionLocation("Sector 1 (SRX) -- Lava Lake -- Upper Right Item", False, [
+        Requirement("Freestanding Item")
+    ]),
 ]
 
 Sector1TourianHub.locations = [

@@ -266,14 +266,14 @@ SectorHubElevatorTop.locations = [
 
 UpperArachnusArena.locations = [
     FusionLocation("Main Deck -- Arachnus Arena -- Upper Item", False, [
-        Requirement("Can't Miss It")
+        Requirement("Freestanding Item")
     ]),
     FusionLocation("Main Deck -- Attic", False, [HasMissile("Blast Open the Ceiling")]),
 ]
 
 VentilationZone.locations = [
     FusionLocation("Main Deck -- Operations Ventilation", False, [
-        Requirement("Can't Miss It")
+        Requirement("Freestanding Item")
     ]),
     FusionLocation("Main Deck -- Operations Ventilation Storage", False, [
         Requirement("Grab Hidden Block Item")
