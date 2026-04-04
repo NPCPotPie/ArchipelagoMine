@@ -10,6 +10,39 @@ from ..regions.Sector2 import Sector2TubeLeft
 from ..regions.Sector3 import Sector3TubeRight
 from ..regions.Sector6 import Sector6RestrictedZoneElevatorToTourian
 
+# Region Connections
+Sector1AfterChargeCoreZone.connections = [
+    Connection(Sector1FirstStabilizerZone, [Requirement("Shutter Gate")], one_way=True)
+]
+
+Sector1Antechamber.connections = [
+    Connection(Sector1Hub, [
+        HasKeycard2("Enter Antechamber - Bottom Half and Open Door", ["Screw Attack"])
+    ], one_way=True),
+    Connection(Sector1TubeRight, [HasMorph("Secret Tunnel")], one_way=True)
+]
+
+Sector1ChargeCoreZone.connections = [
+    Connection(Sector1AfterChargeCoreZone, [HasMissile("Have to Kill Beam Core X")])
+]
+
+Sector1FirstStabilizerZone.connections = [
+    Connection(Sector1SecondStabilizerZone, []),
+    Connection(Sector1AfterChargeCoreZone, [HasWaveBeam("Backwards Travel")]),
+]
+
+Sector1FourthStabilizerZone.connections = [
+    Connection(Sector1ChargeCoreZone, [
+        Requirement("Enter Charge Core Zone",
+                    ["Morph Ball"],
+                    0,
+                    [
+                        HasMissile("License to Kill"),
+                        PONRRequirement("PONR - Enter Charge Core Zone", ["Charge Beam"])
+                    ])
+    ], one_way=True),
+]
+
 Sector1Hub.connections = [
     VariableConnection(SectorHubElevator1Top, [Requirement("Use Elevator")]),
     Connection(Sector1Antechamber, [
@@ -36,27 +69,6 @@ Sector1Hub.connections = [
     ]),
 ]
 
-Sector1Antechamber.connections = [
-    Connection(Sector1Hub, [
-        HasKeycard2("Enter Antechamber - Bottom Half and Open Door", ["Screw Attack"])
-    ], one_way=True),
-    Connection(Sector1TubeRight, [HasMorph("Secret Tunnel")], one_way=True)
-]
-
-Sector1TubeRight.connections = [
-    Connection(Sector1Antechamber, [CanBallJump("Jump Into Tunnel")]),
-    VariableConnection(Sector2TubeLeft, [])
-]
-
-Sector1TubeLeft.connections = [
-    VariableConnection(Sector3TubeRight, [])
-]
-
-Sector1FirstStabilizerZone.connections = [
-    Connection(Sector1SecondStabilizerZone, []),
-    Connection(Sector1AfterChargeCoreZone, [HasWaveBeam("Backwards Travel")]),
-]
-
 Sector1SecondStabilizerZone.connections = [
     Connection(Sector1ThirdStabilizerZone, [CanDamageStabilizer(), CanDamageAnyGeron()])
 ]
@@ -75,26 +87,6 @@ Sector1ThirdStabilizerZone.connections = [
                            HasSpaceJump("Fly")
                        ]),
     ], one_way=True)
-]
-
-Sector1FourthStabilizerZone.connections = [
-    Connection(Sector1ChargeCoreZone, [
-        Requirement("Enter Charge Core Zone",
-                    ["Morph Ball"],
-                    0,
-                    [
-                        HasMissile("License to Kill"),
-                        PONRRequirement("PONR - Enter Charge Core Zone", ["Charge Beam"])
-                    ])
-    ], one_way=True),
-]
-
-Sector1ChargeCoreZone.connections = [
-    Connection(Sector1AfterChargeCoreZone, [HasMissile("Have to Kill Beam Core X")])
-]
-
-Sector1AfterChargeCoreZone.connections = [
-    Connection(Sector1FirstStabilizerZone, [Requirement("Shutter Gate")], one_way=True)
 ]
 
 Sector1TourianExit.connections = [
@@ -168,58 +160,24 @@ Sector1TourianHubElevatorTop.connections = [
     ], one_way=True)
 ]
 
+Sector1TubeLeft.connections = [
+    VariableConnection(Sector3TubeRight, [])
+]
+
+Sector1TubeRight.connections = [
+    Connection(Sector1Antechamber, [CanBallJump("Jump Into Tunnel")]),
+    VariableConnection(Sector2TubeLeft, [])
+]
+
+# Item Locations
+Sector1AfterChargeCoreZone.locations = [
+    FusionLocation("Sector 1 (SRX) -- Crab Rave", False, [
+        HasMorph("Enter Crab Rave", ["Missile Data"])
+    ])
+]
+
 Sector1Antechamber.locations = [
     FusionLocation("Sector 1 (SRX) -- Antechamber", False, [])
-]
-
-Sector1FirstStabilizerZone.locations = [
-    FusionLocation("Sector 1 (SRX) -- Atmospheric Stabilizer Northeast", False, [
-        Requirement("Collect Atmospheric Stabilizer NE Item",
-                    [],
-                    0,
-                    [
-                        PONRRequirement("PONR - Collect Atmospheric Stabilizer NE Item"),
-                        CanDamageStabilizer("Atmospheric Stabilizer NE - Vanilla Kill"),
-                        CanDamageAnyGeron("Atmospheric Stabilizer NE - Alternate Kill"),
-                        CanDoAdvancedShinespark("Atmospheric Stabilizer NE - Shinespark Kill"),
-                    ])
-    ]),
-    FusionLocation("Sector 1 (SRX) -- Hornoad Hole", False, [HasMorph("Secret Tunnel")]),
-    FusionLocation("Sector 1 (SRX) -- Wall Jump Tutorial", False, [
-        HasMorph("Enter Wall Jump Tutorial",
-                 [],
-                 0,
-                 [HasWallJump(), HasSpaceJump()]),
-        CanBallJump("Enter Wall Jump Tutorial - Skill Issue",
-                    [],
-                    0,
-                    [HasWallJump(), HasSpaceJump()])
-    ])
-]
-
-Sector1SecondStabilizerZone.locations = [
-    FusionLocation("Sector 1 (SRX) -- Lava Lake -- Lower Item", False, [
-        CanLavaDive("Lava Bath - Enter Tunnel", ["Morph Ball"])
-    ]),
-    FusionLocation("Sector 1 (SRX) -- Lava Lake -- Upper Left Item", False, [
-        HasSpaceJump("Lava Lake Far Shelf - Fly"),
-        CanDoBeginnerShinespark("Lava Lake Far Shelf - Shinespark")
-    ]),
-    FusionLocation("Sector 1 (SRX) -- Lava Lake -- Upper Right Item", False, []),
-]
-
-Sector1FourthStabilizerZone.locations = [
-    FusionLocation("Sector 1 (SRX) -- Stabilizer Storage", False, [
-        CanDamageStabilizer("Can Kill Atmospheric Stabilizer SE - Vanilla"),
-        CanDamageAnyGeron("Can Kill Atmospheric Stabilizer SE - Alternate",
-                          [],
-                          0,
-                          [
-                              HasHiJump(),
-                              CanDoSimpleWallJump(),
-                              CanPowerBomb()
-                          ])
-    ])
 ]
 
 Sector1ChargeCoreZone.locations = [
@@ -266,10 +224,54 @@ Sector1ChargeCoreZone.locations = [
     ])
 ]
 
-Sector1AfterChargeCoreZone.locations = [
-    FusionLocation("Sector 1 (SRX) -- Crab Rave", False, [
-        HasMorph("Enter Crab Rave", ["Missile Data"])
+Sector1FirstStabilizerZone.locations = [
+    FusionLocation("Sector 1 (SRX) -- Atmospheric Stabilizer Northeast", False, [
+        Requirement("Collect Atmospheric Stabilizer NE Item",
+                    [],
+                    0,
+                    [
+                        PONRRequirement("PONR - Collect Atmospheric Stabilizer NE Item"),
+                        CanDamageStabilizer("Atmospheric Stabilizer NE - Vanilla Kill"),
+                        CanDamageAnyGeron("Atmospheric Stabilizer NE - Alternate Kill"),
+                        CanDoAdvancedShinespark("Atmospheric Stabilizer NE - Shinespark Kill"),
+                    ])
+    ]),
+    FusionLocation("Sector 1 (SRX) -- Hornoad Hole", False, [HasMorph("Secret Tunnel")]),
+    FusionLocation("Sector 1 (SRX) -- Wall Jump Tutorial", False, [
+        HasMorph("Enter Wall Jump Tutorial",
+                 [],
+                 0,
+                 [HasWallJump(), HasSpaceJump()]),
+        CanBallJump("Enter Wall Jump Tutorial - Skill Issue",
+                    [],
+                    0,
+                    [HasWallJump(), HasSpaceJump()])
     ])
+]
+
+Sector1FourthStabilizerZone.locations = [
+    FusionLocation("Sector 1 (SRX) -- Stabilizer Storage", False, [
+        CanDamageStabilizer("Can Kill Atmospheric Stabilizer SE - Vanilla"),
+        CanDamageAnyGeron("Can Kill Atmospheric Stabilizer SE - Alternate",
+                          [],
+                          0,
+                          [
+                              HasHiJump(),
+                              CanDoSimpleWallJump(),
+                              CanPowerBomb()
+                          ])
+    ])
+]
+
+Sector1SecondStabilizerZone.locations = [
+    FusionLocation("Sector 1 (SRX) -- Lava Lake -- Lower Item", False, [
+        CanLavaDive("Lava Bath - Enter Tunnel", ["Morph Ball"])
+    ]),
+    FusionLocation("Sector 1 (SRX) -- Lava Lake -- Upper Left Item", False, [
+        HasSpaceJump("Lava Lake Far Shelf - Fly"),
+        CanDoBeginnerShinespark("Lava Lake Far Shelf - Shinespark")
+    ]),
+    FusionLocation("Sector 1 (SRX) -- Lava Lake -- Upper Right Item", False, []),
 ]
 
 Sector1TourianHub.locations = [
