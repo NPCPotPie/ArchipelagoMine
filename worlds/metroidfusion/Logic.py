@@ -29,6 +29,8 @@ class LogicObject:
                 requirement_list.remove("Wall Jump Boots")
             while "Nothing" in requirement_list:
                 requirement_list.remove("Nothing")
+            while "Point of No Return" in requirement_list:
+                requirement_list.remove("Point of No Return")
             if energy_tanks > 0:
                 if self.options.ElevatorShuffle.value > self.options.ElevatorShuffle.option_none:
                     energy_tanks = energy_tanks // 2
