@@ -30,7 +30,7 @@ for item in all_item_data:
 
 item_names = [item for item in item_table.keys()]
 
-valid_item_names = [*item_names, *[event[3] for event in events], "Wall Jump Boots"]
+valid_item_names = [*item_names, *[event[3] for event in events], "Wall Jump Boots", "Point of No Return"]
 
 # Everything not listed here has a quantity of one
 default_item_quantities = {
