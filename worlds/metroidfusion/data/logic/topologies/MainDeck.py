@@ -36,8 +36,8 @@ MainDeckHub.connections = [
     Connection(UpperArachnusArena, [
         HasMorph("Use Hidden Screw Attack Tunnel",
                  ["Screw Attack"],
-                 [CanJumpHigh(), CanDoSimpleWallJump()]
-                 )
+                 0,
+                 [CanJumpHigh(), CanDoSimpleWallJump()])
     ]),
     Connection(HabitationDeckElevatorBottom, [HasKeycard2("Open Elevator Door with Level 2 Keycard")]),
     Connection(SectorHubElevatorTop, [
@@ -47,14 +47,17 @@ MainDeckHub.connections = [
     Connection(ReactorZone, [
         HasMorph("Can Enter Reactor Zone",
                  [],
-                 [HasKeycard4("Open Door to Reactor Zone with Level 4 Keycard"),
-                  CanPowerBomb("Can Blow Up Wall to Reactor Zone")],
-                 [],
-                 level_2_e_tanks
-                 )
+                 level_2_e_tanks,
+                 [
+                     HasKeycard4("Open Door to Reactor Zone with Level 4 Keycard"),
+                     CanPowerBomb("Can Blow Up Wall to Reactor Zone")
+                 ])
     ]),
     Connection(NexusStorage, [
-        HasKeycard2("Can Enter Nexus Storage",[],[CanDamageLargeGeron(), CanDamageAnyGeron()])
+        HasKeycard2("Can Enter Nexus Storage",
+                    [],
+                    0,
+                    [CanDamageLargeGeron(), CanDamageAnyGeron()])
     ])
 ]
 
@@ -73,29 +76,31 @@ OperationsDeck.connections = [
 
 ReactorZone.connections = [
     Connection(YakuzaZone, [
-        PONRRequirement("PONR - Can Access Yakuza - Vanilla Route",
-                        [],
-                        [
-                            CanDamageToughEnemy("Can Kill Kihunter, Pirate, and Eyedoor, and Enter Yakuza Arena",
-                                                ["Morph Ball"],
-                                                [CanBomb(), CanPowerBomb(), HasWaveBeam()])
-                        ]),
-        HasSpaceJump("Can Access Yakuza - Vanilla Route",
-                     [],
-                     [
-                         CanDamageToughEnemy("Can Kill Kihunter, Pirate, and Eyedoor, and Enter Yakuza Arena",
-                                             ["Morph Ball"],
-                                             [CanBomb(), CanPowerBomb(), HasWaveBeam()])
-                     ]),
+        Requirement("Can Access Yakuza - Vanilla Route",
+                    ["Morph Ball"],
+                    0,
+                    [
+                        CanDamageToughEnemy("Can Kill Kihunter, Pirate, and Eyedoor")
+                    ], [
+                        CanBomb("Destroy Block with Bomb"),
+                        CanPowerBomb("Destroy Block with Power Bomb"),
+                        HasWaveBeam("Destroy Block with Wave Beam")
+                    ], [
+                        HasSpaceJump("Can Enter and Fly out of Yakuza's Arena"),
+                        PONRRequirement("PONR - Can Enter Yakuza'a Arena")
+                    ]),
     ], one_way=True),
     Connection(AuxiliaryReactor, [HasWaveBeam("Can Open Auxiliary Gate Backwards")]),
     Connection(Sector2NettoriZone, [
-        HasSpaceJump("Can Get to Sector 2 Backdoor", [], [
-            CanDamageToughEnemy("Can Kill Kihunter", [], [
-                CanBomb("Traverse Tunnel with Bomb"),
-                CanPowerBomb("Traverse Tunnel with Power Bomb")
-            ])
-        ])
+        HasSpaceJump("Can Get to Sector 2 Backdoor",
+                     [],
+                     0,
+                     [
+                         CanDamageToughEnemy("Can Kill Kihunter")
+                     ], [
+                         CanBomb("Traverse Tunnel with Bomb"),
+                         CanPowerBomb("Traverse Tunnel with Power Bomb")
+                     ])
     ], one_way=True)
 ]
 
@@ -152,8 +157,13 @@ UpperArachnusArena.connections = [
 
 VentilationZone.connections = [
     Connection(UpperArachnusArena, [
-        PONRRequirement("PONR - Kill Eyedoor", [], [CanDamageToughEnemy()]),
-        CanDamageToughEnemy("Kill Eyedoor", ["Morph Ball"])
+        CanDamageToughEnemy("Enter Arachnus Arena through Eyedoor",
+                            [],
+                            0,
+                            [
+                                HasMorph("Can Leave Arachnus Arena"),
+                                PONRRequirement("PONR - Can Enter Arachnus Fight")
+                            ])
     ], one_way=True)
 ]
 
@@ -168,21 +178,36 @@ AuxiliaryReactor.locations = [
 
 HabitationDeck.locations = [
     FusionLocation("Main Deck -- Habitation Deck -- Animals", True, [
-        HasSpaceJump("Vanilla Route with Space Jump",
-                     ["Speed Booster", "Level 2 Keycard"]),
-        CanFreezeEnemies("Vanilla Route",
-                         ["Level 2 Keycard", "Speed Booster"],
-                         [HasHiJump(), CanDoAdvancedWallJump()]),
-        CanFreezeEnemies("Backwards Gates on Lower Floor",
-                         ["Level 2 Keycard", "Wave Beam"],
-                         [HasHiJump(), CanDoSimpleWallJump()])
+        HasKeycard2("Enter Habitation Deck",
+                    [],
+                    0,
+                    [
+                        HasSpaceJump("Vanilla Route to Animals Terminal with Space Jump",
+                                     ["Speed Booster"]),
+                        CanFreezeEnemies("Vanilla Route to Animals Terminal without Space Jump",
+                                         ["Speed Booster"],
+                                         0,
+                                         [HasHiJump(), CanDoAdvancedWallJump()]),
+                        CanFreezeEnemies("Go Backwards through Gates on Lower Floor",
+                                         ["Wave Beam"],
+                                         0,
+                                         [CanJumpHigh(), CanDoSimpleWallJump()])
+                    ])
+
     ]),
     FusionLocation("Main Deck -- Habitation Deck -- Lower Item", False, [
-        HasSpaceJump("Vanilla Route with Space Jump", ["Level 2 Keycard"]),
-        HasWaveBeam("Backwards Gates on Lower Floor", ["Level 2 Keycard"]),
-        CanFreezeEnemies("Vanilla Route",
-                         ["Level 2 Keycard"],
-                         [HasHiJump(), CanDoAdvancedWallJump()])
+        HasKeycard2("Enter Habitation Deck",
+                    [],
+                    0,
+                    [
+                        HasSpaceJump("Vanilla Route to Animals with Space Jump"),
+                        HasWaveBeam("Go Backwards through Gates on Lower Floor"),
+                        CanFreezeEnemies("Vanilla Route to Animals without Space Jump",
+                                         [],
+                                         0,
+                                         [HasHiJump(), CanDoAdvancedWallJump()])
+                    ])
+
     ])
 ]
 
@@ -193,7 +218,10 @@ LowerArachnusArena.locations = [
 MainDeckHub.locations = [
     FusionLocation("Main Deck -- Cubby Hole", False, [HasMorph()]),
     FusionLocation("Main Deck -- Genesis Speedway", False, [
-        CanPowerBomb("Vanilla", [], [CanBallJump(), CanDoSimpleWallJump()])
+        CanPowerBomb("Vanilla",
+                     [],
+                     0,
+                     [CanBallJump(), CanDoSimpleWallJump()])
     ]),
     FusionLocation("Main Deck -- Quarantine Bay", False, [Requirement("First X Kill")]),
     FusionLocation("Main Deck -- Station Entrance", False, [CanPowerBomb("Blow Up the Floor")]),
@@ -204,7 +232,10 @@ MainDeckHub.locations = [
 
 NexusStorage.locations = [
     FusionLocation("Main Deck -- Nexus Storage", False, [
-        CanBallJump("Enter Tunnel and Bomb Out", [], [CanBomb(), CanPowerBomb()])
+        CanBallJump("Enter Tunnel and Bomb Out",
+                    [],
+                    0,
+                    [CanBomb(), CanPowerBomb()])
     ])
 ]
 
@@ -215,12 +246,17 @@ OperationsDeck.locations = [
 ReactorZone.locations = [
     FusionLocation("Main Deck -- Silo Catwalk", False, [CanDamageToughEnemy("Kill Pirates")]),
     FusionLocation("Main Deck -- Silo Scaffolding", False, [
-        PONRRequirement("Can't Jump Good",
-                        ["Morph Ball"],
-                        [CanDamageToughEnemy("Kill Pirates")]),
-        CanDamageToughEnemy("Kill Pirates and Leave",
-                            ["Morph Ball"],
-                            [CanJumpHigh(), CanDoAdvancedWallJump()])
+        Requirement("Grab Silo Scaffolding Item",
+                    ["Morph Ball"],
+                    0,
+                    [
+                        PONRRequirement("PONR - Silo Scaffolding"),
+                        CanJumpHigh(),
+                        CanDoAdvancedWallJump()
+                    ], [
+                        CanDamageToughEnemy("Kill Pirates"),
+                        CanDoExpertCombat("Avoid Pirates")
+                    ])
     ])
 ]
 
@@ -240,7 +276,7 @@ VentilationZone.locations = [
         Requirement("Can't Miss It")
     ]),
     FusionLocation("Main Deck -- Operations Ventilation Storage", False, [
-        Requirement("In a Hidden Block")
+        Requirement("Grab Hidden Block Item")
     ])
 ]
 
