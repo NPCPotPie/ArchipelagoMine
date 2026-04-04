@@ -932,5 +932,50 @@ class SectorHubLevel1And2KeycardRequirement(HasKeycard1, HasKeycard2):
         else:
             return options.GameMode == options.GameMode.option_vanilla
 
-
 # endregion
+
+#region Prefab Requirements
+
+class CanCollectCrumbleCity(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 energy_tanks_needed = 0,
+                 *requirements):
+        requirements += ([
+            Requirement("Can Collect Crumble City Item",
+                        [],
+                        0,
+                        [
+                            HasScrewAttack("Break into Crumble City and Collect Item",
+                                           [],
+                                           0,
+                                           [
+                                               HasSpaceJump("Fly"),
+                                               # Awaiting trick option evaluation. This is masochistic to perform.
+                                               # [CanDoExpertCrumbleJank()]
+                                           ]
+                                           # MARS changes the door type to a Level 0 Security Door. This is the original door requirement.
+                                           # , [HasKeycard4()]
+                                           )
+                        ])
+        ],)
+        if name is None:
+            name = "Can Collect Crumble City"
+        super().__init__(name, items_needed, energy_tanks_needed, *requirements)
+
+class CanObtainRipperTower(Requirement):
+    def __init__(self,
+                 name = None,
+                 items_needed = None,
+                 energy_tanks_needed = 0,
+                 *requirements):
+        requirements += ([
+            Requirement("Can Obtain Ripper Tower Item",
+                        ["Morph Ball"],
+                        0,
+                        [CanFreezeEnemies()])
+        ])
+        if name is None:
+            name = "Can Obtain Ripper Tower"
+        super().__init__(name, items_needed, energy_tanks_needed, *requirements)
