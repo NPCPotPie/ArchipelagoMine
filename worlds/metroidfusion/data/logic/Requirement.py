@@ -83,6 +83,10 @@ class PONRRequirement(Requirement):
                  items_needed: list[str] = None,
                  energy_tanks_needed = 0,
                  *requirements: list[RequirementBase]):
+        if items_needed is None:
+            items_needed = ["Point of No Return"]
+        elif "Point of No Return" not in items_needed:
+            items_needed.append("Point of No Return")
         super().__init__(name, items_needed, energy_tanks_needed, *requirements)
 
     @staticmethod
