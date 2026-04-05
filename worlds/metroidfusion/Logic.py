@@ -155,7 +155,6 @@ def unpack_requirement(
                                 max(requirement.energy_tanks_needed, parent_energy_tanks),
                                 debug
                             )
-                            parent_items = copy(current_parent_items)
                     # Once combined, overwrite
                     and_possibilities = new_possibilities
                 # After completing last list of requirements, add them to the end of the current possibilities.
