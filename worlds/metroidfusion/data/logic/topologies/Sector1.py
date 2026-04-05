@@ -161,12 +161,12 @@ Sector1TourianHubElevatorTop.connections = [
 ]
 
 Sector1TubeLeft.connections = [
-    VariableConnection(Sector3TubeRight, [Requirement("Walking")])
+    VariableConnection(Sector3TubeRight, [])
 ]
 
 Sector1TubeRight.connections = [
     Connection(Sector1Antechamber, [CanBallJump("Jump Into Tunnel")]),
-    VariableConnection(Sector2TubeLeft, [Requirement("Walking")])
+    VariableConnection(Sector2TubeLeft, [])
 ]
 
 # Item Locations

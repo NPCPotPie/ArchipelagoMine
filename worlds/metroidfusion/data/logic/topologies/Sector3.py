@@ -67,7 +67,7 @@ Sector3Hub.connections = [
 ]
 
 Sector3TubeLeft.connections = [
-    VariableConnection(Sector5TubeRight, [Requirement("Walking")]),
+    VariableConnection(Sector5TubeRight, []),
     Connection(Sector3FieryStorageLeft, [
         HasScrewAttack("Exit Sector 3 West Tube",
                        [],
@@ -80,7 +80,7 @@ Sector3TubeLeft.connections = [
 ]
 
 Sector3TubeRight.connections = [
-    VariableConnection(Sector1TubeLeft, [Requirement("Walking")]),
+    VariableConnection(Sector1TubeLeft, []),
     Connection(Sector3UpperAttic, [
         PONRRequirement("PONR - Drop from Sector 3 East Tube", ["Screw Attack"])
     ], one_way=True)
