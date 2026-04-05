@@ -146,8 +146,6 @@ def unpack_requirement(
                     new_possibilities: list[list[str]] = []
                     for possibility in and_possibilities:
                         for nested_requirement in requirement.requirements[index]:
-                            current_parent_items = copy(parent_items)
-                            parent_items.extend(requirement.items_needed)
                             unpack_requirement(
                                 nested_requirement,
                                 new_possibilities,
