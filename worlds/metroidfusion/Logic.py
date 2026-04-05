@@ -176,7 +176,7 @@ def unpack_requirement(
                     debug
                 )
                 parent_items = copy(current_parent_items)
-        if requirement.items_needed:
+        elif requirement.items_needed:
             items_needed = copy(requirement.items_needed)
             items_needed.extend(parent_items)
             possibilities.append(items_needed)
