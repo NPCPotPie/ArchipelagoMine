@@ -19,6 +19,7 @@ class RequirementBase(ABC):
     """
     name: str
     items_needed: list[str]
+    hard_items_needed: list[str]
     energy_tanks_needed: int
     requirements: list[list[Self]]
 
@@ -26,6 +27,7 @@ class RequirementBase(ABC):
     def __init__(self,
                  name: str = None,
                  items_needed: list[str] = None,
+                 hard_items_needed: list[str] = None,
                  energy_tanks_needed: int = 0,
                  *requirements: list[Self]):
         if name is None:
@@ -35,6 +37,9 @@ class RequirementBase(ABC):
         if items_needed is None:
             items_needed = []
         self.items_needed = items_needed
+        if hard_items_needed is None:
+            hard_items_needed = []
+        self.hard_items_needed = hard_items_needed
         reqs: list[list[Self]] = []
         for requirement in requirements:
             if requirement:
@@ -45,10 +50,7 @@ class RequirementBase(ABC):
     def __repr__(self):
         return_string = f"Name: {self.name}\n"
         return_string += f"ItemsNeeded: [{', '.join(self.items_needed)}]\n"
-        # return_string += (f"Requirements1: "
-        #                   f"[{', '.join([requirement.name for requirement in self.requirements1])}]\n")
-        # return_string += (f"Requirements2: "
-        #                   f"[{', '.join([requirement.name for requirement in self.requirements2])}]\n")
+        return_string += f"HardItemsNeeded: [{', '.join(self.hard_items_needed)}]\n"
         return_string += f"EnergyTanks: {self.energy_tanks_needed}\n"
         return_string += "Requirements: ["
         if self.requirements:
@@ -70,9 +72,10 @@ class Requirement(RequirementBase):
     def __init__(self,
                  name: str = None,
                  items_needed: list[str] = None,
+                 hard_items_needed: list[str] = None,
                  energy_tanks_needed: int = 0,
                  *requirements: list[RequirementBase]):
-        super().__init__(name, items_needed, energy_tanks_needed, *requirements)
+        super().__init__(name, items_needed, hard_items_needed, energy_tanks_needed, *requirements)
 
 class PONRRequirement(Requirement):
     """Defines a set of requirements to be used when Point of No Returns are disabled.
@@ -81,13 +84,14 @@ class PONRRequirement(Requirement):
     def __init__(self,
                  name: str = "Point of No Return Requirement",
                  items_needed: list[str] = None,
+                 hard_items_needed: list[str] = None,
                  energy_tanks_needed = 0,
                  *requirements: list[RequirementBase]):
         if items_needed is None:
             items_needed = ["Point of No Return"]
         elif "Point of No Return" not in items_needed:
             items_needed.append("Point of No Return")
-        super().__init__(name, items_needed, energy_tanks_needed, *requirements)
+        super().__init__(name, items_needed, hard_items_needed, energy_tanks_needed, *requirements)
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:

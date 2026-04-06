@@ -17,6 +17,7 @@ Sector2Hub.connections = [
     Connection(Sector2LeftSide, [
         Requirement("Traverse from Data Room to Zig-Zag-Zone",
                     ["Morph Ball"],
+                    [],
                     0,
                     [
                         CanDestroyBombBlocks()
@@ -29,6 +30,7 @@ Sector2Hub.connections = [
     Connection(Sector2NettoriZone, [
         Requirement("Can Enter Hub Power Bomb Tunnel",
                     ["Morph Ball"],
+                    [],
                     0,
                     [
                         CanPowerBomb()
@@ -43,12 +45,14 @@ Sector2LeftSide.connections = [
     Connection(Sector2Hub, [
         Requirement("Climb Zig-Zag-Zone from Maintenance Wing",
                     ["Morph Ball"],
+                    [],
                     0,
                     [
                         CanBomb(),
                         CanPowerBomb()
                     ], [
                         HasSpaceJump(None,
+                                     [],
                                      [],
                                      0,
                                      [
@@ -73,6 +77,7 @@ Sector2ZazabiZone.connections = [
     Connection(Sector2LeftSide, [
         Requirement("Climb Maintenance Wing",
                     [],
+                    [],
                     0,
                     [
                         CanBomb(),
@@ -92,6 +97,7 @@ Sector2ZazabiZone.connections = [
     Connection(Sector2ZazabiZoneUpper, [
         Requirement("Climb Cathedral",
                     [],
+                    [],
                     0,
                     [
                         CanBomb(),
@@ -105,6 +111,7 @@ Sector2ZazabiZone.connections = [
 Sector2ZazabiZoneUpper.connections = [
     Connection(Sector2ZazabiZone, [
         PONRRequirement("PONR - Drop Down Cathedral",
+                        [],
                         [],
                         0,
                         [
@@ -130,6 +137,7 @@ Sector2Hub.locations = [
     FusionLocation("Sector 2 (TRO) -- Level 1 Security Room", True, [
         Requirement("Use the Security Terminal",
                     [],
+                    [],
                     0,
                     [
                         HasSpaceJump("Fly"),
@@ -139,6 +147,7 @@ Sector2Hub.locations = [
     ]),
     FusionLocation("Sector 2 (TRO) -- Lobby Cache", False, [
         HasKeycard1("Can Collect Lobby Cache",
+                    [],
                     [],
                     0,
                     [
@@ -152,6 +161,7 @@ Sector2LeftSide.locations = [
     FusionLocation("Sector 2 (TRO) -- Zig-Zag-Zone", False, [
         Requirement("Can Obtain Zig-Zag-Zone Item",
                     ["Morph Ball"],
+                    [],
                     0,
                     [
                         CanActivatePillar(),
@@ -169,6 +179,7 @@ Sector2NettoriZone.locations = [
     FusionLocation("Sector 2 (TRO) -- Puyo Palace", False, [
         Requirement("Obtain Puyo Palace Item from Above",
                     [],
+                    [],
                     0,
                     [
                         PONRRequirement("PONR - Puyo Palace Item from Above"),
@@ -180,6 +191,7 @@ Sector2NettoriZone.locations = [
 Sector2ZazabiZone.locations = [
     FusionLocation("Sector 2 (TRO) -- Cultivation Station", False, [
         Requirement("Can Obtain Cultivation Station Item",
+                    [],
                     [],
                     0,
                     [
@@ -196,10 +208,12 @@ Sector2ZazabiZone.locations = [
     FusionLocation("Sector 2 (TRO) -- Oasis Storage", False, [
         Requirement("Can Obtain Oasis Storage Item",
                     ["Morph Ball"],
+                    [],
                     0,
                     [
                         CanPowerBomb("Power Bomb the Block and Use the Pillar"),
                         CanBomb("Use the Pillar to Bomb the Block",
+                                [],
                                 [],
                                 0,
                                 [
@@ -208,6 +222,7 @@ Sector2ZazabiZone.locations = [
                                     # CanDoAdvancedMovement()
                                 ]),
                         HasGravity("Move Underwater",
+                                   [],
                                    [],
                                    0,
                                    [
@@ -224,6 +239,7 @@ Sector2ZazabiZone.locations = [
     FusionLocation("Sector 2 (TRO) -- Ripper Tower -- Lower Item", False, [
         PONRRequirement("PONR - Ripper Tower Lower Item",
                         [],
+                        [],
                         0,
                         [CanObtainRipperTower()]),
         CanDestroyBombBlocks("Grab Ripper Tower Items and Leave",
@@ -234,16 +250,22 @@ Sector2ZazabiZone.locations = [
     FusionLocation("Sector 2 (TRO) -- Ripper Tower -- Upper Item", False, [
         PONRRequirement("PONR - Ripper Tower Upper Item",
                         [],
+                        [],
                         0,
                         [CanObtainRipperTower()]),
         CanDestroyBombBlocks("Grab Ripper Tower Items and Leave",
                              ["Morph Ball"],
+                             [],
                              0,
                              [CanObtainRipperTower()]),
     ]),
     FusionLocation("Sector 2 (TRO) -- Zazabi Arena", True, [
-        PONRRequirement("PONR - Fight Zazabi", [],0, [CanFightEarlyGameBoss()]),
-        CanJumpHigh("Fight Zazabi", [],0, [CanFightEarlyGameBoss()]),
+        PONRRequirement("PONR - Fight Zazabi", [],[], 0, [
+            CanFightEarlyGameBoss()
+        ]),
+        CanJumpHigh("Fight Zazabi", [],[], 0, [
+            CanFightEarlyGameBoss()
+        ]),
     ]),
     FusionLocation("Sector 2 (TRO) -- Zazabi Arena Access", False, []),
     FusionLocation("Sector 2 (TRO) -- Zazabi Speedway -- Lower Item", False, [
@@ -260,6 +282,7 @@ Sector2ZazabiZoneUpper.locations = [
     FusionLocation("Sector 2 (TRO) -- Dessgeega Dorm", False, [
         HasScrewAttack("Get Stuck in Dessgeega Dorm Item Alcove",
                        ["Morph Ball"],
+                       [],
                        0,
                        [PONRRequirement("PONR - Dessgeega Dorm")]),
         CanBomb(),

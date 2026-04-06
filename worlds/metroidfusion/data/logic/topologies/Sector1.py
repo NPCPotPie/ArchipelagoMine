@@ -35,6 +35,7 @@ Sector1FourthStabilizerZone.connections = [
     Connection(Sector1ChargeCoreZone, [
         Requirement("Enter Charge Core Zone",
                     ["Morph Ball"],
+                    [],
                     0,
                     [
                         HasMissile("License to Kill"),
@@ -48,6 +49,7 @@ Sector1Hub.connections = [
     Connection(Sector1Antechamber, [
         HasKeycard2("Enter Antechamber - Top Half",
                     ["Screw Attack"],
+                    [],
                     0,
                     [
                         HasSpaceJump("Fly"),
@@ -77,15 +79,17 @@ Sector1ThirdStabilizerZone.connections = [
     Connection(Sector1FourthStabilizerZone, [CanDamageStabilizer(), CanDamageAnyGeron()]),
     Connection(Sector1TourianExit, [
         Requirement("Enter Tourian Exit from Stabilizers",
-                       ["Morph Ball", "Screw Attack"],
-                       level_4_e_tanks,
-                       [
-                           PONRRequirement("PONR - Enter Tourian Exit from Stabilizers",
-                                           [],
-                                           0,
-                                           [CanFreezeEnemies("Use Rippers as platforms")]),
-                           HasSpaceJump("Fly")
-                       ]),
+                    ["Morph Ball", "Screw Attack"],
+                    [],
+                    level_4_e_tanks,
+                    [
+                        PONRRequirement("PONR - Enter Tourian Exit from Stabilizers",
+                                        [],
+                                        [],
+                                        0,
+                                        [CanFreezeEnemies("Use Rippers as platforms")]),
+                        HasSpaceJump("Fly")
+                    ]),
     ], one_way=True)
 ]
 
@@ -93,6 +97,7 @@ Sector1TourianExit.connections = [
     Connection(Sector1ThirdStabilizerZone, [
         Requirement("Break Out of Tourian Exit toward Stabilizers",
                     ["Space Jump", "Wave Beam", "Morph Ball"],
+                    [],
                     level_4_e_tanks,
                     [
                         # Must defeat SW or SE Stabilizers
@@ -103,6 +108,7 @@ Sector1TourianExit.connections = [
     Connection(Sector1TourianHub, [
         Requirement("Break Into Tourian from Exit",
                     ["Missile Data", "Screw Attack", "Morph Ball"],
+                    [],
                     level_3_e_tanks,
                     [
                         HasSpaceJump("Fly"),
@@ -118,6 +124,7 @@ Sector1TourianHub.connections = [
     Connection(Sector1TourianExit, [
         HasMissile("Open and Enter Tunnel to Tourian Exit",
                    ["Morph Ball", "Screw Attack", "Wave Beam"],
+                   [],
                    level_4_e_tanks,
                    [
                        HasSpaceJump(),
@@ -126,6 +133,7 @@ Sector1TourianHub.connections = [
     ]),
     Connection(Sector1TourianHubElevatorTop, [
         Requirement("Traverse Tourian Hub to/from Tourian Elevator",
+                    [],
                     [],
                     level_4_e_tanks,
                     [
@@ -136,6 +144,7 @@ Sector1TourianHub.connections = [
                         CanDoExpertCombat(),
                         CanDoAdvancedCombat(None,
                                             [],
+                                            [],
                                             0,
                                             [
                                                 CanDamageToughEnemy("Kill Pirate and Kill/Stun Gerubus")
@@ -144,6 +153,7 @@ Sector1TourianHub.connections = [
                                             ]),
                         Requirement("Trickless Combat",
                                     ["Missile Data"],
+                                    [],
                                     0,
                                     [
                                         CanFreezeEnemies(),
@@ -156,7 +166,7 @@ Sector1TourianHub.connections = [
 Sector1TourianHubElevatorTop.connections = [
     VariableConnection(Sector6RestrictedZoneElevatorToTourian, [Requirement("Use Elevator")]),
     Connection(Sector1TourianHub, [
-        PONRRequirement("PONR - Leaving Tourian Elevator", [], level_4_e_tanks)
+        PONRRequirement("PONR - Leaving Tourian Elevator", [], [], level_4_e_tanks)
     ], one_way=True)
 ]
 
@@ -189,6 +199,7 @@ Sector1ChargeCoreZone.locations = [
     FusionLocation("Sector 1 (SRX) -- Charge Core Arena -- Upper Item", False, [
         Requirement("Obtain Charge Core Upper Item",
                     ["Speed Booster"],
+                    [],
                     0,
                     [
                         CanFightEarlyGameBoss("Kill the Core X First"),
@@ -197,6 +208,7 @@ Sector1ChargeCoreZone.locations = [
     ]),
     FusionLocation("Sector 1 (SRX) -- Watering Hole", False, [
         CanBallJump("Grab Watering Hole Item",
+                    [],
                     [],
                     0,
                     [
@@ -208,6 +220,7 @@ Sector1ChargeCoreZone.locations = [
                         CanDoAdvancedShinespark("Avoid the Crab"),
                         CanDoBeginnerShinespark("Alternate Kill the Crab",
                                                 [],
+                                                [],
                                                 0,
                                                 [
                                                     HasWaveBeam(),
@@ -215,6 +228,7 @@ Sector1ChargeCoreZone.locations = [
                                                     CanPowerBomb()
                                                 ]),
                         Requirement("Trickless - Kill the Crab",
+                                    [],
                                     [],
                                     0,
                                     [
@@ -230,6 +244,7 @@ Sector1FirstStabilizerZone.locations = [
     FusionLocation("Sector 1 (SRX) -- Atmospheric Stabilizer Northeast", False, [
         Requirement("Collect Atmospheric Stabilizer NE Item",
                     [],
+                    [],
                     0,
                     [
                         PONRRequirement("PONR - Collect Atmospheric Stabilizer NE Item"),
@@ -242,9 +257,11 @@ Sector1FirstStabilizerZone.locations = [
     FusionLocation("Sector 1 (SRX) -- Wall Jump Tutorial", False, [
         HasMorph("Enter Wall Jump Tutorial",
                  [],
+                 [],
                  0,
                  [HasWallJump(), HasSpaceJump()]),
         CanBallJump("Enter Wall Jump Tutorial - Skill Issue",
+                    [],
                     [],
                     0,
                     [HasWallJump(), HasSpaceJump()])
@@ -255,6 +272,7 @@ Sector1FourthStabilizerZone.locations = [
     FusionLocation("Sector 1 (SRX) -- Stabilizer Storage", False, [
         CanDamageStabilizer("Can Kill Atmospheric Stabilizer SE - Vanilla"),
         CanDamageAnyGeron("Can Kill Atmospheric Stabilizer SE - Alternate",
+                          [],
                           [],
                           0,
                           [
@@ -282,6 +300,7 @@ Sector1TourianHub.locations = [
     FusionLocation("Sector 1 (SRX) -- Animorphs Cache", False, [
         CanDamageToughEnemyThroughWalls("Kill the Yard",
                                         [],
+                                        [],
                                         0,
                                         [
                                             # Awaiting ammo requirement implementation
@@ -296,6 +315,7 @@ Sector1TourianHub.locations = [
     ]),
     FusionLocation("Sector 1 (SRX) -- Neo-Ridley Arena", True, [
         Requirement("Enter Neo-Ridley Arena",
+                    [],
                     [],
                     0,
                     [
@@ -313,10 +333,11 @@ Sector1TourianHub.locations = [
                     ], [
                         # Do Ridley Fight
                         CanFightMidGameBoss("Ridley Trickless",
-                                             [],
-                                             level_4_e_tanks,
-                                             [CanUseAllMissileUpgrades()],
-                                             [CanUseAllBeamUpgrades()]),
+                                            [],
+                                            [],
+                                            level_4_e_tanks,
+                                            [CanUseAllMissileUpgrades()],
+                                            [CanUseAllBeamUpgrades()]),
                         CanFightLateGameBossOnAdvanced("Ridley On Advanced",["Plasma Beam"]),
                         CanFightBossOnExpert("Ridley On Expert")
                     ], [
@@ -327,6 +348,7 @@ Sector1TourianHub.locations = [
     FusionLocation("Sector 1 (SRX) -- Ripper Maze", False, [
         Requirement("Collect Ripper Maze Item",
                     ["Missile Data", "Morph Ball"],
+                    [],
                     0,
                     [
                         CanBallJump("Can Leave after Ripper Maze Item"),

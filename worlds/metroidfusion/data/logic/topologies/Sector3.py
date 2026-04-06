@@ -14,12 +14,14 @@ Sector3Hub.connections = [
     Connection(Sector3FieryStorageRight, [
         PONRRequirement("PONR - Shinespark to Fiery Storage",
                         ["Varia Suit"],
+                        [],
                         0,
                         [CanDoBeginnerShinespark()])
     ], one_way=True),
     Connection(Sector3SecurityZone, [HasSpeedBooster()]),
     Connection(Sector3MainShaft, [
         HasSpeedBooster("Enter Sector 3 Main Shaft",
+                        [],
                         [],
                         0,
                         [
@@ -36,6 +38,7 @@ Sector3Hub.connections = [
     Connection(Sector3BobZone, [
         HasKeycard2("Enter Bob's Abode",
                     ["Morph Ball"],
+                    [],
                     0,
                     [
                         CanDamageMediumGeron(),
@@ -49,6 +52,7 @@ Sector3Hub.connections = [
     Connection(Sector3BOXZone, [
         HasKeycard2("Enter BOX's Zone",
                     [],
+                    [],
                     0,
                     [
                         CanDamageMediumGeron(),
@@ -58,6 +62,7 @@ Sector3Hub.connections = [
     Connection(Sector3LowerAttic, [
         HasMorph("Enter Attic from Sector 3 Entrance",
                  ["Screw Attack"],
+                 [],
                  0,
                  [
                      HasSpaceJump(),
@@ -70,6 +75,7 @@ Sector3TubeLeft.connections = [
     VariableConnection(Sector5TubeRight, []),
     Connection(Sector3FieryStorageLeft, [
         HasScrewAttack("Exit Sector 3 West Tube",
+                       [],
                        [],
                        0,
                        [
@@ -91,6 +97,7 @@ Sector3FieryStorageRight.connections = [
     Connection(Sector3Hub, [
         Requirement("Cross Monkey Bars of Fire",
                     ["Varia Suit"],
+                    [],
                     0,
                     [
                         CanDamageToughEnemy(),
@@ -101,6 +108,7 @@ Sector3FieryStorageRight.connections = [
                     ]),
         CanDoBeginnerShinespark("Shinespark Across Monkey Bars of Fire",
                                 ["Varia Suit"],
+                                [],
                                 0,
                                 [CanDestroyBombBlocks()])
     ])
@@ -129,6 +137,7 @@ Sector3MainShaft.connections = [
     Connection(Sector3SovaProcessing, [
         HasKeycard2("Enter Sova Processing",
                     ["Varia Suit"],
+                    [],
                     level_2_e_tanks,
                     [
                         CanDestroyBombBlocks()
@@ -136,6 +145,7 @@ Sector3MainShaft.connections = [
                         HasSpaceJump("Fly to Upper Door"),
                         HasWaveBeam("Open Gate Backwards"),
                         CanDoBeginnerShinespark("Shinespark to Upper Door",
+                                                [],
                                                 [],
                                                 0,
                                                 [CanDamageToughEnemy()]),
@@ -148,10 +158,12 @@ Sector3BobZone.connections = [
     Connection(Sector3BOXZone, [
         HasKeycard2("Leave Bob's Abode to BOX Zone",
                     ["Morph Ball"],
+                    [],
                     0,
                     [
                         CanBomb(),
                         HasHiJump("Destroy Blocks to Ascend Tunnel",
+                                  [],
                                   [],
                                   0,
                                   [
@@ -164,6 +176,7 @@ Sector3BobZone.connections = [
     Connection(Sector3Hub, [
         PONRRequirement("PONR - Drop Down Bob's Poop Chute",
                         ["Morph Ball"],
+                        [],
                         0,
                         [CanDestroyBombBlocks()]),
     ], one_way=True),
@@ -190,6 +203,7 @@ Sector3UpperAttic.connections = [
     Connection(Sector3TubeRight, [
         HasScrewAttack("Climb to Sector 3 East Tube",
                        [],
+                       [],
                        0,
                        [
                            CanJumpHigh(),
@@ -199,10 +213,12 @@ Sector3UpperAttic.connections = [
     Connection(Sector3LowerAttic, [
         PONRRequirement("PONR - Sector 3 Upper Attic - Shinespark",
                         ["Speed Booster"],
+                        [],
                         0,
                         [CanDestroyBombBlocks()]),
         PONRRequirement("PONR - Sector 3 Upper Attic - Drop to Lower Path",
                         ["Morph Ball"],
+                        [],
                         0,
                         [CanDestroyBombBlocks()])
     ], one_way=True),
@@ -225,11 +241,13 @@ Sector3FieryStorageLeft.locations = [
     FusionLocation("Sector 3 (PYR) -- Fiery Storage -- Upper Item", False, [
         CanDestroyBombBlocks("Can Obtain Upper Fiery Storage Item",
                              ["Speed Booster"],
+                             [],
                              0,
                              [
                                  CanActivatePillar(),
                                  HasSpaceJump(),
                                  CanDoAdvancedShinespark("Charge from below and Wall Jump up before Shinespark",
+                                                         [],
                                                          [],
                                                          0,
                                                          [CanDoAdvancedWallJump()]),
@@ -252,11 +270,13 @@ Sector3SecurityZone.locations = [
         HasKeycard2(),
         PONRRequirement("PONR - Vanilla Path to Level 2 Security",
                         ["Speed Booster"],
+                        [],
                         0,
                         [CanBomb()])
     ]),
     FusionLocation("Sector 3 (PYR) -- Security Access", False, [
         CanDamageToughEnemy("Kill Sidehoppers then Jump Up",
+                            [],
                             [],
                             0,
                             [CanJumpHigh(), CanDoSimpleWallJump()]),
@@ -267,6 +287,7 @@ Sector3SecurityZone.locations = [
 Sector3MainShaft.locations = [
     FusionLocation("Sector 3 (PYR) -- Namihe's Lair", False, [
         CanPowerBomb("Enter Namihe's Lair and Grab Item",
+                     [],
                      [],
                      0,
                      [
@@ -282,6 +303,7 @@ Sector3MainShaft.locations = [
                          #                    #future CanDoAdvancedJumpBombJump()
                          #                 ]),
                          PONRRequirement("PONR - Namihe's Lair - Shinespark",
+                                         [],
                                          [],
                                          0,
                                          [CanDoAdvancedShinespark()])

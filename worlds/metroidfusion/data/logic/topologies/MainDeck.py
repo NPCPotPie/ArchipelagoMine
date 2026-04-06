@@ -36,6 +36,7 @@ MainDeckHub.connections = [
     Connection(UpperArachnusArena, [
         HasMorph("Use Hidden Screw Attack Tunnel",
                  ["Screw Attack"],
+                 [],
                  0,
                  [CanJumpHigh(), CanDoSimpleWallJump()])
     ]),
@@ -47,6 +48,7 @@ MainDeckHub.connections = [
     Connection(ReactorZone, [
         HasMorph("Can Enter Reactor Zone",
                  [],
+                 [],
                  level_2_e_tanks,
                  [
                      HasKeycard4("Open Door to Reactor Zone with Level 4 Keycard"),
@@ -55,6 +57,7 @@ MainDeckHub.connections = [
     ]),
     Connection(NexusStorage, [
         HasKeycard2("Can Enter Nexus Storage",
+                    [],
                     [],
                     0,
                     [CanDamageLargeGeron(), CanDamageAnyGeron()])
@@ -78,6 +81,7 @@ ReactorZone.connections = [
     Connection(YakuzaZone, [
         Requirement("Can Access Yakuza - Vanilla Route",
                     ["Morph Ball"],
+                    [],
                     0,
                     [
                         CanDamageToughEnemy("Can Kill Kihunter, Pirate, and Eyedoor")
@@ -93,6 +97,7 @@ ReactorZone.connections = [
     Connection(AuxiliaryReactor, [HasWaveBeam("Can Open Auxiliary Gate Backwards")]),
     Connection(Sector2NettoriZone, [
         HasSpaceJump("Can Get to Sector 2 Backdoor",
+                     [],
                      [],
                      0,
                      [
@@ -159,6 +164,7 @@ VentilationZone.connections = [
     Connection(UpperArachnusArena, [
         CanDamageToughEnemy("Enter Arachnus Arena through Eyedoor",
                             [],
+                            [],
                             0,
                             [
                                 HasMorph("Can Leave Arachnus Arena"),
@@ -180,16 +186,19 @@ HabitationDeck.locations = [
     FusionLocation("Main Deck -- Habitation Deck -- Animals", True, [
         HasKeycard2("Enter Habitation Deck",
                     [],
+                    [],
                     0,
                     [
                         HasSpaceJump("Vanilla Route to Animals Terminal with Space Jump",
                                      ["Speed Booster"]),
                         CanFreezeEnemies("Vanilla Route to Animals Terminal without Space Jump",
                                          ["Speed Booster"],
+                                         [],
                                          0,
                                          [HasHiJump(), CanDoAdvancedWallJump()]),
                         CanFreezeEnemies("Go Backwards through Gates on Lower Floor",
                                          ["Wave Beam"],
+                                         [],
                                          0,
                                          [CanJumpHigh(), CanDoSimpleWallJump()])
                     ])
@@ -198,11 +207,13 @@ HabitationDeck.locations = [
     FusionLocation("Main Deck -- Habitation Deck -- Lower Item", False, [
         HasKeycard2("Enter Habitation Deck",
                     [],
+                    [],
                     0,
                     [
                         HasSpaceJump("Vanilla Route to Animals with Space Jump"),
                         HasWaveBeam("Go Backwards through Gates on Lower Floor"),
                         CanFreezeEnemies("Vanilla Route to Animals without Space Jump",
+                                         [],
                                          [],
                                          0,
                                          [HasHiJump(), CanDoAdvancedWallJump()])
@@ -220,6 +231,7 @@ MainDeckHub.locations = [
     FusionLocation("Main Deck -- Genesis Speedway", False, [
         CanPowerBomb("Vanilla",
                      [],
+                     [],
                      0,
                      [CanBallJump(), CanDoSimpleWallJump()])
     ]),
@@ -233,6 +245,7 @@ MainDeckHub.locations = [
 NexusStorage.locations = [
     FusionLocation("Main Deck -- Nexus Storage", False, [
         CanBallJump("Enter Tunnel and Bomb Out",
+                    [],
                     [],
                     0,
                     [CanBomb(), CanPowerBomb()])
@@ -248,6 +261,7 @@ ReactorZone.locations = [
     FusionLocation("Main Deck -- Silo Scaffolding", False, [
         Requirement("Grab Silo Scaffolding Item",
                     ["Morph Ball"],
+                    [],
                     0,
                     [
                         PONRRequirement("PONR - Silo Scaffolding"),
