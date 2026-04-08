@@ -13,143 +13,265 @@ from ..regions.Sector6 import *
 
 Sector6Hub.connections = [
     VariableConnection(SectorHubElevator6Top, []),
-    Connection(Sector6Crossroads, [CanDefeatMediumGeron, CanDefeatAnyGeron, CanDoBeginnerShinespark]),
+    Connection(Sector6Crossroads, [
+        CanDamageMediumGeron(),
+        CanDamageAnyGeron(),
+        CanDoBeginnerShinespark()
+    ]),
     Connection(Sector6TubeLeft, [
-        PONRRequirement([], [HasScrewAttack])
+        PONRRequirement("PONR - Enter Sector 6 West Tube", [
+            HasScrewAttack()
+        ])
     ], one_way=True)
 ]
 
 Sector6TubeLeft.connections = [
     VariableConnection(Sector4TubeRight, []),
     Connection(Sector6Hub, [
-        HasScrewAttack([], [CanJumpHigh, CanDoSimpleWallJump, CanDoBeginnerShinespark])
+        HasScrewAttack("Leave Sector 6 West Tube", [
+            CanJumpHigh(),
+            CanDoSimpleWallJump(),
+            CanDoBeginnerShinespark()
+        ])
     ])
 ]
 
 Sector6TubeRight.connections = [
     VariableConnection(Sector5TubeLeft, []),
-    Connection(Sector6Crossroads, [HasScrewAttack])
+    Connection(Sector6Crossroads, [
+        HasScrewAttack()
+    ])
 ]
 
 Sector6Crossroads.connections = [
     Connection(Sector6BeforeXBOXZone, [
-        Requirement(["Varia Suit", "Level 4 Keycard"], [CanPowerBomb])
+        CanPowerBomb("Approach X-B.O.X. Arena", [
+            HasVaria()
+        ], [
+            HasKeycard4()
+        ], [
+            # Return from X-B.O.X. Arena?
+            HasSpaceJump(),
+            CanDoSimpleWallJump(),
+            CanFreezeEnemies()
+        ])
     ]),
     Connection(Sector6Catacombs, [
-        PONRRequirement([], [HasSpeedBooster]),
-        CanFightBoss(["Speed Booster", "Level 2 Keycard", "Varia Suit"], [CanBombOrPowerBomb])
-    ], one_way=True),
+        HasSpeedBooster("Nocturnal Playground <-> Catacombs", [
+            CanDoAdvancedShinespark(),
+            CanDoBeginnerShinespark(None, [
+                HasHiJump()
+            ]),
+            PONRRequirement("PONR - Nocturnal Playground -> Catacombs")
+        ]),
+    ]),
     Connection(Sector6AfterVariaCoreXZone, [
-        PONRRequirement(["Morph Ball"], [HasScrewAttack]),
-        Requirement(["Morph Ball", "Varia Suit"], [HasScrewAttack]),
-        CanFightBoss(["Level 2 Keycard", "Morph Ball", "Power Bomb Data", "Screw Attack"], [HasSpaceJump, CanDoAdvancedWallJump])
-    ], one_way=True)
+        HasMorph("Nocturnal Playground <-> Post-Varia Core X Zone", [
+            HasScrewAttack()
+        ], [
+            HasVaria(),
+            PONRRequirement("PONR - Nocturnal Playground -> Post-Varia Core X Zone")
+        ])
+    ])
 ]
 
 Sector6Catacombs.connections = [
     Connection(Sector6Crossroads, [
-        CanDoBeginnerShinespark(["Hi-Jump"], [HasSpaceJump], [], level_1_e_tanks),
-        CanDoAdvancedShinespark([], [], [], level_1_e_tanks)
-    ]),
+        CanDoAdvancedShinespark(energy_tanks_needed=level_1_e_tanks),
+        CanDoBeginnerShinespark(None, [
+            HasHiJump()
+        ], energy_tanks_needed=level_1_e_tanks),
+    ], one_way=True),
     Connection(Sector6BeforeVariaCoreXZone, [
-        PONRRequirement([], [CanBombOrPowerBomb]),
-        CanFightBoss(["Level 2 Keycard", "Varia Suit"], [CanBombOrPowerBomb])
+        Requirement("Catacombs -> Pre-Varia Core X Zone", [
+            CanBomb(),
+            CanPowerBomb()
+        ], [
+            HasKeycard2("Can pass through Sector 6 Data", [
+                HasVaria()
+            ]),
+            PONRRequirement("PONR - Catacombs -> Pre-Varia Core X Zone")
+        ])
     ], one_way=True)
 ]
 
 Sector6BeforeXBOXZone.connections = [
     Connection(Sector6XBOXZone, [
-        PONRRequirement(["Nothing"], [], [], level_4_e_tanks),
-        HasScrewAttack([], [HasSpaceJump, CanDoSimpleWallJump], [], level_4_e_tanks),
-        CanFreezeEnemies(["Hi-Jump"], [HasScrewAttack], [], level_4_e_tanks)
+        Requirement("Enter X-B.O.X. Arena", [
+            HasScrewAttack("Ascend X-B.O.X. Garage", [
+                CanJumpHigh()
+            ]),
+            HasWaveBeam("Exit to Restricted Zone"),
+            PONRRequirement("PONR - Enter X-B.O.X. Arena")
+        ], energy_tanks_needed=level_4_e_tanks)
     ], one_way=True)
 ]
 
 Sector6XBOXZone.connections = [
     Connection(Sector6AfterXBOXZone, [
-        CanFightLateGameBoss,
-        CanFightLategameBossOnAdvanced,
-        CanFightBossOnExpert
+        CanFightLateGameBoss(),
+        CanFightLateGameBossOnAdvanced(),
+        CanFightBossOnExpert()
     ])
 ]
 
 Sector6AfterXBOXZone.connections = [
     Connection(Sector6BeforeXBOXZone, [
-        HasScrewAttack([], [HasSpaceJump, CanDoSimpleWallJump]),
-        CanFreezeEnemies(["Hi-Jump"], [HasScrewAttack])
+        HasScrewAttack("Ascend X-B.O.X. Garage", [
+            CanJumpHigh()
+        ]),
     ], one_way=True),
     Connection(Sector6XBOXSave, [
-        PONRRequirement(["Nothing"], []),
-        Requirement([], [HasSpaceJump, CanFreezeEnemies, CanDoSimpleWallJumpWithHiJump, CanDoAdvancedWallJump], [], level_4_e_tanks),
-        CanDoBeginnerShinespark([], [CanDoSimpleWallJumpWithScrewAttack], [], level_4_e_tanks)
+        Requirement("Go to X-B.O.X. Save Station", [
+            HasSpaceJump(),
+            CanFreezeEnemies(),
+            CanDoSimpleWallJump(None, [
+                HasHiJump()
+            ]),
+            CanDoAdvancedWallJump(),
+            # CanDoBeginnerShinespark(None, [
+            #     HasKeycard4()
+            # ], [
+            #     #future CanDoJumpExtend()
+            # ])
+            PONRRequirement("PONR - X-B.O.X. Save Station")
+        ], energy_tanks_needed=level_4_e_tanks)
     ], one_way=True)
 ]
 
 Sector6XBOXSave.connections = [
     Connection(Sector6XBOXZone, [
-        Requirement([], [HasSpaceJump, CanFreezeEnemies, CanDoSimpleWallJumpWithHiJump, CanDoAdvancedWallJump], [], level_4_e_tanks),
-        CanDoBeginnerShinespark([], [CanDoSimpleWallJumpWithScrewAttack], [], level_4_e_tanks)
+        Requirement("Ascend from X-B.O.X. Save Station", [
+            HasSpaceJump(),
+            CanFreezeEnemies(),
+            CanDoSimpleWallJump(None, [
+                HasHiJump()
+            ]),
+            CanDoAdvancedWallJump(),
+            # CanDoBeginnerShinespark(None, [
+            #     HasKeycard4()
+            # ], [
+            #     #future CanDoJumpExtend()
+            # ])
+        ], energy_tanks_needed=level_4_e_tanks)
     ], one_way=True),
     Connection(Sector6RestrictedZone, [
-        PONRRequirement([], [HasWaveBeam])
+        HasWaveBeam("Exit to Restricted Zone", [
+            HasScrewAttack(None, [
+                HasSpaceJump()
+            ]),
+            HasSpeedBooster(),
+            PONRRequirement("PONR - Exit to Restricted Zone")
+        ], [
+            HasKeycard4()
+        ]),
     ], one_way=True)
 ]
 
 Sector6RestrictedZone.connections = [
     Connection(Sector6XBOXSave, [
-        HasScrewAttack(["Wave Beam"], [HasSpaceJump, CanDoSimpleWallJump])
+        HasScrewAttack("Leave Restricted Zone to Sector 6", [
+            HasSpaceJump()
+        ], [
+            HasMorph()
+        ], [
+            HasWaveBeam(),
+            PONRRequirement("PONR - Leave Restricted Zone to Sector 6")
+        ], [
+            HasKeycard4()
+        ])
     ]),
-    Connection(Sector6RestrictedZoneElevatorToTourian, [HasSpeedBooster], one_way=True)
+    Connection(Sector6RestrictedZoneElevatorToTourian, [
+        HasSpeedBooster(None, [
+            HasKeycard4()
+        ]),
+    ], one_way=True)
     #One day, elevator shuffle PONR pathing logic. One day.
 ]
 
 Sector6RestrictedZoneElevatorToTourian.connections = [
-    VariableConnection(Sector1TourianHubElevatorTop, [HasKeycard4])
+    VariableConnection(Sector1TourianHubElevatorTop, [
+        HasKeycard4()
+    ])
 ]
 
 Sector6BeforeVariaCoreXZone.connections = [
     Connection(Sector6Catacombs, [
-        CanPowerBomb([], [HasSpaceJump, CanDoAdvancedWallJump])
+        CanPowerBomb("Backwards Travel Pre-Varia Core X", [
+            HasSpaceJump(),
+            CanDoSimpleWallJump(None, [
+                HasHiJump()
+            ]),
+            CanDoAdvancedWallJump()
+        ]),
     ]),
     Connection(Sector6VariaCoreXZone, [
-        Requirement(["Level 2 Keycard"], [CanFightBoss])
+        HasKeycard2("Enter Varia Core X Arena", [
+            CanFightVariaCoreX()
+        ])
     ])
 ]
 
 Sector6VariaCoreXZone.connections = [
-    Connection(Sector6CavernsSave, [CanFightBoss])
+    Connection(Sector6CavernsSave, [
+        CanFightVariaCoreX()
+    ])
 ]
 
 Sector6AfterVariaCoreXZone.connections = [
     Connection(Sector6Crossroads, [
-        PONRRequirement([], [HasMorph]),
-        HasVaria(["Morph Ball"], [HasScrewAttack]),
-        CanFightBoss(["Speed Booster", "Level 2 Keycard", "Varia Suit"], [CanBombOrPowerBomb])
+        HasVaria("Twin Caverns -> Crossroads", [
+            HasMorph()
+        ])
     ], one_way=True),
     Connection(Sector6VariaCoreXZone, [
-        PONRRequirement([], [CanFightBoss]),
-        CanFightBoss(["Level 2 Keycard", "Morph Ball", "Power Bomb Data", "Screw Attack"], [HasSpaceJump, CanDoAdvancedWallJump]),
+        CanFightVariaCoreX()
     ], one_way=True)
 ]
 
 Sector6CavernsSave.connections = [
-    Connection(Sector6AfterVariaCoreXZone, [HasVaria])
+    Connection(Sector6AfterVariaCoreXZone, [
+        HasVaria()
+    ])
 ]
 
 Sector6Hub.locations = [
     FusionLocation("Sector 6 (NOC) -- Entrance Lobby", False, [
-        CanBallJump([], [CanDestroyBombBlocks, CanDoBeginnerShinespark])
+        Requirement("Enter Tunnel to Entrance Lobby Nook", [
+            HasMorph(),
+            CanBallJump("Skill Issue")
+        ], [
+            CanDestroyBombBlocks(),
+            CanDoBeginnerShinespark()
+        ])
     ])
 ]
 
 Sector6Crossroads.locations = [
     FusionLocation("Sector 6 (NOC) -- Missile Mimic Lodge", False, [
-        HasVaria([], [CanBombOrPowerBomb])
+        HasVaria("Nocturnal Shaft <-> Missile Mimic Lodge Item", [
+            CanBomb(),
+            CanPowerBomb()
+        ], [
+            # Deal with Mimic
+            HasMissile(),
+            CanDoAdvancedCombat()
+        ])
     ]),
     FusionLocation("Sector 6 (NOC) -- Pillar Highway", False, [
-        HasVaria(["Screw Attack", "Speed Booster"], [CanBomb, HasWaveBeam])
+        HasVaria("Nocturnal Shaft <-> Pillar Highway", [
+            HasSpeedBooster()
+        ], [
+            CanBomb(),
+            HasWaveBeam()
+        ], [
+            HasScrewAttack()
+        ])
     ]),
-    FusionLocation("Sector 6 (NOC) -- Vault", False, [CanBallJumpAndBomb])
+    FusionLocation("Sector 6 (NOC) -- Vault", False, [
+        CanBomb(),
+        CanPowerBomb()
+    ])
 ]
 
 Sector6Catacombs.locations = [
@@ -158,45 +280,75 @@ Sector6Catacombs.locations = [
 
 Sector6BeforeXBOXZone.locations = [
     FusionLocation("Sector 6 (NOC) -- Spaceboost Alley -- Lower Item", False, [
-        Requirement(["Level 4 Keycard", "Space Jump", "Screw Attack"], [HasSpeedBooster])
+        CanEnterSpaceboostAlley("Can Grab Spaceboost Alley Lower Item", [
+            HasSpaceJump()
+        ])
     ]),
     FusionLocation("Sector 6 (NOC) -- Spaceboost Alley -- Upper Item", False, [
-        Requirement(["Level 4 Keycard", "Screw Attack"], [HasSpeedBooster])
+        CanEnterSpaceboostAlley("Can Grab Spaceboost Alley Upper Item")
     ])
 ]
 
 Sector6XBOXZone.locations = [
     FusionLocation("Sector 6 (NOC) -- X-B.O.X. Arena", True, [
-        CanFightLateGameBoss,
-        CanFightLategameBossOnAdvanced,
-        CanFightBossOnExpert
+        CanFightLateGameBoss(),
+        CanFightLateGameBossOnAdvanced(),
+        CanFightBossOnExpert()
     ])
 ]
 
 Sector6AfterXBOXZone.locations = [
-    FusionLocation("Sector 6 (NOC) -- X-B.O.X. Garage -- Lower Item", False, [HasWaveBeam]),
+    FusionLocation("Sector 6 (NOC) -- X-B.O.X. Garage -- Lower Item", False, [
+        HasWaveBeam()
+    ]),
     FusionLocation("Sector 6 (NOC) -- X-B.O.X. Garage -- Upper Item", False, [
-        CanFreezeEnemies(["Morph Ball", "Bomb Data", "Screw Attack"], [HasSpaceJump, CanDoSimpleWallJump]),
+        HasScrewAttack("Can Grab X-B.O.X. Garage Upper Item", [
+            CanJumpHigh()
+        ], [
+            CanBallJump()
+        ], [
+            CanBomb(),
+            CanPowerBomb()
+        ], [
+            CanUseDiffusionMissile(),
+            HasIceBeam(None, [  # NEEDS TESTING TO CONFIRM THIS IS POSSIBLE
+                HasWaveBeam()
+            ])
+        ])
     ])
 ]
 
 Sector6RestrictedZone.locations = [
-    FusionLocation("Main Deck -- Restricted Airlock", False, [HasSpeedBooster])
+    FusionLocation("Main Deck -- Restricted Airlock", False, [
+        HasSpeedBooster()
+    ])
 ]
 
 Sector6BeforeVariaCoreXZone.locations = [
     FusionLocation("Sector 6 (NOC) -- Zozoro Wine Cellar", False, [
-        CanBombOrPowerBomb([], [CanJumpHigh, CanFreezeEnemies])
+        Requirement("Can Obtain Zozoro Wine Cellar Item", [
+            CanBomb(),
+            CanPowerBomb()
+        ], [
+            CanJumpHigh(),
+            CanFreezeEnemies(),
+            #future CanDoAdvancedJumpBombJump()
+        ])
     ])
 ]
 
 Sector6VariaCoreXZone.locations = [
-    FusionLocation("Sector 6 (NOC) -- Varia Core-X Arena", True, [CanFightBoss])
+    FusionLocation("Sector 6 (NOC) -- Varia Core-X Arena", True, [
+        CanFightVariaCoreX()
+    ])
 ]
 
 Sector6AfterVariaCoreXZone.locations = [
     FusionLocation("Sector 6 (NOC) -- Twin Caverns West -- Lower Item", False, [
-        HasMorph([], [CanJumpHigh])
+        HasMorph("Can Obtain Twin Caverns West Lower Item", [
+            CanJumpHigh(),
+            Requirement("Jump Good")
+        ])
     ]),
     FusionLocation("Sector 6 (NOC) -- Twin Caverns West -- Upper Item", False, [])
 ]

@@ -1,52 +1,67 @@
-import typing
 from typing import TYPE_CHECKING, Self
+from abc import ABC, abstractmethod
 
 if TYPE_CHECKING:
     from ... import MetroidFusionOptions
 
 
-class Requirement:
+class RequirementBase(ABC):
     """
     Defines a set of requirements for a Connection or Location.
-    \n The parameters are unpacked into a series of logical requirements where all ``items_needed`` and entries in ``requirements1`` and ``requirements2`` must be met for this Requirement to be passed.
-    \n If either ``requirements1`` or ``requirements2`` are not empty, at least one Requirement object must be fulfilled.
-    \n If both ``requirements1`` and ``requirements2`` are not empty, at least one Requirement object from each list must be fulfilled.
+    \n The parameters are unpacked into a series of logical requirements where all housed in ``items_needed`` and one each of entries in each list housed in ``requirements`` must be met for this Requirement to be passed.
+    \n Requirements logic is: (list1 AND list2 AND list3...) where (list_requirement1 OR list_requirement2 OR list_requirement3...)
+    \n If there are any ``hard_items_needed``, the end possibilities that do not contain all of these items will be removed.
 
-    Attribute "name": The String name of the requirement. When not given, the class name will be used in its place.
-
-    :param items_needed: A list of items named by Strings that are all required to be had. When not given, defaults to an empty list.
-    :param requirements1: A list of Requirement objects. When not given, defaults to an empty list.
-    :param requirements2: A list of Requirement objects. When not given, defaults to an empty list.
-    :param energy_tanks_needed: The number of energy tanks required. When not given, defaults to 0.
+    :param name: A String to label this Requirement. Defaults to the class name.
+    :param items_needed: A list of items as Strings. Defaults to an empty list.
+    :param hard_items_needed: A list of items as Strings. Defaults to an empty list.
+    :param energy_tanks_needed: An integer number of energy tanks required. Defaults to 0.
+    :param requirements: A list of lists of Requirement objects. Defaults to an empty list.
+    :param kwargs: Available keyword arguments: ``items_needed`` as set[str], ``hard_items_needed`` as set[str], ``energy_tanks_needed`` as int
     """
-    items_needed: list[str] = []
-    requirements1: list[Self] = []
-    requirements2: list[Self] = []
-    energy_tanks_needed: int = 0
-    name: str = __name__
+    name: str
+    items_needed: set[str]
+    hard_items_needed: set[str]
+    energy_tanks_needed: int
+    requirements: list[list[Self]]
 
-    def __init__(self, items_needed: list[str] = None, requirements1 = None, requirements2 = None, energy_tanks_needed = 0):
+    @abstractmethod
+    def __init__(self,
+                 name: str = None,
+                 items_needed: set[str] = None,
+                 hard_items_needed: set[str] = None,
+                 energy_tanks_needed: int = 0,
+                 *requirements: list[Self],
+                 **kwargs):
+        if name is None:
+            self.name = self.__class__.__name__
+        else:
+            self.name = name
         if items_needed is None:
-            items_needed = []
-        if requirements1 is None:
-            requirements1 = []
-        if requirements2 is None:
-            requirements2 = []
-
+            items_needed = set()
         self.items_needed = items_needed
-        self.requirements1 = requirements1
-        self.requirements2 = requirements2
+        if hard_items_needed is None:
+            hard_items_needed = set()
+        self.hard_items_needed = hard_items_needed
+        reqs: list[list[Self]] = []
+        for requirement in requirements:
+            if requirement:
+                reqs.append(requirement)
+        self.requirements = reqs
         self.energy_tanks_needed = energy_tanks_needed
-        self.name: str = self.__class__.__name__
 
     def __repr__(self):
-        return_string = f"{self.name}\n"
+        return_string = f"Name: {self.name}\n"
         return_string += f"ItemsNeeded: [{', '.join(self.items_needed)}]\n"
-        return_string += (f"Requirements1: "
-                          f"[{', '.join([requirement.name for requirement in self.requirements1])}]\n")
-        return_string += (f"Requirements2: "
-                          f"[{', '.join([requirement.name for requirement in self.requirements2])}]\n")
-        return_string += f"EnergyTanks: {self.energy_tanks_needed}"
+        return_string += f"HardItemsNeeded: [{', '.join(self.hard_items_needed)}]\n"
+        return_string += f"EnergyTanks: {self.energy_tanks_needed}\n"
+        return_string += "Requirements: ["
+        if self.requirements:
+            for req_list in self.requirements:
+                return_string += f"\n\t[{', '.join(req.name for req in req_list)}]"
+            return_string += "\n]"
+        else:
+            return_string += "]"
         return return_string
 
     def __str__(self):
@@ -56,20 +71,32 @@ class Requirement:
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return True
 
+class Requirement(RequirementBase):
+    def __init__(self,
+                 name = None,
+                 *requirements: list[RequirementBase], **kwargs):
+        super().__init__(name,
+                         kwargs.pop('items_needed', None),
+                         kwargs.pop('hard_items_needed', None),
+                         kwargs.pop('energy_tanks_needed', 0),
+                         *requirements,
+                         **kwargs)
+
 class PONRRequirement(Requirement):
     """Defines a set of requirements to be used when Point of No Returns are disabled.
     These should always be more minimal than any surrounding requirements."""
-    additional_requirements: tuple[list[str], typing.Literal["and", "or"]]
 
-    def __init__(self, items_needed: list[str] = None, requirements1 = None, requirements2 = None, energy_tanks_needed = 0, additional_requirements = ([], "or")):
+    def __init__(self,
+                 name = "Point of No Return Requirement",
+                 *requirements: list[RequirementBase],
+                 **kwargs):
+        items_needed: set[str] = kwargs.pop('items_needed', None)
         if items_needed is None:
-            items_needed = []
-        if requirements1 is None:
-            requirements1 = []
-        if requirements2 is None:
-            requirements2 = []
-        super().__init__(items_needed, requirements1, requirements2, energy_tanks_needed)
-        self.additional_requirements = additional_requirements
+            items_needed = {"Point of No Return"}
+        elif "Point of No Return" not in items_needed:
+            items_needed.add("Point of No Return")
+        kwargs['items_needed'] = items_needed
+        super().__init__(name, *requirements, **kwargs)
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
