@@ -1,4 +1,3 @@
-import typing
 from typing import TYPE_CHECKING, Self
 from abc import ABC, abstractmethod
 
@@ -11,34 +10,38 @@ class RequirementBase(ABC):
     Defines a set of requirements for a Connection or Location.
     \n The parameters are unpacked into a series of logical requirements where all housed in ``items_needed`` and one each of entries in each list housed in ``requirements`` must be met for this Requirement to be passed.
     \n Requirements logic is: (list1 AND list2 AND list3...) where (list_requirement1 OR list_requirement2 OR list_requirement3...)
+    \n If there are any ``hard_items_needed``, the end possibilities that do not contain all of these items will be removed.
 
     :param name: A String to label this Requirement. Defaults to the class name.
     :param items_needed: A list of items as Strings. Defaults to an empty list.
+    :param hard_items_needed: A list of items as Strings. Defaults to an empty list.
     :param energy_tanks_needed: An integer number of energy tanks required. Defaults to 0.
     :param requirements: A list of lists of Requirement objects. Defaults to an empty list.
+    :param kwargs: Available keyword arguments: ``items_needed`` as set[str], ``hard_items_needed`` as set[str], ``energy_tanks_needed`` as int
     """
     name: str
-    items_needed: list[str]
-    hard_items_needed: list[str]
+    items_needed: set[str]
+    hard_items_needed: set[str]
     energy_tanks_needed: int
     requirements: list[list[Self]]
 
     @abstractmethod
     def __init__(self,
                  name: str = None,
-                 items_needed: list[str] = None,
-                 hard_items_needed: list[str] = None,
+                 items_needed: set[str] = None,
+                 hard_items_needed: set[str] = None,
                  energy_tanks_needed: int = 0,
-                 *requirements: list[Self]):
+                 *requirements: list[Self],
+                 **kwargs):
         if name is None:
             self.name = self.__class__.__name__
         else:
             self.name = name
         if items_needed is None:
-            items_needed = []
+            items_needed = set()
         self.items_needed = items_needed
         if hard_items_needed is None:
-            hard_items_needed = []
+            hard_items_needed = set()
         self.hard_items_needed = hard_items_needed
         reqs: list[list[Self]] = []
         for requirement in requirements:
@@ -70,28 +73,30 @@ class RequirementBase(ABC):
 
 class Requirement(RequirementBase):
     def __init__(self,
-                 name: str = None,
-                 items_needed: list[str] = None,
-                 hard_items_needed: list[str] = None,
-                 energy_tanks_needed: int = 0,
-                 *requirements: list[RequirementBase]):
-        super().__init__(name, items_needed, hard_items_needed, energy_tanks_needed, *requirements)
+                 name = None,
+                 *requirements: list[RequirementBase], **kwargs):
+        super().__init__(name,
+                         kwargs.pop('items_needed', None),
+                         kwargs.pop('hard_items_needed', None),
+                         kwargs.pop('energy_tanks_needed', 0),
+                         *requirements,
+                         **kwargs)
 
 class PONRRequirement(Requirement):
     """Defines a set of requirements to be used when Point of No Returns are disabled.
     These should always be more minimal than any surrounding requirements."""
 
     def __init__(self,
-                 name: str = "Point of No Return Requirement",
-                 items_needed: list[str] = None,
-                 hard_items_needed: list[str] = None,
-                 energy_tanks_needed = 0,
-                 *requirements: list[RequirementBase]):
+                 name = "Point of No Return Requirement",
+                 *requirements: list[RequirementBase],
+                 **kwargs):
+        items_needed: set[str] = kwargs.pop('items_needed', None)
         if items_needed is None:
-            items_needed = ["Point of No Return"]
+            items_needed = {"Point of No Return"}
         elif "Point of No Return" not in items_needed:
-            items_needed.append("Point of No Return")
-        super().__init__(name, items_needed, hard_items_needed, energy_tanks_needed, *requirements)
+            items_needed.add("Point of No Return")
+        kwargs['items_needed'] = items_needed
+        super().__init__(name, *requirements, **kwargs)
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:

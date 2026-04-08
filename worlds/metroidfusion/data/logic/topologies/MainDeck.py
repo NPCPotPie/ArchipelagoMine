@@ -7,147 +7,157 @@ from ..regions.Sector3 import Sector3Hub
 from ..regions.Sector4 import Sector4Hub
 from ..regions.Sector5 import Sector5Hub
 from ..regions.Sector6 import Sector6Hub
-from ..Requirement import PONRRequirement
+from ..Requirement import Requirement, PONRRequirement
 from ..Requirements import *
 from ..VariableConnection import VariableConnection
 
 # Region Connections
 AuxiliaryReactor.connections = [
     Connection(ReactorZone, [], one_way=True),
-    Connection(YakuzaZone, [PONRRequirement()], one_way=True)
+    Connection(YakuzaZone, [
+        PONRRequirement()
+    ], one_way=True)
 ]
 
 HabitationDeckElevatorBottom.connections = [
-    VariableConnection(HabitationDeckElevatorTop, [Requirement("Use Elevator")])
+    VariableConnection(HabitationDeckElevatorTop, [])
 ]
 
 HabitationDeckElevatorTop.connections = [
-    VariableConnection(HabitationDeckElevatorBottom, [Requirement("Use Elevator")]),
-    Connection(HabitationDeck, [HasKeycard2("Open Door with Level 2 Keycard")])
+    VariableConnection(HabitationDeckElevatorBottom, []),
+    Connection(HabitationDeck, [
+        HasKeycard2("Open Door with Level 2 Keycard")
+    ])
 ]
 
 MainDeckHub.connections = [
-    Connection(OperationsDeckElevatorBottom, [Requirement("Traverse to Elevator")]),
+    Connection(OperationsDeckElevatorBottom, []),
     Connection(VentilationZone, [
         CanDamageSmallGeron("Kill Lower Vent Geron"),
         CanDamageAnyGeron("Kill Lower Vent Geron with NerfGeronWeakness Disabled")
     ]),
-    Connection(LowerArachnusArena, [HasMorph("Can Enter and Leave Arachnus Fight Arena")]),
-    Connection(UpperArachnusArena, [
-        HasMorph("Use Hidden Screw Attack Tunnel",
-                 ["Screw Attack"],
-                 [],
-                 0,
-                 [CanJumpHigh(), CanDoSimpleWallJump()])
+    Connection(LowerArachnusArena, [
+        HasMorph("Can Enter and Leave Arachnus Fight Arena")
     ]),
-    Connection(HabitationDeckElevatorBottom, [HasKeycard2("Open Elevator Door with Level 2 Keycard")]),
+    Connection(UpperArachnusArena, [
+        HasMorph("Use Hidden Screw Attack Tunnel", [
+            CanJumpHigh(),
+            CanDoSimpleWallJump()
+        ], [
+            HasScrewAttack()
+        ])
+    ]),
+    Connection(HabitationDeckElevatorBottom, [
+        HasKeycard2("Open Elevator Door with Level 2 Keycard")
+    ]),
     Connection(SectorHubElevatorTop, [
         HasMorph("Use Morph Tunnel"),
         CanDoAdvancedShinespark("Can Shinespark to Sector Hub Elevator")
     ]),
     Connection(ReactorZone, [
-        HasMorph("Can Enter Reactor Zone",
-                 [],
-                 [],
-                 level_2_e_tanks,
-                 [
-                     HasKeycard4("Open Door to Reactor Zone with Level 4 Keycard"),
-                     CanPowerBomb("Can Blow Up Wall to Reactor Zone")
-                 ])
+        HasMorph("Can Enter Reactor Zone", [
+            HasKeycard4("Open Door to Reactor Zone with Level 4 Keycard"),
+            CanPowerBomb("Can Blow Up Wall to Reactor Zone")
+        ], energy_tanks_needed=level_2_e_tanks)
     ]),
     Connection(NexusStorage, [
-        HasKeycard2("Can Enter Nexus Storage",
-                    [],
-                    [],
-                    0,
-                    [CanDamageLargeGeron(), CanDamageAnyGeron()])
+        HasKeycard2("Can Enter Nexus Storage", [
+            CanDamageLargeGeron(),
+            CanDamageAnyGeron()
+        ])
     ])
 ]
 
 OperationsDeckElevatorBottom.connections = [
-    VariableConnection(OperationsDeckElevatorTop, [Requirement("Use Elevator")])
+    VariableConnection(OperationsDeckElevatorTop, [])
 ]
 
 OperationsDeckElevatorTop.connections = [
-    VariableConnection(OperationsDeckElevatorBottom, [Requirement("Use Elevator")]),
-    Connection(OperationsDeck, [Requirement("Open Door")])
+    VariableConnection(OperationsDeckElevatorBottom, []),
+    Connection(OperationsDeck, [])
 ]
 
 OperationsDeck.connections = [
-    Connection(VentilationZone, [HasMissile("Can Break Ventilation Cap")], one_way=True)
+    Connection(VentilationZone, [
+        HasMissile("Can Break Ventilation Cap")
+    ], one_way=True)
 ]
 
 ReactorZone.connections = [
     Connection(YakuzaZone, [
-        Requirement("Can Access Yakuza - Vanilla Route",
-                    ["Morph Ball"],
-                    [],
-                    0,
-                    [
-                        CanDamageToughEnemy("Can Kill Kihunter, Pirate, and Eyedoor")
-                    ], [
-                        CanBomb("Destroy Block with Bomb"),
-                        CanPowerBomb("Destroy Block with Power Bomb"),
-                        HasWaveBeam("Destroy Block with Wave Beam")
-                    ], [
-                        HasSpaceJump("Can Enter and Fly out of Yakuza's Arena"),
-                        PONRRequirement("PONR - Can Enter Yakuza'a Arena")
-                    ]),
+        HasMorph("Can Access Yakuza - Vanilla Route", [
+            CanDamageToughEnemy("Can Kill Kihunter, Pirate, and Eyedoor")
+        ], [
+            CanBomb("Destroy Block with Bomb"),
+            CanPowerBomb("Destroy Block with Power Bomb"),
+            HasWaveBeam("Destroy Block with Wave Beam")
+        ], [
+            HasSpaceJump("Can Enter and Fly out of Yakuza's Arena"),
+            PONRRequirement("PONR - Can Enter Yakuza'a Arena")
+        ]),
     ], one_way=True),
-    Connection(AuxiliaryReactor, [HasWaveBeam("Can Open Auxiliary Gate Backwards")]),
+    Connection(AuxiliaryReactor, [
+        HasWaveBeam("Can Open Auxiliary Gate Backwards")
+    ]),
     Connection(Sector2NettoriZone, [
-        HasSpaceJump("Can Get to Sector 2 Backdoor",
-                     [],
-                     [],
-                     0,
-                     [
-                         CanDamageToughEnemy("Can Kill Kihunter")
-                     ], [
-                         CanBomb("Traverse Tunnel with Bomb"),
-                         CanPowerBomb("Traverse Tunnel with Power Bomb")
-                     ])
+        HasSpaceJump("Can Get to Sector 2 Backdoor", [
+            CanDamageToughEnemy("Can Kill Kihunter")
+        ], [
+            CanBomb("Traverse Tunnel with Bomb"),
+            CanPowerBomb("Traverse Tunnel with Power Bomb")
+        ])
     ], one_way=True)
 ]
 
 SectorHubElevatorTop.connections = [
     Connection(MainDeckHub, [
-        PONRRequirement("PONR - Enter Main Deck Hub with Speed Booster - Trickless",["Speed Booster"])
+        PONRRequirement("PONR - Enter Main Deck Hub with Speed Booster - Trickless", [
+            HasSpeedBooster()
+        ])
     ], one_way=True),
-    VariableConnection(SectorHubElevatorBottom, [Requirement("Use Elevator")])
+    VariableConnection(SectorHubElevatorBottom, [])
 ]
 
 SectorHubElevatorBottom.connections = [
-    VariableConnection(SectorHubElevatorTop, ["Use Central Elevator"]),
-    Connection(SectorHubElevator1Top, ["Open Door"]),
-    Connection(SectorHubElevator2Top, ["Open Door"]),
-    Connection(SectorHubElevator3Top, [SectorHubLevel1KeycardRequirement("Open Door with Level 1 Keycard")]),
-    Connection(SectorHubElevator4Top, [SectorHubLevel1KeycardRequirement("Open Door with Level 1 Keycard")]),
-    Connection(SectorHubElevator5Top, [SectorHubLevel1And2KeycardRequirement("Open Door with Level 2 Keycard")]),
-    Connection(SectorHubElevator6Top, [SectorHubLevel1And2KeycardRequirement("Open Door with Level 2 Keycard")])
+    VariableConnection(SectorHubElevatorTop, []),
+    Connection(SectorHubElevator1Top, []),
+    Connection(SectorHubElevator2Top, []),
+    Connection(SectorHubElevator3Top, [
+        SectorHubLevel1KeycardRequirement("Open Door with Level 1 Keycard")
+    ]),
+    Connection(SectorHubElevator4Top, [
+        SectorHubLevel1KeycardRequirement("Open Door with Level 1 Keycard")
+    ]),
+    Connection(SectorHubElevator5Top, [
+        SectorHubLevel1And2KeycardRequirement("Open Door with Level 2 Keycard")
+    ]),
+    Connection(SectorHubElevator6Top, [
+        SectorHubLevel1And2KeycardRequirement("Open Door with Level 2 Keycard")
+    ])
 ]
 
 SectorHubElevator1Top.connections = [
-    VariableConnection(Sector1Hub, [Requirement("Use Elevator")])
+    VariableConnection(Sector1Hub, [])
 ]
 
 SectorHubElevator2Top.connections = [
-    VariableConnection(Sector2Hub, [Requirement("Use Elevator")])
+    VariableConnection(Sector2Hub, [])
 ]
 
 SectorHubElevator3Top.connections = [
-    VariableConnection(Sector3Hub, [Requirement("Use Elevator")])
+    VariableConnection(Sector3Hub, [])
 ]
 
 SectorHubElevator4Top.connections = [
-    VariableConnection(Sector4Hub, [Requirement("Use Elevator")])
+    VariableConnection(Sector4Hub, [])
 ]
 
 SectorHubElevator5Top.connections = [
-    VariableConnection(Sector5Hub, [Requirement("Use Elevator")])
+    VariableConnection(Sector5Hub, [])
 ]
 
 SectorHubElevator6Top.connections = [
-    VariableConnection(Sector6Hub, [Requirement("Use Elevator")])
+    VariableConnection(Sector6Hub, [])
 ]
 
 UpperArachnusArena.connections = [
@@ -156,142 +166,137 @@ UpperArachnusArena.connections = [
         HasMorph("Vanilla Route")
     ], one_way=True),
     Connection(MainDeckHub, [
-        HasScrewAttack("Use Screw Attack Tunnel, then exit left", ["Morph Ball"])
+        HasScrewAttack("Use Screw Attack Tunnel, then exit left", [
+            HasMorph()
+        ])
     ], one_way=True)
 ]
 
 VentilationZone.connections = [
     Connection(UpperArachnusArena, [
-        CanDamageToughEnemy("Enter Arachnus Arena through Eyedoor",
-                            [],
-                            [],
-                            0,
-                            [
-                                HasMorph("Can Leave Arachnus Arena"),
-                                PONRRequirement("PONR - Can Enter Arachnus Fight")
-                            ])
+        CanDamageToughEnemy("Enter Arachnus Arena through Eyedoor", [
+            HasMorph("Can Leave Arachnus Arena"),
+            PONRRequirement("PONR - Can Enter Arachnus Fight")
+        ])
     ], one_way=True)
 ]
 
 YakuzaZone.connections = [
-    Connection(AuxiliaryReactor, [HasSpaceJump("Leave Yakuza Arena")])
+    Connection(AuxiliaryReactor, [
+        HasSpaceJump("Leave Yakuza Arena")
+    ])
 ]
 
 # Item Locations
 AuxiliaryReactor.locations = [
-    FusionLocation("Main Deck -- Auxiliary Power Station", True, [Requirement("Use Terminal")])
+    FusionLocation("Main Deck -- Auxiliary Power Station", True, [])
 ]
 
 HabitationDeck.locations = [
     FusionLocation("Main Deck -- Habitation Deck -- Animals", True, [
-        HasKeycard2("Enter Habitation Deck",
-                    [],
-                    [],
-                    0,
-                    [
-                        HasSpaceJump("Vanilla Route to Animals Terminal with Space Jump",
-                                     ["Speed Booster"]),
-                        CanFreezeEnemies("Vanilla Route to Animals Terminal without Space Jump",
-                                         ["Speed Booster"],
-                                         [],
-                                         0,
-                                         [HasHiJump(), CanDoAdvancedWallJump()]),
-                        CanFreezeEnemies("Go Backwards through Gates on Lower Floor",
-                                         ["Wave Beam"],
-                                         [],
-                                         0,
-                                         [CanJumpHigh(), CanDoSimpleWallJump()])
-                    ])
-
+        HasKeycard2("Enter Habitation Deck", [
+            HasSpaceJump("Vanilla Route to Animals Terminal with Space Jump", [
+                HasSpeedBooster()
+            ]),
+            CanFreezeEnemies("Vanilla Route to Animals Terminal without Space Jump", [
+                HasHiJump(),
+                CanDoAdvancedWallJump()
+            ], [
+                HasSpeedBooster()
+            ]),
+            CanFreezeEnemies("Go Backwards through Gates on Lower Floor", [
+                CanJumpHigh(),
+                CanDoSimpleWallJump()
+            ], [
+                HasWaveBeam()
+            ]),
+        ])
     ]),
     FusionLocation("Main Deck -- Habitation Deck -- Lower Item", False, [
-        HasKeycard2("Enter Habitation Deck",
-                    [],
-                    [],
-                    0,
-                    [
-                        HasSpaceJump("Vanilla Route to Animals with Space Jump"),
-                        HasWaveBeam("Go Backwards through Gates on Lower Floor"),
-                        CanFreezeEnemies("Vanilla Route to Animals without Space Jump",
-                                         [],
-                                         [],
-                                         0,
-                                         [HasHiJump(), CanDoAdvancedWallJump()])
-                    ])
-
+        HasKeycard2("Enter Habitation Deck", [
+            HasSpaceJump("Vanilla Route to Animals with Space Jump"),
+            HasWaveBeam("Go Backwards through Gates on Lower Floor"),
+            CanFreezeEnemies("Vanilla Route to Animals without Space Jump", [
+                HasHiJump(),
+                CanDoAdvancedWallJump()
+            ])
+        ])
     ])
 ]
 
 LowerArachnusArena.locations = [
-    FusionLocation("Main Deck -- Arachnus Arena -- Core X", True, [CanDamageCoreX()])
+    FusionLocation("Main Deck -- Arachnus Arena -- Core X", True, [
+        CanDamageCoreX()
+    ])
 ]
 
 MainDeckHub.locations = [
-    FusionLocation("Main Deck -- Cubby Hole", False, [HasMorph()]),
-    FusionLocation("Main Deck -- Genesis Speedway", False, [
-        CanPowerBomb("Vanilla",
-                     [],
-                     [],
-                     0,
-                     [CanBallJump(), CanDoSimpleWallJump()])
+    FusionLocation("Main Deck -- Cubby Hole", False, [
+        HasMorph()
     ]),
-    FusionLocation("Main Deck -- Quarantine Bay", False, [Requirement("First X Kill")]),
-    FusionLocation("Main Deck -- Station Entrance", False, [CanPowerBomb("Blow Up the Floor")]),
+    FusionLocation("Main Deck -- Genesis Speedway", False, [
+        CanPowerBomb("Can Enter Genesis Speedway Tunnel", [
+            CanBallJump()
+        ])
+    ]),
+    FusionLocation("Main Deck -- Quarantine Bay", False, []),
+    FusionLocation("Main Deck -- Station Entrance", False, [
+        CanPowerBomb("Blow Up the Floor")
+    ]),
     FusionLocation("Main Deck -- Sub-Zero Containment", False, [
-        HasKeycard3("Open Door with Level 3 Keycard", ["Varia Suit"])
+        HasKeycard3("Open Door with Level 3 Keycard", [
+            HasVaria()
+        ])
     ])
 ]
 
 NexusStorage.locations = [
     FusionLocation("Main Deck -- Nexus Storage", False, [
-        CanBallJump("Enter Tunnel and Bomb Out",
-                    [],
-                    [],
-                    0,
-                    [CanBomb(), CanPowerBomb()])
+        CanBallJump("Can Access Nexus Storage Item", [
+            PONRRequirement("PONR - Collect Nexus Storage Item",
+                            hard_items_needed={"Hi-Jump"}),
+            CanBomb(),
+            CanPowerBomb()
+        ])
     ])
 ]
 
 OperationsDeck.locations = [
-    FusionLocation("Main Deck -- Operations Deck Data Room", True, [Requirement("Download Missiles")])
+    FusionLocation("Main Deck -- Operations Deck Data Room", True, [])
 ]
 
 ReactorZone.locations = [
-    FusionLocation("Main Deck -- Silo Catwalk", False, [CanDamageToughEnemy("Kill Pirates")]),
+    FusionLocation("Main Deck -- Silo Catwalk", False, [
+        CanDamageToughEnemy("Kill Pirates")
+    ]),
     FusionLocation("Main Deck -- Silo Scaffolding", False, [
-        Requirement("Grab Silo Scaffolding Item",
-                    ["Morph Ball"],
-                    [],
-                    0,
-                    [
-                        PONRRequirement("PONR - Silo Scaffolding"),
-                        CanJumpHigh(),
-                        CanDoAdvancedWallJump()
-                    ], [
-                        CanDamageToughEnemy("Kill Pirates"),
-                        CanDoExpertCombat("Avoid Pirates")
-                    ])
+        HasMorph("Grab Silo Scaffolding Item", [
+            PONRRequirement("PONR - Silo Scaffolding"),
+            CanJumpHigh(),
+            CanDoAdvancedWallJump()
+        ], [
+            CanDamageToughEnemy("Kill Pirates"),
+            CanDoExpertCombat("Avoid Pirates")
+        ])
     ])
 ]
 
 SectorHubElevatorTop.locations = [
-    FusionLocation("Main Deck -- Main Elevator Cache", False, [HasSpeedBooster()])
+    FusionLocation("Main Deck -- Main Elevator Cache", False, [
+        HasSpeedBooster()
+    ])
 ]
 
 UpperArachnusArena.locations = [
-    FusionLocation("Main Deck -- Arachnus Arena -- Upper Item", False, [
-        Requirement("Freestanding Item")
+    FusionLocation("Main Deck -- Arachnus Arena -- Upper Item", False, []),
+    FusionLocation("Main Deck -- Attic", False, [
+        HasMissile("Blast Open the Ceiling")
     ]),
-    FusionLocation("Main Deck -- Attic", False, [HasMissile("Blast Open the Ceiling")]),
 ]
 
 VentilationZone.locations = [
-    FusionLocation("Main Deck -- Operations Ventilation", False, [
-        Requirement("Freestanding Item")
-    ]),
-    FusionLocation("Main Deck -- Operations Ventilation Storage", False, [
-        Requirement("Grab Hidden Block Item")
-    ])
+    FusionLocation("Main Deck -- Operations Ventilation", False, []),
+    FusionLocation("Main Deck -- Operations Ventilation Storage", False, [])
 ]
 
 YakuzaZone.locations = [
