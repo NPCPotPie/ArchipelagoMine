@@ -41,7 +41,7 @@ class Sector6VariaCoreXZone(FusionRegion):
     name = "Sector 6 Varia Core-X Zone"
 
 class Sector6CavernsSave(FusionRegion):
-    name = "Sector 6 Crossroads"
+    name = "Sector 6 Caverns Save"
 
 class Sector6AfterVariaCoreXZone(FusionRegion):
     name = "Sector 6 After Varia Core-X Zone"
