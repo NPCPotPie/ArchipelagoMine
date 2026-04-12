@@ -369,7 +369,7 @@ Sector5NightmareZoneUpper.locations = [
         ])
     ]),
     FusionLocation("Sector 5 (ARC) -- Ruined Break Room", False, [
-        CanPowerBomb
+        CanPowerBomb()
     ]),
     FusionLocation("Sector 5 (ARC) -- Nightmare Nook", False, [
         CanDamageToughEnemy("Can Obtain Nightmare Nook Item", [
