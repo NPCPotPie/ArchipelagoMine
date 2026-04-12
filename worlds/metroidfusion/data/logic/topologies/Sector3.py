@@ -1,5 +1,6 @@
 from ..Connection import Connection
-from ..Requirement import PONRRequirement
+from ..Requirement import Requirement, PONRRequirement
+from ..Requirements import HasScrewAttack
 from ..VariableConnection import VariableConnection
 from ..Requirements import *
 from ..FusionLocation import FusionLocation
@@ -12,145 +13,223 @@ from ..regions.Sector5 import Sector5TubeRight
 Sector3Hub.connections = [
     VariableConnection(SectorHubElevator3Top, []),
     Connection(Sector3FieryStorageRight, [
-        PONRRequirement(["Varia Suit"], [CanDoBeginnerShinespark])
+        PONRRequirement("PONR - Shinespark to Fiery Storage", [
+            CanDoBeginnerShinespark()
+        ], [
+            HasVaria()
+        ])
     ], one_way=True),
-    Connection(Sector3SecurityZone, [HasSpeedBooster]),
+    Connection(Sector3SecurityZone, [
+        HasSpeedBooster()
+    ]),
     Connection(Sector3MainShaft, [
-        Requirement(["Morph Ball", "Speed Booster"], []),
-        PONRRequirement(["Speed Booster"], [
-            CanDefeatStabilizerOrToughEnemy,
-            CanDoBeginnerShinespark,
-            HasWaveBeam
+        HasSpeedBooster("Enter Sector 3 Main Shaft", [
+            CanDamageToughEnemy("Kill the Fune/Namihe"),
+            CanDoBeginnerShinespark("Kill the Fune/Namihe - Alternate"),
+            HasMorph("Avoid the Fune/Namihe"),
+            HasWaveBeam("Open the Gate Backwards")
+        ], [
+            PONRRequirement("PONR - Enter Sector 3 Main Shaft"),
+            CanDestroyBombBlocks(None, [
+                HasMorph()
+            ]),
+            HasKeycard2()
+        ])
+    ], one_way=True),
+    Connection(Sector3BobZone, [
+        HasKeycard2("Enter Bob's Abode", [
+            CanDamageMediumGeron(),
+            CanDamageAnyGeron()
+        ], [
+            PONRRequirement("PONR - Enter Bob's Abode"),
+            CanDestroyBombBlocks(),
+            HasHiJump("Shoot Blocks and Spring Ball Out")
+        ], [
+            HasMorph()
         ])
     ]),
-    Connection(Sector3BobZone, [
-        Level2KeycardRequirement([], [CanDefeatMediumGeron,CanDefeatAnyGeron]),
-        Requirement(["Speed Booster", "Morph Ball"], [CanDestroyBombBlocks])
-    ], one_way=True),
     Connection(Sector3BOXZone, [
-        Requirement(["Level 2 Keycard"], [CanDefeatMediumGeron,CanDefeatAnyGeron]),
+        HasKeycard2("Enter BOX's Zone", [
+            CanDamageMediumGeron(),
+            CanDamageAnyGeron()
+        ]),
     ]),
     Connection(Sector3LowerAttic, [
-        Requirement(["Screw Attack", "Morph Ball"], [HasSpaceJump, CanDoBeginnerShinespark])
+        HasMorph("Enter Attic from Sector 3 Entrance", [
+            HasSpaceJump(),
+            CanDoBeginnerShinespark()
+        ], [
+            HasScrewAttack()
+        ])
     ])
 ]
 
 Sector3TubeLeft.connections = [
     VariableConnection(Sector5TubeRight, []),
     Connection(Sector3FieryStorageLeft, [
-        Requirement(["Screw Attack"], [CanJumpHigh, CanDoSimpleWallJump])
+        HasScrewAttack("Exit Sector 3 West Tube", [
+            CanJumpHigh(),
+            CanDoSimpleWallJump()
+        ])
     ])
 ]
 
 Sector3TubeRight.connections = [
     VariableConnection(Sector1TubeLeft, []),
     Connection(Sector3UpperAttic, [
-        PONRRequirement([], [HasScrewAttack])
+        PONRRequirement("PONR - Drop from Sector 3 East Tube", [
+            HasScrewAttack()
+        ])
     ], one_way=True)
 ]
 
 Sector3FieryStorageRight.connections = [
-    Connection(Sector3FieryStorageLeft, [CanDestroyBombBlocks]),
+    Connection(Sector3FieryStorageLeft, [
+        CanDestroyBombBlocks()
+    ]),
     Connection(Sector3Hub, [
-        Requirement(["Varia Suit"], [
-            CanBeatToughEnemy,
-            CanLavaDive,
-            CanScrewAttackAndSpaceJump
+        HasVaria("Cross Monkey Bars of Fire", [
+            CanDamageToughEnemy(),
+            HasScrewAttack()
+        ], [
+            CanLavaDive(),
+            CanJumpHigh()
         ]),
-        CanDoBeginnerShinespark(["Varia Suit"], [CanDestroyBombBlocks])
+        CanDoBeginnerShinespark("Shinespark Across Monkey Bars of Fire", [
+            CanDestroyBombBlocks()
+        ], [
+            HasVaria()
+        ])
     ])
 ]
 
 Sector3FieryStorageLeft.connections = [
     Connection(Sector3TubeLeft, [
-        PONRRequirement([], [HasScrewAttack])
+        PONRRequirement("PONR - Drop to Sector 3 West Tube", [
+            HasScrewAttack()
+        ])
     ], one_way=True)
 ]
 
 Sector3MainShaft.connections = [
-    Connection(Sector3Hub, [
-        PONRRequirement(["Morph Ball"], [CanDestroyBombBlocks]),
-        Requirement(["Morph Ball", "Speed Booster"], [CanDestroyBombBlocks]),
-        CanDefeatMediumGeron(["Morph Ball", "Level 2 Keycard"], [CanDestroyBombBlocks]),
-        CanDefeatAnyGeron(["Morph Ball", "Level 2 Keycard"], [CanDestroyBombBlocks])
-    ], one_way=True),
-    Connection(Sector3BoilerZone, [Level2KeycardRequirement([], [HasVaria])]),
+    # Connecting to Sector 3 Hub is not possible without connecting to other Zones first.
+
+    # Connection(Sector3Hub, [
+    #     PONRRequirement(["Morph Ball"], [CanDestroyBombBlocks]),
+    #     Requirement(["Morph Ball", "Speed Booster"], [CanDestroyBombBlocks]),
+    #     CanDamageMediumGeron(["Morph Ball", "Level 2 Keycard"], [CanDestroyBombBlocks]),
+    #     CanDamageAnyGeron(["Morph Ball", "Level 2 Keycard"], [CanDestroyBombBlocks])
+    # ], one_way=True),
+    Connection(Sector3BoilerZone, [
+        HasKeycard2(None, [
+            HasVaria()
+        ])
+    ]),
     Connection(Sector3BobZone, [
-        Requirement(["Morph Ball", "Hi-Jump"], [HasScrewAttack])
+        HasScrewAttack("Break Into Bob's Abode", [
+            HasMorph()
+        ])
     ], one_way=True),
     Connection(Sector3SovaProcessing, [
-        CanDestroyBombBlocks(
-            ["Level 2 Keycard", "Varia Suit"],
-            [
-                HasSpaceJump,
-                HasWaveBeam,
-                CanBeatToughEnemy([], [CanDoBeginnerShinespark]),
-                CanFreezeEnemies(["Hi-Jump"], [])
-            ], level_2_e_tanks
-        )
+        HasKeycard2("Enter Sova Processing", [
+            CanDestroyBombBlocks()
+        ], [
+            HasSpaceJump("Fly to Upper Door"),
+            HasWaveBeam("Open Gate Backwards"),
+            CanDoBeginnerShinespark("Shinespark to Upper Door", [
+                CanDamageToughEnemy()
+            ]),
+            CanFreezeEnemies("Developer Intended Route", [
+                HasHiJump()
+            ])
+        ], [
+            HasVaria()
+        ], energy_tanks_needed=level_2_e_tanks)
     ])
 ]
 
 Sector3BobZone.connections = [
     Connection(Sector3BOXZone, [
-        Requirement(["Level 2 Keycard"], [CanBallJumpAndBomb]),
-        Requirement(["Level 2 Keycard", "Wave Beam"], [CanBallJump])
+        HasKeycard2("Leave Bob's Abode to BOX Zone", [
+            CanBomb(),
+            HasHiJump("Destroy Blocks to Ascend Tunnel", [
+                HasWaveBeam(),
+                CanUseDiffusionMissile(),
+                CanPowerBomb()
+            ])
+        ], [
+            HasMorph()
+        ]),
     ]),
     Connection(Sector3Hub, [
-        PONRRequirement(["Morph Ball"], [CanDestroyBombBlocks]),
+        PONRRequirement("PONR - Drop Down Bob's Poop Chute", [
+            CanDestroyBombBlocks()
+        ], [
+            HasMorph()
+        ]),
     ], one_way=True),
-    Connection(Sector3MainShaft, [CanBombOrPowerBomb])
+    Connection(Sector3MainShaft, [
+        CanBomb(),
+        CanPowerBomb()
+    ])
 ]
 
 Sector3BOXZone.connections = [
     Connection(Sector3BobZone, [
-        PONRRequirement(["Level 2 Keycard"], [HasMorph]),
-        CanDefeatMediumGeron(["Level 2 Keycard"], [HasMorph]),
-        CanDefeatAnyGeron(["Level 2 Keycard"], [HasMorph])
+        PONREnterBobsTunnelFromAbove()
     ], one_way=True),
     Connection(Sector3MainShaft, [
-        PONRRequirement(["Level 2 Keycard"], [HasMorph]),
-        CanDefeatMediumGeron(["Level 2 Keycard", "Morph Ball"], [CanDestroyBombBlocks]),
-        CanDefeatAnyGeron(["Level 2 Keycard", "Morph Ball"], [CanDestroyBombBlocks])
+        PONREnterBobsTunnelFromAbove()
     ], one_way=True),
     Connection(Sector3UpperAttic, [
-        PONRRequirement([], [HasSpaceJump], level_2_e_tanks)
+        PONRRequirement("PONR - Skip BOX Fight with Space Jump", [
+            HasSpaceJump()
+        ])
     ], one_way=True)
 ]
 
 Sector3LowerAttic.connections = [
     Connection(Sector3Hub, [
-        Requirement(["Morph Ball"], [CanDestroyBombBlocks])
+        CanDestroyBombBlocks("Sector 3 Lower Attic - Exit Left", [
+            HasMorph()
+        ])
     ], one_way=True),
     Connection(Sector3UpperAttic, [
-        CanBombOrPowerBomb([], [HasSpaceJump, CanDoAdvancedWallJumpWithHiJump]),
-        #future trick CanBombOrPowerBombRequirement(["Hi-Jump"], [CanFreezeEnemies]),
-        #future trick CanBombOrPowerBombRequirement([], [CanDoSimpleWallJumpAndFreezeEnemies])
-    ]),
-    #overzealous plans Connection(Sector3MidAttic, [
-        #CanDestroyBombBlocksRequirement([], [CanJumpHigh, CanActivatePillar])
-    #])
+        CanClimbSector3Attic()
+    ])
 ]
 
 Sector3UpperAttic.connections = [
     Connection(Sector3BOXZone, [
-        CanFightBoss([], [CanJumpHigh, CanDoSimpleWallJump], level_2_e_tanks)
+        CanFightBOX()
     ]),
     Connection(Sector3TubeRight, [
-        Requirement(["Screw Attack"], [CanJumpHigh, CanDoBeginnerShinespark])
+        HasScrewAttack("Climb to Sector 3 East Tube", [
+            CanJumpHigh(),
+            CanDoBeginnerShinespark()
+        ])
     ]),
     Connection(Sector3LowerAttic, [
-        PONRRequirement(["Morph Ball"], [CanDestroyBombBlocks]),
-        PONRRequirement(["Speed Booster"], [CanDestroyBombBlocks])
+        PONRRequirement("PONR - Sector 3 Upper Attic - Shinespark", [
+            CanDestroyBombBlocks()
+        ], [
+            HasSpeedBooster()
+        ]),
+        PONRRequirement("PONR - Sector 3 Upper Attic - Drop to Lower Path", [
+            CanDestroyBombBlocks()
+        ], [
+            HasMorph()
+        ])
     ], one_way=True),
-    #overzealous plans Connection(Sector3MidAttic, [
-        #PONRRequirement(["Speed Booster"], [CanDestroyBombBlocks])
-    #])
 ]
 
 Sector3SovaProcessing.connections = [
     Connection(Sector3UpperAttic, [
-        Requirement(["Screw Attack", "Speed Booster"], [CanLavaDive])
+        CanLavaDive("Ascend Sector 3 Garbage Chute", [
+            HasScrewAttack()
+        ], [
+            HasSpeedBooster()
+        ])
     ], one_way=True)
 ]
 
@@ -160,54 +239,80 @@ Sector3FieryStorageRight.locations = [
 
 Sector3FieryStorageLeft.locations = [
     FusionLocation("Sector 3 (PYR) -- Fiery Storage -- Upper Item", False, [
-        CanDestroyBombBlocks(["Speed Booster"], [
-            CanActivatePillar,
-            HasSpaceJump,
-            CanDoAdvancedShinespark([], [CanDoAdvancedWallJump])
-        ])
+        CanDestroyBombBlocks("Can Obtain Upper Fiery Storage Item", [
+            CanActivatePillar(),
+            HasSpaceJump(),
+            CanDoAdvancedShinespark("Charge from below and Wall Jump up before Shinespark", [
+                CanDoAdvancedWallJump()
+            ]),
+            # It is possible to wall jump up where the pillar is without extending it.
+            # #future CanDoExpertWallJump()
+        ], [
+            HasSpeedBooster()
+        ]),
     ])
 ]
 
 Sector3TubeLeft.locations = [
     FusionLocation("Sector 3 (PYR) -- Sector 3 (PYR) Westbound Glass Tube", False, [
-        Requirement(["Hi-Jump"], [CanBomb]),
-        CanPowerBomb,
-        HasScrewAttack
+        CanBomb("Spring Ball and Bomb", [
+            HasHiJump()
+        ]),
+        CanPowerBomb(),
+        HasScrewAttack()
     ])
 ]
 
 Sector3SecurityZone.locations = [
     FusionLocation("Sector 3 (PYR) -- Level 2 Security Room", True, [
-        HasKeycard2,
-        PONRRequirement(["Speed Booster"], [CanBallJumpAndBomb])
+        HasKeycard2(),
+        PONRRequirement("PONR - Vanilla Path to Level 2 Security", [
+            CanBomb()
+        ], [
+            HasSpeedBooster()
+        ])
     ]),
     FusionLocation("Sector 3 (PYR) -- Security Access", False, [
-        CanBeatToughEnemy([], [CanJumpHigh, CanDoSimpleWallJump]),
-        CanDoAdvancedShinespark([], [])
+        CanDamageToughEnemy("Kill Sidehoppers then Jump Up", [
+            CanJumpHigh(),
+            CanDoSimpleWallJump()
+        ]),
+        CanDoAdvancedShinespark("Charge from above then go below")
     ])
 ]
 
 Sector3MainShaft.locations = [
     FusionLocation("Sector 3 (PYR) -- Namihe's Lair", False, [
-        CanPowerBombAndJumpHigh,
-        PONRRequirement(["Morph Ball", "Power Bomb Data"], [CanDoAdvancedShinespark])
+        CanPowerBomb("Enter Namihe's Lair and Grab Item", [
+            HasHiJump(),
+            CanFreezeEnemies(),
+            # PONRRequirement("PONR - Namihe's Lair - No Witnesses", [
+            #     HasScrewAttack(),
+            #     CanDamageToughEnemy()
+            # ], [
+            #     #future CanDoAdvancedJumpBombJump()
+            # ]),
+            PONRRequirement("PONR - Namihe's Lair - Shinespark", [
+                CanDoAdvancedShinespark()
+            ])
+        ])
     ]),
     FusionLocation("Sector 3 (PYR) -- Processing Access", False, [
-        Level2KeycardRequirement([], [])
+        HasKeycard2("Grab Hidden Block Item")
     ]),
 ]
 
 Sector3BoilerZone.locations = [
     FusionLocation("Sector 3 (PYR) -- Lava Maze", False, [
-        CanPowerBomb([], [CanLavaDive])
+        CanPowerBomb("Grab Lava Maze Item", [
+            CanLavaDive()
+        ])
     ]),
     FusionLocation("Sector 3 (PYR) -- Main Boiler Control Room -- Boiler", True, [
-        Requirement(["Missile Data"], [HasSpaceJump]),
-        CanFreezeEnemies(["Missile Data"], [HasHiJump, CanDoSimpleWallJump])
+        CanDoBoiler()
     ]),
     FusionLocation("Sector 3 (PYR) -- Main Boiler Control Room -- Core X", True, [
-        Requirement(["Missile Data"], [HasSpaceJump]),
-        CanFreezeEnemies(["Missile Data"], [HasHiJump, CanDoSimpleWallJump])
+        CanDoBoiler()
     ]),
 ]
 
@@ -217,36 +322,52 @@ Sector3BobZone.locations = [
 
 Sector3BOXZone.locations = [
     FusionLocation("Sector 3 (PYR) -- Data Room", True, [
-        CanFightBoss(["Level 2 Keycard"], [CanJumpHigh, CanDoSimpleWallJump], level_2_e_tanks)
+        CanFightBOX(None, [
+            HasKeycard2()
+        ])
     ]),
-    FusionLocation("Sector 3 (PYR) -- Geron's Treasure", False, [CanDefeatMediumGeron,CanDefeatAnyGeron])
+    FusionLocation("Sector 3 (PYR) -- Geron's Treasure", False, [
+        CanDamageMediumGeron(),
+        CanDamageAnyGeron()
+    ])
 ]
 
 Sector3LowerAttic.locations = [
     FusionLocation("Sector 3 (PYR) -- Alcove -- Lower Item", False, [
-        #overzealous plans if in MidAttic: CanDestroyBombBlocks,
-        CanDestroyBombBlocks([], [CanActivatePillar, CanJumpHigh])
+        CanClimbSector3Attic()
     ]),
     FusionLocation("Sector 3 (PYR) -- Alcove -- Upper Item", False, [
-        Requirement([], [CanPowerBomb])
+        CanPowerBomb()
     ]),
 ]
 
 Sector3UpperAttic.locations = [
-    FusionLocation("Sector 3 (PYR) -- Deserted Runway", False, [HasSpeedBooster]),
+    FusionLocation("Sector 3 (PYR) -- Deserted Runway", False, [
+        HasSpeedBooster()
+    ]),
 ]
 
 Sector3SovaProcessing.locations = [
     FusionLocation("Sector 3 (PYR) -- Sova Processing -- Left Item", False, [
-        CanBallJump([], [HasSpaceJump, CanFreezeEnemies])
+        CanGetSovaProcessingItem(None, [
+            CanBallJump()
+        ])
     ]),
     FusionLocation("Sector 3 (PYR) -- Sova Processing -- Right Item", False, [
-        Requirement(["Morph Ball"], [HasSpaceJump, CanFreezeEnemies])
+        CanGetSovaProcessingItem()
     ]),
     FusionLocation("Sector 3 (PYR) -- Garbage Chute -- Lower Item", False, [
-        Requirement(["Screw Attack", "Speed Booster"], [CanLavaDive])
+        CanLavaDive("Ascend Sector 3 Garbage Chute", [
+            CanScrewAttackUnderwater()
+        ], [
+            CanSpeedBoosterUnderwater()
+        ])
     ]),
     FusionLocation("Sector 3 (PYR) -- Garbage Chute -- Upper Item", False, [
-        Requirement(["Screw Attack", "Speed Booster"], [CanLavaDive])
+        CanLavaDive("Ascend Sector 3 Garbage Chute", [
+            CanScrewAttackUnderwater()
+        ], [
+            CanSpeedBoosterUnderwater()
+        ])
     ])
 ]

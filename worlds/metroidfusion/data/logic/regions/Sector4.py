@@ -26,6 +26,7 @@ class Sector4PumpControl(FusionRegion):
     name = "Sector 4 Pump Control"
 
 class Sector4UpperWaterZone(FusionRegion):
+    """ Planned for Deprecation. Replace with Sector4CargoHold"""
     name = "Sector 4 Upper Water Zone"
 
 class Sector4CargoHold(FusionRegion):

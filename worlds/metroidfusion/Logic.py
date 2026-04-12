@@ -1,5 +1,6 @@
-from copy import copy
+from itertools import product as itertools_product
 from typing import TYPE_CHECKING
+import logging
 
 from BaseClasses import CollectionState
 from .data.logic.Requirement import Requirement
@@ -8,8 +9,8 @@ from .Items import valid_item_names
 if TYPE_CHECKING:
     from worlds.metroidfusion import MetroidFusionOptions
 
-class LogicObject():
-    requirements: list[list[str]] = []
+class LogicObject:
+    requirements: list[set[str]] = []
     energy_tanks: list[int] = []
     calculated_energy_tanks: int = 0
     player: int
@@ -28,6 +29,8 @@ class LogicObject():
                 requirement_list.remove("Wall Jump Boots")
             while "Nothing" in requirement_list:
                 requirement_list.remove("Nothing")
+            while "Point of No Return" in requirement_list:
+                requirement_list.remove("Point of No Return")
             if energy_tanks > 0:
                 if self.options.ElevatorShuffle.value > self.options.ElevatorShuffle.option_none:
                     energy_tanks = energy_tanks // 2
@@ -49,85 +52,136 @@ class LogicObject():
 def create_logic_rule_for_list(
         requirements: list[Requirement],
         options: "MetroidFusionOptions",
-        debug: bool = False) -> tuple[list, list]:
-    energy_tanks = []
-    requirements_list = []
+        debug: bool = False) -> tuple[list[set[str]], list[int]]:
+    requirements_list, energy_tanks_list = [], []
     for requirement in requirements:
-        new_rule, energy_tanks_in_rule = create_logic_rule(requirement, options, debug)
-        for requirement2, energy_tanks2 in zip(new_rule, energy_tanks_in_rule):
-            requirements_list.append(requirement2)
-            energy_tanks.append(energy_tanks2)
-        continue
-    if debug:
-        print("Create logic rule for list...")
-        for requirement, energy_tanks_amount in zip(requirements_list, energy_tanks):
-            print("Logic rule:")
-            print(f"Requirements: {requirement}")
-            print(f"Energy Tanks: {energy_tanks_amount}")
+        for new_rule, energy_tanks_in_rule in create_logic_rule(requirement, options, debug):
+            requirements_list.append(new_rule)
+            energy_tanks_list.append(energy_tanks_in_rule)
+    print("Create logic rule for list...")
+    logging.info("Create logic rule for list...")
+    for requirement, energy_tanks in zip(requirements_list, energy_tanks_list):
+        print("Logic rule:")
+        print(f"Requirements: {requirement}")
+        print(f"Energy Tanks: {energy_tanks}")
         print("===\n")
-    return requirements_list, energy_tanks
+        logging.info("Logic rule:")
+        logging.info(f"Requirements: {requirement}")
+        logging.info(f"Energy Tanks: {energy_tanks}")
+        logging.info("===\n")
+    return requirements_list, energy_tanks_list
 
 def create_logic_rule(
         requirement: Requirement,
         options: "MetroidFusionOptions",
-        debug: bool = False) -> tuple[list[str], list[int]]:
+        debug: bool = False) -> list[tuple[set[str], int]]:
     if requirement.check_option_enabled(options):
-        requirements_list = []
-        energy_tanks_needed = []
+        possibilities: list[tuple[set[str], int]] = []
+        hard_items: set[str] = set()
         unpack_requirement(
             requirement,
-            requirements_list,
-            [],
-            energy_tanks_needed,
+            possibilities,
+            set(),
             options,
+            hard_items,
             0,
             debug)
         if debug:
             print("Create logic rule...")
-            print(f"Requirement: {requirement}")
-            print(f"Requirements List: [")
-            for requirement in requirements_list:
-                print(f"  {requirement}")
-            print(f"]")
-            print(f"Energy Tanks Needed: {energy_tanks_needed}")
-        return requirements_list, energy_tanks_needed
+            print(f"Requirement: {requirement.name}")
+            print("Requirements List: [")
+            for requirements_list, energy in possibilities:
+                print(f"\t{requirements_list}, \n\t\tEnergy Tanks: {energy}")
+            print("]")
+            print(f"Hard Requirements: {hard_items}")
+            # print("Removed Requirements: [")
+            # for rem_poss in removed_possibilities:
+            #     print(f"\t[{rem_poss}]")
+            # print("]")
+            logging.info(f"  {requirement}")
+            logging.info("]")
+        return possibilities
     else:
-        if debug:
-            print(f"Requirement {requirement.name} disabled due to options.")
-        return [], []
+        print(f"Requirement {requirement.name} disabled due to options.")
+        logging.info(f"Requirement {requirement.name} disabled due to options.")
+        return []
 
 def unpack_requirement(
         requirement: Requirement,
-        possibilities: list[list[str]],
-        parent_items: list[str],
-        energy_tanks: list[int],
+        possibilities: list[tuple[set[str], int]],
+        parent_items: set[str],
         options: "MetroidFusionOptions",
+        parent_hard_items: set[str],
         parent_energy_tanks: int = 0,
-        debug = False) -> None:
+        debug = False) -> list[tuple[set[str], int]]:
+    """Unpacks a requirement into a list of possible item sets each paired with an integer of energy tanks"""
+    logging.info(f"Requirement {requirement.name}. Items needed {requirement.items_needed}. Sub-requirements {requirement.requirements}. Hard requirements {requirement.hard_items_needed}. Possibilities {possibilities}. Parent items {parent_items}. Parent hard requirements {parent_hard_items}. Parent Energy Tanks Needed {parent_energy_tanks}.")
+    # Is the Requirement's YAML option enabled?
     if requirement.check_option_enabled(options):
-        if len(requirement.other_requirements) > 0:
-            for nested_requirement in requirement.other_requirements:
-                current_parent_items = copy(parent_items)
-                for item_needed in requirement.items_needed:
-                    assert item_needed in valid_item_names, (item_needed, requirement)
-                parent_items.extend(requirement.items_needed)
-                unpack_requirement(
-                    nested_requirement,
-                    possibilities,
-                    parent_items,
-                    energy_tanks,
-                    options,
-                    max(requirement.energy_tanks_needed, parent_energy_tanks),
-                    debug
-                )
-                parent_items = copy(current_parent_items)
-        elif len(requirement.items_needed) > 0:
-            items_needed = copy(requirement.items_needed)
-            for item_needed in items_needed:
-                assert item_needed in valid_item_names, (item_needed, requirement)
-            items_needed.extend(parent_items)
-            possibilities.append(items_needed)
-            energy_tanks.append(max(requirement.energy_tanks_needed, parent_energy_tanks))
+        # Validate item names
+        for item_needed in requirement.items_needed:
+            assert item_needed in valid_item_names, (item_needed, requirement)
+        for hard_item_needed in requirement.hard_items_needed:
+            assert hard_item_needed in valid_item_names, (hard_item_needed, requirement)
+        # Has sub-requirements?
+        if requirement.requirements:
+            # Permute the requirements lists
+            requirements_product: list[list[Requirement]] = list(itertools_product(*requirement.requirements))
+            for requirements_permutation in requirements_product:
+                # Check if all requirements in permutation have enabled options
+                cont_permute: bool = False
+                for nested_requirement in requirements_permutation:
+                    if not nested_requirement.check_option_enabled(options):
+                        print(f"Skipping permutation: {requirements_permutation}")
+                        print(f"Requirement: '{nested_requirement.name}' disabled due to options.")
+                        cont_permute = True
+                # If ANY requirement in this permutation is disabled, skip providing its possibilities
+                if cont_permute:
+                    continue
+                # Save state of parent's hard_items_needed
+                current_hard_items = parent_hard_items.copy()
+                parent_hard_items = parent_hard_items | requirement.hard_items_needed
+                new_possibilities: list[tuple[set[str], int]] = []
+                for nested_requirement in requirements_permutation:
+                    and_possibilities = unpack_requirement(
+                        nested_requirement,
+                        [],
+                        parent_items | requirement.items_needed,
+                        options,
+                        parent_hard_items,
+                        max(parent_energy_tanks, requirement.energy_tanks_needed),
+                        debug
+                    )
+                    if new_possibilities:
+                        current_new_possibilities = new_possibilities.copy()
+                        new_possibilities = []
+                        while 0 < len(current_new_possibilities):
+                            nested_possibility_items, nested_possibility_energy = current_new_possibilities.pop(0)
+                            for and_possibility_items, and_possibility_energy in and_possibilities:
+                                new_possibilities.append((nested_possibility_items | and_possibility_items,
+                                                          max(nested_possibility_energy, and_possibility_energy)))
+                    elif not new_possibilities:
+                        new_possibilities.extend(and_possibilities)
+                for nested_requirement_items, nested_requirement_energy in new_possibilities:
+                    combined_items = nested_requirement_items | requirement.items_needed
+                    calculated_energy = max(nested_requirement_energy, requirement.energy_tanks_needed)
+                    hard_test: bool = (parent_hard_items.issubset(combined_items))
+                    possibility_exists_test: bool = ((combined_items, calculated_energy) in possibilities)
+                    if hard_test and not possibility_exists_test:
+                        possibilities.append((combined_items, calculated_energy))
+                    elif debug:
+                        print(f"Skipping Possibility: {combined_items}")
+                        if not hard_test:
+                            print(f"Does not contain all of: {parent_hard_items}")
+                        elif possibility_exists_test:
+                            print(f"Possibility already existed when attempting to add to list")
+                parent_hard_items = current_hard_items.copy()
+        elif requirement.items_needed:
+            parent_hard_items.update(requirement.hard_items_needed)
+            possibilities.append((parent_items | requirement.items_needed,
+                                  max(parent_energy_tanks, requirement.energy_tanks_needed)))
     else:
-        if debug:
-            print(f"Requirement {requirement.name} disabled due to options.")
+        print(f"Requirement {requirement.name} disabled due to options.")
+        logging.info(f"Requirement {requirement.name} disabled due to options.")
+        return []
+    return possibilities
