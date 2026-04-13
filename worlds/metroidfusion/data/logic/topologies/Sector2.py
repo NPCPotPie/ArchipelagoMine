@@ -234,15 +234,19 @@ Sector2ZazabiZone.locations = [
     FusionLocation("Sector 2 (TRO) -- Zazabi Arena Access", False, []),
     FusionLocation("Sector 2 (TRO) -- Zazabi Speedway -- Lower Item", False, [
         CanFightEarlyGameBoss("Kill Zazabi and Enter Zazabi Speedway", [
-            HasSpaceJump(),
-            HasScrewAttack(),
+            HasSpaceJump()
+        ], [
+            HasScrewAttack()
+        ], [
             HasSpeedBooster()
         ]),
     ]),
     FusionLocation("Sector 2 (TRO) -- Zazabi Speedway -- Upper Item", False, [
         CanFightEarlyGameBoss("Kill Zazabi and Enter Zazabi Speedway", [
-            HasSpaceJump(),
-            HasScrewAttack(),
+            HasSpaceJump()
+        ],[
+            HasScrewAttack()
+        ],[
             HasSpeedBooster()
         ]),
     ])
