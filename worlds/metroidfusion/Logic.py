@@ -58,17 +58,17 @@ def create_logic_rule_for_list(
         for new_rule, energy_tanks_in_rule in create_logic_rule(requirement, options, debug):
             requirements_list.append(new_rule)
             energy_tanks_list.append(energy_tanks_in_rule)
-    print("Create logic rule for list...")
-    logging.info("Create logic rule for list...")
-    for requirement, energy_tanks in zip(requirements_list, energy_tanks_list):
-        print("Logic rule:")
-        print(f"Requirements: {requirement}")
-        print(f"Energy Tanks: {energy_tanks}")
-        print("===\n")
-        logging.info("Logic rule:")
-        logging.info(f"Requirements: {requirement}")
-        logging.info(f"Energy Tanks: {energy_tanks}")
-        logging.info("===\n")
+    #print("Create logic rule for list...")
+    #logging.info("Create logic rule for list...")
+    #for requirement, energy_tanks in zip(requirements_list, energy_tanks_list):
+        #print("Logic rule:")
+        #print(f"Requirements: {requirement}")
+        #print(f"Energy Tanks: {energy_tanks}")
+        #print("===\n")
+        #logging.info("Logic rule:")
+        #logging.info(f"Requirements: {requirement}")
+        #logging.info(f"Energy Tanks: {energy_tanks}")
+        #logging.info("===\n")
     return requirements_list, energy_tanks_list
 
 def create_logic_rule(
@@ -98,12 +98,12 @@ def create_logic_rule(
             # for rem_poss in removed_possibilities:
             #     print(f"\t[{rem_poss}]")
             # print("]")
-            logging.info(f"  {requirement}")
-            logging.info("]")
+            #logging.info(f"  {requirement}")
+            #logging.info("]")
         return possibilities
     else:
-        print(f"Requirement {requirement.name} disabled due to options.")
-        logging.info(f"Requirement {requirement.name} disabled due to options.")
+        #print(f"Requirement {requirement.name} disabled due to options.")
+        #logging.info(f"Requirement {requirement.name} disabled due to options.")
         return []
 
 def unpack_requirement(
@@ -115,7 +115,7 @@ def unpack_requirement(
         parent_energy_tanks: int = 0,
         debug = False) -> list[tuple[set[str], int]]:
     """Unpacks a requirement into a list of possible item sets each paired with an integer of energy tanks"""
-    logging.info(f"Requirement {requirement.name}. Items needed {requirement.items_needed}. Sub-requirements {requirement.requirements}. Hard requirements {requirement.hard_items_needed}. Possibilities {possibilities}. Parent items {parent_items}. Parent hard requirements {parent_hard_items}. Parent Energy Tanks Needed {parent_energy_tanks}.")
+    #logging.info(f"Requirement {requirement.name}. Items needed {requirement.items_needed}. Sub-requirements {requirement.requirements}. Hard requirements {requirement.hard_items_needed}. Possibilities {possibilities}. Parent items {parent_items}. Parent hard requirements {parent_hard_items}. Parent Energy Tanks Needed {parent_energy_tanks}.")
     # Is the Requirement's YAML option enabled?
     if requirement.check_option_enabled(options):
         # Validate item names
@@ -132,8 +132,8 @@ def unpack_requirement(
                 cont_permute: bool = False
                 for nested_requirement in requirements_permutation:
                     if not nested_requirement.check_option_enabled(options):
-                        print(f"Skipping permutation: {requirements_permutation}")
-                        print(f"Requirement: '{nested_requirement.name}' disabled due to options.")
+                        #print(f"Skipping permutation: {requirements_permutation}")
+                        #print(f"Requirement: '{nested_requirement.name}' disabled due to options.")
                         cont_permute = True
                 # If ANY requirement in this permutation is disabled, skip providing its possibilities
                 if cont_permute:
@@ -170,7 +170,7 @@ def unpack_requirement(
                     if hard_test and not possibility_exists_test:
                         possibilities.append((combined_items, calculated_energy))
                     elif debug:
-                        print(f"Skipping Possibility: {combined_items}")
+                        #print(f"Skipping Possibility: {combined_items}")
                         if not hard_test:
                             print(f"Does not contain all of: {parent_hard_items}")
                         elif possibility_exists_test:
@@ -181,7 +181,7 @@ def unpack_requirement(
             possibilities.append((parent_items | requirement.items_needed,
                                   max(parent_energy_tanks, requirement.energy_tanks_needed)))
     else:
-        print(f"Requirement {requirement.name} disabled due to options.")
-        logging.info(f"Requirement {requirement.name} disabled due to options.")
+        #print(f"Requirement {requirement.name} disabled due to options.")
+        #logging.info(f"Requirement {requirement.name} disabled due to options.")
         return []
     return possibilities
