@@ -86,7 +86,7 @@ Sector2ZazabiZone.connections = [
             CanFreezeEnemies(),
             CanJumpHigh()
         ])
-    ]),
+    ], one_way=True),
     Connection(Sector2NettoriZone, [
         HasSpaceJump()
     ]),
