@@ -292,7 +292,7 @@ Sector1TourianHub.locations = [
             HasScrewAttack()
         ], [
             # Do Ridley Fight
-            CanFightMidGameBoss("Ridley Trickless", [
+            CanFightLateGameBoss("Ridley Trickless", [
                 CanUseAllMissileUpgrades()
             ], [
                 CanUseAllBeamUpgrades()
