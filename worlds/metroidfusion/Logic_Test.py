@@ -65,13 +65,20 @@ class FusionLogicTest(WorldTestBase):
             # Copy or write a Requirement in this area to test
 
         ]
-        expected_requirements = [
+        expected_requirements: list[tuple[set[str], int, int, int]] = [
             # Type out expected sets of item combinations to be produced here.
+            # Requirements Set, Energy Tanks, Missile Ammo, PB Ammo
             # All sets in this list will attempt to be asserted and print an error to console if it doesn't exist.
 
         ]
-        rules, energy_tanks = create_logic_rule_for_list(reqs, MetroidFusionOptions(**self.options), True)
-        for expected_requirement in expected_requirements:
+        (rules,
+         energy_tanks,
+         missiles,
+         power_bombs) = create_logic_rule_for_list(reqs, MetroidFusionOptions(**self.options), True)
+        for (expected_requirement,
+             expected_energy,
+             expected_missiles,
+             expected_power_bombs) in expected_requirements:
             try:
                 assert expected_requirement in rules
             except AssertionError:

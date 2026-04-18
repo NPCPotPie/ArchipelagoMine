@@ -16,13 +16,17 @@ class RequirementBase(ABC):
     :param items_needed: A list of items as Strings. Defaults to an empty list.
     :param hard_items_needed: A list of items as Strings. Defaults to an empty list.
     :param energy_tanks_needed: An integer number of energy tanks required. Defaults to 0.
+    :param missile_ammo_needed: An integer number of missiles required. Defaults to 0.
+    :param power_bomb_ammo_needed: An integer number of power bombs required. Defaults to 0.
     :param requirements: A list of lists of Requirement objects. Defaults to an empty list.
-    :param kwargs: Available keyword arguments: ``items_needed`` as set[str], ``hard_items_needed`` as set[str], ``energy_tanks_needed`` as int
+    :param kwargs: Available keyword arguments: ``items_needed`` as set[str], ``hard_items_needed`` as set[str], ``energy_tanks_needed`` as int, ``missile_ammo_needed`` as int, ``power_bomb_ammo_needed`` as int
     """
     name: str
     items_needed: set[str]
     hard_items_needed: set[str]
     energy_tanks_needed: int
+    missile_ammo_needed: int
+    power_bomb_ammo_needed: int
     requirements: list[list[Self]]
 
     @abstractmethod
@@ -31,6 +35,8 @@ class RequirementBase(ABC):
                  items_needed: set[str] = None,
                  hard_items_needed: set[str] = None,
                  energy_tanks_needed: int = 0,
+                 missile_ammo_needed: int = 0,
+                 power_bomb_ammo_needed: int = 0,
                  *requirements: list[Self],
                  **kwargs):
         if name is None:
@@ -49,12 +55,16 @@ class RequirementBase(ABC):
                 reqs.append(requirement)
         self.requirements = reqs
         self.energy_tanks_needed = energy_tanks_needed
+        self.missile_ammo_needed = missile_ammo_needed
+        self.power_bomb_ammo_needed = power_bomb_ammo_needed
 
     def __repr__(self):
         return_string = f"Name: {self.name}\n"
         return_string += f"ItemsNeeded: [{', '.join(self.items_needed)}]\n"
         return_string += f"HardItemsNeeded: [{', '.join(self.hard_items_needed)}]\n"
         return_string += f"EnergyTanks: {self.energy_tanks_needed}\n"
+        return_string += f"MissileAmmo: {self.missile_ammo_needed}\n"
+        return_string += f"PowerBombAmmo: {self.power_bomb_ammo_needed}"
         return_string += "Requirements: ["
         if self.requirements:
             for req_list in self.requirements:
@@ -79,6 +89,8 @@ class Requirement(RequirementBase):
                          kwargs.pop('items_needed', None),
                          kwargs.pop('hard_items_needed', None),
                          kwargs.pop('energy_tanks_needed', 0),
+                         kwargs.pop('missile_ammo_needed', 0),
+                         kwargs.pop('power_bomb_ammo_needed', 0),
                          *requirements,
                          **kwargs)
 

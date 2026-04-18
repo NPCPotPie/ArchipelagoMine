@@ -304,7 +304,9 @@ class CanBomb(HasMorph, HasBombData):
 class CanPowerBomb(HasMorph, HasPowerBombData):
     def __init__(self,
                  name = "Can Power Bomb",
+                 power_bomb_ammo_needed = 1,
                  *requirements, **kwargs):
+        kwargs['power_bomb_ammo_needed'] = kwargs.pop('power_bomb_ammo_needed', power_bomb_ammo_needed)
         super().__init__(name, *requirements, **kwargs)
 
 class CanBallJump(HasMorph):
@@ -362,31 +364,6 @@ class CanUseDiffusionMissile(HasMissile, HasDiffusionMissile):
     def __init__(self,
                  name = "Can Use Diffusion Missile",
                  *requirements, **kwargs):
-        super().__init__(name, *requirements, **kwargs)
-
-class CanUseOneMissileUpgrade(HasMissile):
-    def __init__(self,
-                 name = "Can Use One Missile Upgrade",
-                 *requirements, **kwargs):
-        requirements +=  ([CanUseSuperMissile(), CanUseIceMissile(), CanUseDiffusionMissile()],)
-        super().__init__(name, *requirements, **kwargs)
-
-
-class CanUseTwoMissileUpgrades(HasMissile):
-    def __init__(self,
-                 name = "Can Use Two Missile Upgrades",
-                 *requirements, **kwargs):
-        requirements += ([
-            Requirement("Can Use Super Missile and Ice Missile",
-                        items_needed={"Super Missile", "Ice Missile"}
-            ),
-            Requirement("Can Use Ice Missile and Diffusion Missile",
-                        items_needed={"Ice Missile", "Diffusion Missile"}
-            ),
-            Requirement("Can Use Super Missile and Diffusion Missile",
-                        items_needed={"Super Missile", "Diffusion Missile"}
-            )
-        ],)
         super().__init__(name, *requirements, **kwargs)
 
 class CanUseAllMissileUpgrades(HasMissile, HasSuperMissile, HasIceMissile, HasDiffusionMissile):
@@ -503,30 +480,119 @@ class CanUseAllBeamUpgrades(HasChargeBeam, HasWideBeam, HasPlasmaBeam, HasWaveBe
 
 #endregion
 
+#region Combination Missile Upgrades for Damage Tracking
+
+class CanDo45MissileDamage(HasMissile, HasSuperMissile, HasIceMissile, HasDiffusionMissile):
+    def __init__(self,
+                 name = "Can Do 45 Missile Damage",
+                 missile_ammo_needed = 1,
+                 *requirements, **kwargs):
+        kwargs['missile_ammo_needed'] = kwargs.pop('missile_ammo_needed', missile_ammo_needed)
+        super().__init__(name, *requirements, **kwargs)
+
+class CanDo40MissileDamage(HasMissile, HasSuperMissile, HasIceMissile):
+    def __init__(self,
+                 name = "Can Do 40 Missile Damage",
+                 missile_ammo_needed = 1,
+                 *requirements, **kwargs):
+        kwargs['missile_ammo_needed'] = kwargs.pop('missile_ammo_needed', missile_ammo_needed)
+        super().__init__(name, *requirements, **kwargs)
+
+class CanDo35MissileDamage(HasMissile, HasSuperMissile, HasDiffusionMissile):
+    def __init__(self,
+                 name = "Can Do 35 Missile Damage",
+                 missile_ammo_needed = 1,
+                 *requirements, **kwargs):
+        kwargs['missile_ammo_needed'] = kwargs.pop('missile_ammo_needed', missile_ammo_needed)
+        super().__init__(name, *requirements, **kwargs)
+
+class CanDo30MissileDamage(HasMissile, HasSuperMissile):
+    def __init__(self,
+                 name = "Can Do 30 Missile Damage",
+                 missile_ammo_needed = 1,
+                 *requirements, **kwargs):
+        kwargs['missile_ammo_needed'] = kwargs.pop('missile_ammo_needed', missile_ammo_needed)
+        super().__init__(name, *requirements, **kwargs)
+
+class CanDo25MissileDamage(HasMissile, HasIceMissile, HasDiffusionMissile):
+    def __init__(self,
+                 name = "Can Do 25 Missile Damage",
+                 missile_ammo_needed = 1,
+                 *requirements, **kwargs):
+        kwargs['missile_ammo_needed'] = kwargs.pop('missile_ammo_needed', missile_ammo_needed)
+        super().__init__(name, *requirements, **kwargs)
+
+class CanDo20MissileDamage(HasMissile, HasIceMissile):
+    def __init__(self,
+                 name = "Can Do 20 Missile Damage",
+                 missile_ammo_needed = 1,
+                 *requirements, **kwargs):
+        kwargs['missile_ammo_needed'] = kwargs.pop('missile_ammo_needed', missile_ammo_needed)
+        super().__init__(name, *requirements, **kwargs)
+
+class CanDo15MissileDamage(HasMissile, HasDiffusionMissile):
+    def __init__(self,
+                 name = "Can Do 15 Missile Damage",
+                 missile_ammo_needed = 1,
+                 *requirements, **kwargs):
+        kwargs['missile_ammo_needed'] = kwargs.pop('missile_ammo_needed', missile_ammo_needed)
+        super().__init__(name, *requirements, **kwargs)
+
+class CanDo10MissileDamage(HasMissile):
+    def __init__(self,
+                 name = "Can Do 10 Missile Damage",
+                 missile_ammo_needed = 1,
+                 *requirements, **kwargs):
+        kwargs['missile_ammo_needed'] = kwargs.pop('missile_ammo_needed', missile_ammo_needed)
+        super().__init__(name, *requirements, **kwargs)
+
+#endregion
+
 #region Enemy Requirements
 class CanDamageSmallGeron(HasMissile):
     def __init__(self,
                  name = "Can Damage Small Geron",
                  *requirements, **kwargs):
+        requirements += ([
+            CanDo30MissileDamage(),
+            CanDo25MissileDamage(missile_ammo_needed=2),
+            CanDo20MissileDamage(missile_ammo_needed=2),
+            CanDo15MissileDamage(missile_ammo_needed=2),
+            CanDo10MissileDamage(missile_ammo_needed=3)
+        ],)
         super().__init__(name, *requirements, **kwargs)
 
 class CanDamageMediumGeron(CanUseSuperMissile):
     def __init__(self,
                  name = "Can Damage Medium Geron",
                  *requirements, **kwargs):
+        requirements += ([
+            CanDo45MissileDamage(missile_ammo_needed=2),
+            CanDo40MissileDamage(missile_ammo_needed=3),
+            CanDo35MissileDamage(missile_ammo_needed=3),
+            CanDo30MissileDamage(missile_ammo_needed=3),
+        ],)
         super().__init__(name, *requirements, **kwargs)
 
 class CanDamageLargeGeron(CanPowerBomb):
     def __init__(self,
                  name = "Can Damage Large Geron",
                  *requirements, **kwargs):
+        kwargs['power_bomb_ammo_needed'] = kwargs.pop('power_bomb_ammo_needed', 1)
         super().__init__(name, *requirements, **kwargs)
 
 class CanDamageStabilizer(Requirement):
     def __init__(self,
                  name = "Can Damage Stabilizer",
                  *requirements, **kwargs):
-        requirements += ([HasMissile(), HasChargeBeam()],)
+        requirements += ([
+            CanDo30MissileDamage(),
+            CanDo25MissileDamage(),
+            CanDo20MissileDamage(missile_ammo_needed=2),
+            CanDo15MissileDamage(missile_ammo_needed=2),
+            CanDo10MissileDamage(missile_ammo_needed=3),
+            HasChargeBeam()
+        ],)
         super().__init__(name, *requirements, **kwargs)
 
 class CanDamageAnyGeron(Requirement):
@@ -551,7 +617,10 @@ class CanDamageToughEnemyThroughWalls(Requirement):
     def __init__(self,
                  name = "Can Damage Tough Enemy Through Walls",
                  *requirements, **kwargs):
-        requirements += ([CanChargedWaveShot(), CanPowerBomb()],)
+        requirements += ([
+            CanChargedWaveShot(),
+            CanPowerBomb(power_bomb_ammo_needed=kwargs.pop('power_bomb_ammo_needed', 2))
+        ],)
         super().__init__(name, *requirements, **kwargs)
 
 #endregion
@@ -762,8 +831,8 @@ class CanClimbSector3Attic(Requirement):
                  name = "Can Climb Sector 3 Attic",
                  *requirements, **kwargs):
         requirements += ([
-                             CanDestroyBombBlocks()
-                         ], [
+            CanDestroyBombBlocks()
+        ], [
             HasHiJump("Wall Jump Good",
                       [CanDoAdvancedWallJump()]),
             HasSpaceJump("Fly through Bomb Blocks",

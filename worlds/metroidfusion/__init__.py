@@ -218,7 +218,10 @@ class MetroidFusionWorld(World):
                         f"{origin_region.name} to {connecting_region.name}")
                 logging.info(f"{'One way connection' if connection.one_way else 'Two way connection'}: "
                              f"{origin_region.name} to {connecting_region.name}")
-                logic_object.requirements, logic_object.energy_tanks = create_logic_rule_for_list(
+                (logic_object.requirements,
+                 logic_object.energy_tanks,
+                 logic_object.missile_ammo,
+                 logic_object.power_bomb_ammo) = create_logic_rule_for_list(
                     connection.requirements,
                     self.options,
                     self.debug)
@@ -380,7 +383,10 @@ class MetroidFusionWorld(World):
             logic_object = LogicObject(self.player, self.options)
             print(f"\n{location.name} requirements:")
             logging.info(f"\n{location.name} requirements:")
-            logic_object.requirements, logic_object.energy_tanks = create_logic_rule_for_list(
+            (logic_object.requirements,
+             logic_object.energy_tanks,
+             logic_object.missile_ammo,
+             logic_object.power_bomb_ammo) = create_logic_rule_for_list(
                 location_data.requirements, self.options, self.debug)
             add_rule(ap_location, logic_object.logic_rule)
 
