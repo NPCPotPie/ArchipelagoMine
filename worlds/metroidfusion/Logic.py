@@ -150,8 +150,8 @@ def create_logic_rule(
             logging.info("]")
         return possibilities
     else:
-        print(f"Requirement {requirement.name} disabled due to options.")
-        logging.info(f"Requirement {requirement.name} disabled due to options.")
+        #print(f"Requirement {requirement.name} disabled due to options.")
+        #logging.info(f"Requirement {requirement.name} disabled due to options.")
         return []
 
 def unpack_requirement(
@@ -191,8 +191,8 @@ def unpack_requirement(
                 cont_permute: bool = False
                 for nested_requirement in requirements_permutation:
                     if not nested_requirement.check_option_enabled(options):
-                        print(f"Skipping permutation: {requirements_permutation}")
-                        print(f"Requirement: '{nested_requirement.name}' disabled due to options.")
+                        #print(f"Skipping permutation: {requirements_permutation}")
+                        #print(f"Requirement: '{nested_requirement.name}' disabled due to options.")
                         cont_permute = True
                 # If ANY requirement in this permutation is disabled, skip providing its possibilities
                 if cont_permute:
@@ -253,7 +253,7 @@ def unpack_requirement(
                                               calculated_missile_ammo,
                                               calculated_power_bomb_ammo))
                     elif debug:
-                        print(f"Skipping Possibility: {combined_items}")
+                        #print(f"Skipping Possibility: {combined_items}")
                         if not hard_test:
                             print(f"Does not contain all of: {parent_hard_items}")
                         elif possibility_exists_test:
@@ -266,7 +266,7 @@ def unpack_requirement(
                                    max(parent_missile_ammo, requirement.missile_ammo_needed),
                                    max(parent_power_bomb_ammo, requirement.power_bomb_ammo_needed) ))
     else:
-        print(f"Requirement {requirement.name} disabled due to options.")
-        logging.info(f"Requirement {requirement.name} disabled due to options.")
+        #print(f"Requirement {requirement.name} disabled due to options.")
+        #logging.info(f"Requirement {requirement.name} disabled due to options.")
         return []
     return possibilities

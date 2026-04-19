@@ -14,7 +14,7 @@ class Sector6Crossroads(FusionRegion):
     name = "Sector 6 Crossroads"
 
 class Sector6Catacombs(FusionRegion):
-    name = "Sector 6 Crossroads"
+    name = "Sector 6 Catacombs"
 
 class Sector6BeforeXBOXZone(FusionRegion):
     name = "Sector 6 Before X-BOX Zone"
@@ -23,7 +23,7 @@ class Sector6XBOXZone(FusionRegion):
     name = "Sector 6 X-BOX Zone"
 
 class Sector6XBOXSave(FusionRegion):
-    name = "Sector 6 Crossroads"
+    name = "Sector 6 X-BOX Save"
 
 class Sector6AfterXBOXZone(FusionRegion):
     name = "Sector 6 After X-BOX Zone"
@@ -41,7 +41,7 @@ class Sector6VariaCoreXZone(FusionRegion):
     name = "Sector 6 Varia Core-X Zone"
 
 class Sector6CavernsSave(FusionRegion):
-    name = "Sector 6 Crossroads"
+    name = "Sector 6 Caverns Save"
 
 class Sector6AfterVariaCoreXZone(FusionRegion):
     name = "Sector 6 After Varia Core-X Zone"
