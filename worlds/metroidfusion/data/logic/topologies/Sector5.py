@@ -247,7 +247,15 @@ Sector5TopLeftBigRoom.locations = [
 Sector5FrozenHub.locations = [
     FusionLocation("Sector 5 (ARC) -- Ripper Road", False, [
         CanBallJump("Can Obtain Ripper Road Item", [
-            CanFreezeEnemies()
+            CanFreezeEnemies("Can Freeze The Rippers",[
+                Requirement("Kill Geron and Break Bomb Block",[
+                    CanDamageLargeGeron(),
+                    CanDamageAnyGeron(),
+                ],[
+                    CanBomb(),
+                    CanPowerBomb(),
+                ])
+            ])
         ])
     ])
 ]
