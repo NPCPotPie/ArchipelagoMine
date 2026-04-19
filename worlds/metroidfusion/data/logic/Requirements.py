@@ -304,9 +304,8 @@ class CanBomb(HasMorph, HasBombData):
 class CanPowerBomb(HasMorph, HasPowerBombData):
     def __init__(self,
                  name = "Can Power Bomb",
-                 power_bomb_ammo_needed = 1,
                  *requirements, **kwargs):
-        kwargs['power_bomb_ammo_needed'] = kwargs.pop('power_bomb_ammo_needed', power_bomb_ammo_needed)
+        kwargs['power_bomb_ammo_needed'] = kwargs.pop('power_bomb_ammo_needed', 1)
         super().__init__(name, *requirements, **kwargs)
 
 class CanBallJump(HasMorph):
