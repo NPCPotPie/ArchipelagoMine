@@ -214,11 +214,14 @@ class MetroidFusionWorld(World):
             for connection in origin_region_data.connections:
                 connecting_region = self.get_region(connection.destination.name)
                 logic_object = LogicObject(self.player, self.options)
-                #print(f"{'One way connection' if connection.one_way else 'Two way connection'}: "
-                        #f"{origin_region.name} to {connecting_region.name}")
-                #logging.info(f"{'One way connection' if connection.one_way else 'Two way connection'}: "
-                             #f"{origin_region.name} to {connecting_region.name}")
-                logic_object.requirements, logic_object.energy_tanks = create_logic_rule_for_list(
+                print(f"{'One way connection' if connection.one_way else 'Two way connection'}: "
+                        f"{origin_region.name} to {connecting_region.name}")
+                logging.info(f"{'One way connection' if connection.one_way else 'Two way connection'}: "
+                             f"{origin_region.name} to {connecting_region.name}")
+                (logic_object.requirements,
+                 logic_object.energy_tanks,
+                 logic_object.missile_ammo,
+                 logic_object.power_bomb_ammo) = create_logic_rule_for_list(
                     connection.requirements,
                     self.options,
                     self.debug)
@@ -378,9 +381,12 @@ class MetroidFusionWorld(World):
             ap_location = self.get_location(location.name)
             location_data = get_location_data_by_name(location.name)
             logic_object = LogicObject(self.player, self.options)
-            #print(f"\n{location.name} requirements:")
-            #logging.info(f"\n{location.name} requirements:")
-            logic_object.requirements, logic_object.energy_tanks = create_logic_rule_for_list(
+            print(f"\n{location.name} requirements:")
+            logging.info(f"\n{location.name} requirements:")
+            (logic_object.requirements,
+             logic_object.energy_tanks,
+             logic_object.missile_ammo,
+             logic_object.power_bomb_ammo) = create_logic_rule_for_list(
                 location_data.requirements, self.options, self.debug)
             add_rule(ap_location, logic_object.logic_rule)
 
