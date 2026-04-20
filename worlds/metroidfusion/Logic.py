@@ -42,8 +42,6 @@ class LogicObject:
             if energy_tanks_value > 0:
                 if self.options.ElevatorShuffle.value > self.options.ElevatorShuffle.option_none:
                     energy_tanks_value = energy_tanks_value // 2
-                else:
-                    energy_tanks_value = energy_tanks_value
                 if self.options.CombatDifficulty >= self.options.CombatDifficulty.option_expert:
                     energy_tanks_value = energy_tanks_value // 2
             if missile_ammo_value > 0:
