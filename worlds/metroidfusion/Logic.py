@@ -23,7 +23,7 @@ class LogicObject:
         self.options = options
 
     def logic_rule(self, state: CollectionState) -> bool:
-        if self.requirements:
+        if not self.requirements:
             return True
         expression = None
         for (requirement_list,
