@@ -15,11 +15,8 @@ class HasMorph(Requirement):
     def __init__(self,
                  name = "Has Morph Ball",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Morph Ball"}
-        elif items_needed is not None:
-            items_needed.add("Morph Ball")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Morph Ball"})
+        items_needed.add("Morph Ball")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -27,11 +24,8 @@ class HasBombData(Requirement):
     def __init__(self,
                  name = "Has Bomb Data",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Bomb Data"}
-        elif items_needed is not None:
-            items_needed.add("Bomb Data")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Bomb Data"})
+        items_needed.add("Bomb Data")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -39,11 +33,8 @@ class HasPowerBombData(Requirement):
     def __init__(self,
                  name = "Has Power Bomb Data",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Power Bomb Data"}
-        elif items_needed is not None:
-            items_needed.add("Power Bomb Data")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Power Bomb Data"})
+        items_needed.add("Power Bomb Data")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -52,11 +43,8 @@ class HasVaria(Requirement):
     def __init__(self,
                  name = "Has Varia Suit",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Varia Suit"}
-        elif items_needed is not None:
-            items_needed.add("Varia Suit")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Varia Suit"})
+        items_needed.add("Varia Suit")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -64,11 +52,8 @@ class HasGravity(Requirement):
     def __init__(self,
                  name = "Has Gravity Suit",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Gravity Suit"}
-        elif items_needed is not None:
-            items_needed.add("Gravity Suit")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Gravity Suit"})
+        items_needed.add("Gravity Suit")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -78,11 +63,8 @@ class HasWallJump(Requirement):
     def __init__(self,
                  name = "Has Wall Jump",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Wall Jump Boots"}
-        elif items_needed is not None:
-            items_needed.add("Wall Jump Boots")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Wall Jump Boots"})
+        items_needed.add("Wall Jump Boots")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -90,11 +72,8 @@ class HasHiJump(Requirement):
     def __init__(self,
                  name = "Has Hi-Jump",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Hi-Jump"}
-        elif items_needed is not None:
-            items_needed.add("Hi-Jump")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Hi-Jump"})
+        items_needed.add("Hi-Jump")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -102,11 +81,8 @@ class HasSpaceJump(Requirement):
     def __init__(self,
                  name = "Has Space Jump",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Space Jump"}
-        elif items_needed is not None:
-            items_needed.add("Space Jump")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Space Jump"})
+        items_needed.add("Space Jump")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -114,11 +90,8 @@ class HasSpeedBooster(Requirement):
     def __init__(self,
                  name = "Has Speed Booster",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Speed Booster"}
-        elif items_needed is not None:
-            items_needed.add("Speed Booster")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Speed Booster"})
+        items_needed.add("Speed Booster")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -126,11 +99,8 @@ class HasScrewAttack(Requirement):
     def __init__(self,
                  name = "Has Screw Attack",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Screw Attack"}
-        elif items_needed is not None:
-            items_needed.add("Screw Attack")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Screw Attack"})
+        items_needed.add("Screw Attack")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -139,11 +109,8 @@ class HasMissile(Requirement):
     def __init__(self,
                  name = "Has Missile Data",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Missile Data"}
-        elif items_needed is not None:
-            items_needed.add("Missile Data")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Missile Data"})
+        items_needed.add("Missile Data")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -151,11 +118,8 @@ class HasSuperMissile(Requirement):
     def __init__(self,
                  name = "Has Super Missile",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Super Missile"}
-        elif items_needed is not None:
-            items_needed.add("Super Missile")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Super Missile"})
+        items_needed.add("Super Missile")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -163,11 +127,8 @@ class HasIceMissile(Requirement):
     def __init__(self,
                  name = "Has Ice Missile",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Ice Missile"}
-        elif items_needed is not None:
-            items_needed.add("Ice Missile")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Ice Missile"})
+        items_needed.add("Ice Missile")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -175,11 +136,8 @@ class HasDiffusionMissile(Requirement):
     def __init__(self,
                  name = "Has Diffusion Missile",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Diffusion Missile"}
-        elif items_needed is not None:
-            items_needed.add("Diffusion Missile")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Diffusion Missile"})
+        items_needed.add("Diffusion Missile")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -188,11 +146,8 @@ class HasChargeBeam(Requirement):
     def __init__(self,
                  name = "Has Charge Beam",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Charge Beam"}
-        elif items_needed is not None:
-            items_needed.add("Charge Beam")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Charge Beam"})
+        items_needed.add("Charge Beam")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -200,11 +155,8 @@ class HasWideBeam(Requirement):
     def __init__(self,
                  name = "Has Wide Beam",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Wide Beam"}
-        elif items_needed is not None:
-            items_needed.add("Wide Beam")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Wide Beam"})
+        items_needed.add("Wide Beam")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -212,11 +164,8 @@ class HasPlasmaBeam(Requirement):
     def __init__(self,
                  name = "Has Plasma Beam",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Plasma Beam"}
-        elif items_needed is not None:
-            items_needed.add("Plasma Beam")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Plasma Beam"})
+        items_needed.add("Plasma Beam")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -224,11 +173,8 @@ class HasWaveBeam(Requirement):
     def __init__(self,
                  name = "Has Wave Beam",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Wave Beam"}
-        elif items_needed is not None:
-            items_needed.add("Wave Beam")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Wave Beam"})
+        items_needed.add("Wave Beam")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -236,11 +182,8 @@ class HasIceBeam(Requirement):
     def __init__(self,
                  name = "Has Ice Beam",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Ice Beam"}
-        elif items_needed is not None:
-            items_needed.add("Ice Beam")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Ice Beam"})
+        items_needed.add("Ice Beam")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -249,11 +192,8 @@ class HasKeycard1(Requirement):
     def __init__(self,
                  name = "Has Level 1 Keycard",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Level 1 Keycard"}
-        elif items_needed is not None:
-            items_needed.add("Level 1 Keycard")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Level 1 Keycard"})
+        items_needed.add("Level 1 Keycard")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -261,11 +201,8 @@ class HasKeycard2(Requirement):
     def __init__(self,
                  name = "Has Level 2 Keycard",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Level 2 Keycard"}
-        elif items_needed is not None:
-            items_needed.add("Level 2 Keycard")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Level 2 Keycard"})
+        items_needed.add("Level 2 Keycard")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -273,11 +210,8 @@ class HasKeycard3(Requirement):
     def __init__(self,
                  name = "Has Level 3 Keycard",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Level 3 Keycard"}
-        elif items_needed is not None:
-            items_needed.add("Level 3 Keycard")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Level 3 Keycard"})
+        items_needed.add("Level 3 Keycard")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
@@ -285,11 +219,8 @@ class HasKeycard4(Requirement):
     def __init__(self,
                  name = "Has Level 4 Keycard",
                  *requirements, **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Level 4 Keycard"}
-        elif items_needed is not None:
-            items_needed.add("Level 4 Keycard")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Level 4 Keycard"})
+        items_needed.add("Level 4 Keycard")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 #endregion
