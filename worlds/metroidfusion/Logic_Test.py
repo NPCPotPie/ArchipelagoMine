@@ -59,16 +59,15 @@ class FusionLogicTest(WorldTestBase):
     }
 
     def individual_logic_test(self) -> None:
-        test_label: str = "Hard Requirements"
-        print(f"Logic Test: {test_label}")
+        print("===\nLogic Unit Test\n===")
         reqs: list[Requirement] = [
             # Copy or write a Requirement in this area to test
 
         ]
-        expected_requirements: list[tuple[set[str], int, int, int]] = [
-            # Type out expected sets of item combinations to be produced here.
-            # Requirements Set, Energy Tanks, Missile Ammo, PB Ammo
-            # All sets in this list will attempt to be asserted and print an error to console if it doesn't exist.
+        expected_results: list[tuple[set[str], int, int, int]] = [
+            # Type out expected results to be produced here.
+            # (Items Set, Energy Tanks, Missile Ammo, Power Bomb Ammo)
+            # All in this list will attempt to match results of the above Requirements list.
 
         ]
         (rules,
@@ -78,7 +77,7 @@ class FusionLogicTest(WorldTestBase):
         for (expected_requirement,
              expected_energy,
              expected_missiles,
-             expected_power_bombs) in expected_requirements:
+             expected_power_bombs) in expected_results:
             try:
                 assert expected_requirement in rules
             except AssertionError:
