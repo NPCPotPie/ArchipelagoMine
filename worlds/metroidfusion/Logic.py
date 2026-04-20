@@ -23,16 +23,16 @@ class LogicObject:
         self.options = options
 
     def logic_rule(self, state: CollectionState) -> bool:
-        if self.requirements:
+        if not self.requirements:
             return True
         expression = None
         for (requirement_list,
              energy_tanks_value,
              missile_ammo_value,
              power_bomb_ammo_value) in zip(self.requirements,
-                                     self.energy_tanks,
-                                     self.missile_ammo,
-                                     self.power_bomb_ammo):
+                                           self.energy_tanks,
+                                           self.missile_ammo,
+                                           self.power_bomb_ammo):
             while "Wall Jump Boots" in requirement_list:
                 requirement_list.remove("Wall Jump Boots")
             while "Nothing" in requirement_list:
@@ -42,35 +42,32 @@ class LogicObject:
             if energy_tanks_value > 0:
                 if self.options.ElevatorShuffle.value > self.options.ElevatorShuffle.option_none:
                     energy_tanks_value = energy_tanks_value // 2
-                else:
-                    energy_tanks_value = energy_tanks_value
                 if self.options.CombatDifficulty >= self.options.CombatDifficulty.option_expert:
                     energy_tanks_value = energy_tanks_value // 2
             if missile_ammo_value > 0:
-                missile_data_ammo_value: int = self.options.MissileDataAmmo.value
-                missile_tank_ammo_total: int = self.options.MissileTankAmmo * state.count("Missile Tank", self.player)
                 match self.options.CombatDifficulty.value:
                     case self.options.CombatDifficulty.option_beginner:
                         missile_ammo_value = -int(-(missile_ammo_value * 1.25) // 1)
                     case self.options.CombatDifficulty.option_advanced:
                         missile_ammo_value = -int(-(missile_ammo_value * 1.1) // 1)
-                has_enough_missiles = (missile_data_ammo_value + missile_tank_ammo_total) > missile_ammo_value
-            else:
-                has_enough_missiles = True
+                missile_ammo_value -= self.options.MissileDataAmmo.value
+                if self.options.MissileTankAmmo.value > 0:
+                    missile_ammo_value = -int(-(missile_ammo_value / self.options.MissileTankAmmo.value) // 1)
             if power_bomb_ammo_value > 0:
-                power_bomb_data_value: int = self.options.PowerBombDataAmmo.value
-                power_bomb_tank_total: int = self.options.PowerBombTankAmmo * state.count("Power Bomb Tank", self.player)
-                has_enough_power_bomb = (power_bomb_data_value + power_bomb_tank_total) > power_bomb_ammo_value
-            else:
-                has_enough_power_bomb = True
+                power_bomb_ammo_value -= self.options.PowerBombDataAmmo.value
+                if self.options.PowerBombTankAmmo.value > 0:
+                    power_bomb_ammo_value = -int(-(power_bomb_ammo_value / self.options.PowerBombTankAmmo.value) // 1)
             if expression is None:
                 expression = (state.has_all(requirement_list, self.player)
                               and state.has("Energy Tank", self.player, energy_tanks_value)
-                              and has_enough_missiles and has_enough_power_bomb)
+                              and state.has("Missile Tank", self.player, missile_ammo_value)
+                              and state.has("Power Bomb Tank", self.player, power_bomb_ammo_value))
             else:
                 expression = (expression
                               or state.has_all(requirement_list, self.player)
-                              and state.has("Energy Tank", self.player, energy_tanks_value))
+                              and state.has("Energy Tank", self.player, energy_tanks_value)
+                              and state.has("Missile Tank", self.player, missile_ammo_value)
+                              and state.has("Power Bomb Tank", self.player, power_bomb_ammo_value))
         return expression
 
 
