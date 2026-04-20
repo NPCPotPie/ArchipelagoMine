@@ -30,9 +30,9 @@ class LogicObject:
              energy_tanks_value,
              missile_ammo_value,
              power_bomb_ammo_value) in zip(self.requirements,
-                                     self.energy_tanks,
-                                     self.missile_ammo,
-                                     self.power_bomb_ammo):
+                                           self.energy_tanks,
+                                           self.missile_ammo,
+                                           self.power_bomb_ammo):
             while "Wall Jump Boots" in requirement_list:
                 requirement_list.remove("Wall Jump Boots")
             while "Nothing" in requirement_list:
