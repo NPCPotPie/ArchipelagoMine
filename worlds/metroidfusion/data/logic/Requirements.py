@@ -1345,7 +1345,7 @@ class CanDamageToughEnemy(Requirement):
         super().__init__(name, *requirements, **kwargs)
 
 
-class CanDefeatGerubus(Requirement):
+class CanDefeatGerubus(CanDamageToughEnemy):
     """
     The player can kill a number of Gerubus enemies equal to ``count``.
 
@@ -1356,26 +1356,15 @@ class CanDefeatGerubus(Requirement):
     :key hard_items_needed:
     :key energy_tanks_needed:
     :key missile_ammo_needed: Automatically calculated based on missile upgrades and ``count``
-    :key power_bomb_ammo_needed:
+    :key power_bomb_ammo_needed: Disabled
     """
     def __init__(self,
                  name = "Can Defeat Gerubus",
                  count: int = 1,
                  *requirements, **kwargs):
         enemy_hp = 45 * count
-        kwargs.pop('missile_ammo_needed', 1)
-        requirements += ([
-            HasScrewAttack(),
-            CanDo10MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 10) // 1)),
-            CanDo15MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 15) // 1)),
-            CanDo20MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 20) // 1)),
-            CanDo25MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 25) // 1)),
-            CanDo30MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 30) // 1)),
-            CanDo35MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 35) // 1)),
-            CanDo40MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 40) // 1)),
-            CanDo45MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 45) // 1))
-        ],)
-        super().__init__(name, *requirements, **kwargs)
+        kwargs['immunities'] = {"Beam", "Charge Beam", "Bomb", "Power Bomb"}
+        super().__init__(name, enemy_hp, *requirements, **kwargs)
 
 
 #endregion
