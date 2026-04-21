@@ -1872,9 +1872,9 @@ class CanFightBOX(CanDamageToughEnemy):
     :key items_needed:
     :key hard_items_needed:
     :key energy_tanks_needed: Defaults to minimum value ``level_2_e_tanks``, or 5
-    :key missile_ammo_needed: Defaults to 0 to enable auto-calculation of missile requirements in
+    :key missile_ammo_needed: Defaults to enable auto-calculation of missile requirements in
         ``CanDamageToughEnemy``
-    :key power_bomb_ammo_needed:
+    :key power_bomb_ammo_needed: Disabled. BOX is immune to Power Bombs
     """
     def __init__(self,
                  name="Can Fight BOX",
@@ -1882,8 +1882,6 @@ class CanFightBOX(CanDamageToughEnemy):
         requirements += ([CanJumpHigh(), CanDoSimpleWallJump()],)
         kwargs['energy_tanks_needed'] = max(kwargs.pop('energy_tanks_needed', 0), level_2_e_tanks)
         kwargs['immunities'] = {"Beam", "Bomb", "Power Bomb", "Screw Attack"}
-        kwargs['missile_ammo_needed'] = kwargs.pop('missile_ammo_needed', 0)
-        kwargs.pop('power_bomb_ammo_needed', 0)
         super().__init__(name, 300, *requirements, **kwargs)
 
 
@@ -2124,7 +2122,7 @@ class CanGetToTrainingAerie(Requirement):
         super().__init__(name, *requirements, **kwargs)
 
 
-class CanFightNightmare(Requirement):
+class CanFightNightmare(CanDamageCoreX):
     """
     The player can fight Nightmare and win. Nightmare has 1200 HP.
 
@@ -2216,3 +2214,25 @@ class CanDamageGadora(CanDamageToughEnemy):
         kwargs.pop('missile_ammo_needed', None)
         kwargs['missile_ammo_needed'] = 0
         super().__init__(name, 24, *requirements, **kwargs)
+
+
+class CanFightXBOX(CanDamageToughEnemy, CanDamageCoreX):
+    """
+    The player can fight BOX 2 and win. X-B.O.X. has 500 HP.
+
+    :param name: Defaults to "Can Fight BOX"
+    :param requirements:
+    :key items_needed:
+    :key hard_items_needed:
+    :key energy_tanks_needed: Defaults to minimum value ``level_3_e_tanks``, or 7
+    :key missile_ammo_needed: Defaults to enable auto-calculation of missile requirements in
+        ``CanDamageToughEnemy``
+    :key power_bomb_ammo_needed: Disabled. X-B.O.X. is immune to Power Bombs
+    """
+    def __init__(self,
+                 name = "Can Fight X-B.O.X.",
+                 *requirements, **kwargs):
+        requirements += ([CanJumpHigh()],[CanPowerBomb()],)
+        kwargs['energy_tanks_needed'] = max(kwargs.pop('energy_tanks_needed', 0), level_3_e_tanks)
+        kwargs['immunities'] = {"Beam", "Bomb", "Power Bomb", "Screw Attack"}
+        super().__init__(name, enemy_hp=500, *requirements, **kwargs)
