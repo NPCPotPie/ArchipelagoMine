@@ -144,7 +144,7 @@ Sector1TourianHub.connections = [
                 HasIceBeam("Freeze Ripper")
             ]),
             HasMissile("Trickless Combat", [
-                CanFreezeEnemies(),
+                CanFreezeEnemies(missile_ammo_needed=10),
                 HasScrewAttack("Kill Everything")
             ])
         ], energy_tanks_needed=level_4_e_tanks)

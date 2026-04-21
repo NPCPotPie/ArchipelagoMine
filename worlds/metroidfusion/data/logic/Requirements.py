@@ -1412,7 +1412,7 @@ class CanFightBoss(CanDamageCoreX):
         for immunity in immunities:
             assert immunity in {"Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", "Screw Attack"}
         requirements_list: list[Requirement] = [
-            CanDamageToughEnemy("Push Boss into Core X state", kwargs.pop('boss_hp', 1), immunities=immunities)
+            CanDamageToughEnemy("Push Boss into Core X state", enemy_hp=kwargs.pop('boss_hp', 1), immunities=immunities)
         ]
         if not {"Beam"}.issubset(immunities):
             requirements_list.append(Requirement("Push Boss into Core X state - Beam Only"))
