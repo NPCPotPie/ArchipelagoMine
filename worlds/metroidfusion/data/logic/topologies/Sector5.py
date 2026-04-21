@@ -22,7 +22,7 @@ Sector5Hub.connections = [
                 CanDoAdvancedWallJump()
             ]),
             HasMorph("Vanilla Access Tunnel", [
-                HasMissile()
+                HasMissile(missile_ammo_needed=2)
             ])
         ])
     ]),
@@ -30,7 +30,7 @@ Sector5Hub.connections = [
         HasVaria("Sector 5 Entrance <-> Arctic Containment", [
             HasKeycard3("Through Gerubus Gully"),
             HasMorph("Vanilla Access Tunnel", [
-                HasMissile()
+                HasMissile(missile_ammo_needed=2)
             ])
         ])
     ])
@@ -70,7 +70,7 @@ Sector5FrozenHub.connections = [
         HasVaria("Top of Arctic Containment -> Security", [
             HasSpeedBooster("Go through Cellar", [
                 CanBomb(),
-                CanPowerBomb()
+                CanPowerBomb(power_bomb_ammo_needed=2)
             ], [
                 CanDamageToughEnemy()
             ], [
@@ -82,7 +82,8 @@ Sector5FrozenHub.connections = [
             HasWaveBeam("Go backwards through Zeela Checkpoint", [
                 HasKeycard3()
             ], [
-                CanDamageToughEnemy(),
+                CanDamageToughEnemy("Kill Zeela", (8 * 12)),
+                # Use hidden ladder path
                 CanBomb(),
                 CanPowerBomb()
             ]),
@@ -141,7 +142,7 @@ Sector5BeforeNightmareHub.connections = [
     ]),
     Connection(Sector5NightmareHub, [
         PONRRequirement("PONR - Drop down Flooded Tower", [
-            CanDamageToughEnemy()
+            CanDamageToughEnemy("Kill Flooded Tower Pirate", 90, immunities={"Beam", "Bomb", "Screw Attack"})
         ], energy_tanks_needed=level_3_e_tanks)
     ], one_way=True)
 ]
@@ -155,16 +156,13 @@ Sector5NightmareHub.connections = [
             ]),
         ], energy_tanks_needed=level_3_e_tanks)
     ]),
-    # Connection(Sector5NightmareZoneArena, [CanSpeedBoosterUnderwater()], one_way=True),
-    # ^ Not necessary
     Connection(Sector4UpperWaterZone, [
         CanSpeedBoosterUnderwater()
     ]),
     Connection(Sector5NightmareZoneUpper, [
         Requirement("Zebesian Waters <-> Upper Half of Nightmare Hub", [
             # Combat
-            CanDamageToughEnemy(),
-            CanPowerBomb(),
+            CanDamageToughEnemy("Kill Pirates", (90 * 5), immunities={"Beam", "Bomb", "Screw Attack"}),
             CanScrewAttackUnderwater(),
             CanDoExpertCombat()
         ], [
@@ -181,14 +179,13 @@ Sector5NightmareZoneUpper.connections = [
     Connection(Sector5NightmareHub, [
         PONRRequirement("PONR - Nightmare Hub Upper Half -> Zebesian Waters", [
             # Combat
-            CanDamageToughEnemy(),
-            CanPowerBomb(),
+            CanDamageToughEnemy("Kill Pirates", (90 * 5), immunities={"Beam", "Bomb", "Screw Attack"}),
             CanScrewAttackUnderwater(),
             CanDoExpertCombat()
         ], energy_tanks_needed=level_3_e_tanks)
     ], one_way=True),
     Connection(Sector5NightmareZoneArena, [
-        CanDamageToughEnemy("Enter Nightmare Arena via Nightmare Nook", [
+        CanDamageGadora("Enter Nightmare Arena via Nightmare Nook", [
             HasMorph()
         ], [
             CanJumpHigh(),
@@ -202,9 +199,7 @@ Sector5NightmareZoneUpper.connections = [
 Sector5NightmareZoneArena.connections = [
     Connection(Sector5NightmareHub, [
         CanSpeedBoosterUnderwater("Return from Nightmare Arena", [
-            CanFightLateGameBoss(),
-            CanFightLateGameBossOnAdvanced(),
-            CanFightBossOnExpert()
+            CanFightNightmare()
         ])
     ])
 ]
@@ -219,7 +214,8 @@ Sector5Hub.locations = [
             HasScrewAttack(),
             HasHiJump("Spring Ball and Bomb", [
                 CanBomb()
-            ])
+            ]),
+            CanPowerBomb()
         ], [
             # Get out of the hole
             CanBomb(),
@@ -255,7 +251,7 @@ Sector5FrozenHub.locations = [
                     CanBomb(),
                     CanPowerBomb(),
                 ])
-            ])
+            ], missile_ammo_needed=6)
         ])
     ])
 ]
@@ -265,7 +261,7 @@ Sector5BeforeNightmareHub.locations = [
         HasMorph("Can Obtain Crow's Nest Item", [
             # Break bomb blocks and enter
             Requirement("Enter Crow's Nest - Normal", [
-                CanPowerBomb(),
+                CanPowerBomb(power_bomb_ammo_needed=2),
                 HasScrewAttack()
             ], [
                 HasSpaceJump(),
@@ -279,9 +275,7 @@ Sector5BeforeNightmareHub.locations = [
             ])
         ], [
             # Combat
-            CanDamageToughEnemy(),
-            HasScrewAttack(),
-            CanPowerBomb(),
+            CanDamageToughEnemy("Kill Pirates", (90 * 3), immunities={"Beam", "Bomb"}),
             CanDoExpertCombat()
         ], [
             # Climb to gates
@@ -304,10 +298,10 @@ Sector5SecurityZone.locations = [
         ], [
             # Climb Frozen Tower to Mimic Den Door
             HasSpaceJump(),
-            CanFreezeEnemies()
+            CanFreezeEnemies(missile_ammo_needed=2)
         ], [
             # Deal with the Mimic
-            HasMissile(),
+            CanDo10MissileDamage(),
             CanDoAdvancedCombat()
         ], [
             # Break the bomb block
@@ -347,7 +341,7 @@ Sector5SecurityZone.locations = [
             CanFreezeEnemies(None, [
                 HasHiJump(),
                 CanDoSimpleWallJump()
-            ])
+            ], missile_ammo_needed=6)
         ])
     ])
 ]
@@ -360,9 +354,9 @@ Sector5NightmareHub.locations = [
         HasVaria("Can Obtain Mini-Fridge Item", [
             HasMorph()
         ], [
-            HasMissile()
+            HasMissile(missile_ammo_needed=1)
         ], [
-            CanFreezeEnemies(),
+            CanFreezeEnemies(missile_ammo_needed=8),
             CanDoBeginnerShinespark(),
             CanJumpHighUnderwater(None, hard_items_needed={"Space Jump"})
         ], energy_tanks_needed=level_3_e_tanks)
@@ -380,7 +374,7 @@ Sector5NightmareZoneUpper.locations = [
         CanPowerBomb()
     ]),
     FusionLocation("Sector 5 (ARC) -- Nightmare Nook", False, [
-        CanDamageToughEnemy("Can Obtain Nightmare Nook Item", [
+        CanDamageGadora("Can Obtain Nightmare Nook Item", [
             # Break bomb blocks chain
             CanBomb(),
             CanPowerBomb()

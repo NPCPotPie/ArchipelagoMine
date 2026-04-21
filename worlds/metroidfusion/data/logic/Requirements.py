@@ -2141,8 +2141,8 @@ class CanFightNightmare(Requirement):
                  *requirements, **kwargs):
         requirements += ([
             # Nightmare Fight Requirements
-            CanFightLateGameBoss(boss_hp=1200),
-            CanFightLateGameBossOnAdvanced(boss_hp=1200),
+            CanFightLateGameBoss("Fight Nightmare", boss_hp=1200),
+            CanFightLateGameBossOnAdvanced("Fight Nightmare - Advanced Combat", boss_hp=1200),
             CanFightBossOnExpert("Fight Nightmare - Expert Combat", boss_hp=1200),
         ], [
             # Can leave Nightmare Arena?
