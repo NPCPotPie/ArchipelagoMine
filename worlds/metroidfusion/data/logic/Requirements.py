@@ -1292,9 +1292,9 @@ class CanDamageToughEnemy(Requirement):
     :key hard_items_needed:
     :key energy_tanks_needed:
     :key missile_ammo_needed: Auto-calculates minimum missiles based on ``enemy_hp`` and missile upgrades.
-        Disables missile requirement if not provided. Input any value to enable.
+        Disables missile requirement if set to None.
     :key power_bomb_ammo_needed: Auto-calculates minimum power bombs needed based on ``enemy_hp``.
-        Disables power bomb requirement if not provided. Input any value to enable.
+        Disables power bomb requirement if set to None.
     :key behind_wall: A boolean toggling requirement behavior to treat the enemy behind a wall. Defaults to False.
     :key immunities: A set of items this enemy is immune to damage from.
         Valid items are "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
@@ -1318,8 +1318,8 @@ class CanDamageToughEnemy(Requirement):
         end_list: list[Requirement] = []
         immunities: set[str] = kwargs.pop('immunities', set())
         immunities.discard("Beam")
-        pbs: bool = kwargs.pop('power_bomb_ammo_needed', None) is not None
-        missiles: bool = kwargs.pop('missile_ammo_needed', None) is not None
+        pbs: bool = kwargs.pop('power_bomb_ammo_needed', 0) is not None
+        missiles: bool = kwargs.pop('missile_ammo_needed', 0) is not None
         for immunity in immunities:
             assert immunity in {"Charge Beam", "Missile", "Bomb", "Power Bomb", "Screw Attack"}
         if {"Charge Beam", "Missile", "Bomb", "Power Bomb", "Screw Attack"}.issubset(immunities):
@@ -2178,3 +2178,28 @@ class CanEnterSpaceboostAlley(CanPowerBomb, HasScrewAttack, HasKeycard4, HasSpee
                  name="Can Enter Spaceboost Alley",
                  *requirements, **kwargs):
         super().__init__(name, *requirements, **kwargs)
+
+
+class CanDamageGadora(CanDamageToughEnemy):
+    """
+    The player can defeat a Gadora (Eyedoor) enemy. Gadora have 24 HP. Damage methods are Charge Beam or Missiles.
+
+    :param name: Defaults to "Can Damage Gadora".
+    :param requirements:
+    :key items_needed:
+    :key hard_items_needed:
+    :key energy_tanks_needed:
+    :key missile_ammo_needed: Auto-calculates minimum missiles based on ``enemy_hp`` and missile upgrades.
+        Enabled due to missiles being a Gadora's main weakness.
+    :key power_bomb_ammo_needed: Disabled as Gadora are immune to Power Bombs.
+    """
+    def __init__(self,
+                 name="Can Damage Gadora",
+                 *requirements, **kwargs):
+        kwargs.pop('power_bomb_ammo_needed', None)
+        kwargs['power_bomb_ammo_needed'] = None
+        kwargs.pop('immunities', None)
+        kwargs['immunities'] = {"Beam", "Bomb", "Power Bomb", "Screw Attack"}
+        kwargs.pop('missile_ammo_needed', None)
+        kwargs['missile_ammo_needed'] = 0
+        super().__init__(name, 24, *requirements, **kwargs)
