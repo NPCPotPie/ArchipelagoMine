@@ -1921,7 +1921,7 @@ class CanClimbSector3Attic(Requirement):
 
 class CanDoBoiler(CanDamageCoreX):
     """
-    The player can traverse Sector 3 to the Boiler Control Terminal Room.
+    The player can traverse Sector 3 and enter the Boiler Control Terminal Room.
 
     :param name: Defaults to "Can Do Boiler"
     :param requirements:
@@ -1942,7 +1942,9 @@ class CanDoBoiler(CanDamageCoreX):
                 CanDoSimpleWallJump(),
                 HasHiJump()
             ], missile_ammo_needed=2),
-        ],)
+        ], [
+            CanDamageGadora()
+        ])
         kwargs['energy_tanks_needed'] = max(kwargs.pop('energy_tanks_needed', 0), level_2_e_tanks)
         super().__init__(name, *requirements, **kwargs)
 
