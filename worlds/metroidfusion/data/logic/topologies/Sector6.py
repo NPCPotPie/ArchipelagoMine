@@ -53,7 +53,7 @@ Sector6Crossroads.connections = [
             # Return from X-B.O.X. Arena?
             HasSpaceJump(),
             CanDoSimpleWallJump(),
-            CanFreezeEnemies()
+            CanFreezeEnemies(missile_ammo_needed=3)
         ])
     ]),
     Connection(Sector6Catacombs, [
@@ -77,8 +77,8 @@ Sector6Crossroads.connections = [
 
 Sector6Catacombs.connections = [
     Connection(Sector6Crossroads, [
-        CanDoAdvancedShinespark(energy_tanks_needed=level_1_e_tanks),
-        CanDoBeginnerShinespark(None, [
+        CanDoAdvancedShinespark("Escape Catacombs to Crossroads - Advanced", energy_tanks_needed=level_1_e_tanks),
+        CanDoBeginnerShinespark("Escape Catacombs to Crossroads", [
             HasHiJump()
         ], energy_tanks_needed=level_1_e_tanks),
     ], one_way=True),
@@ -109,9 +109,7 @@ Sector6BeforeXBOXZone.connections = [
 
 Sector6XBOXZone.connections = [
     Connection(Sector6AfterXBOXZone, [
-        CanFightLateGameBoss(),
-        CanFightLateGameBossOnAdvanced(),
-        CanFightBossOnExpert()
+        CanFightXBOX()
     ])
 ]
 
@@ -124,7 +122,7 @@ Sector6AfterXBOXZone.connections = [
     Connection(Sector6XBOXSave, [
         Requirement("Go to X-B.O.X. Save Station", [
             HasSpaceJump(),
-            CanFreezeEnemies(),
+            CanFreezeEnemies(missile_ammo_needed=3),
             CanDoSimpleWallJump(None, [
                 HasHiJump()
             ]),
@@ -143,7 +141,7 @@ Sector6XBOXSave.connections = [
     Connection(Sector6XBOXZone, [
         Requirement("Ascend from X-B.O.X. Save Station", [
             HasSpaceJump(),
-            CanFreezeEnemies(),
+            CanFreezeEnemies(missile_ammo_needed=3),
             CanDoSimpleWallJump(None, [
                 HasHiJump()
             ]),
@@ -182,7 +180,7 @@ Sector6RestrictedZone.connections = [
         ])
     ]),
     Connection(Sector6RestrictedZoneElevatorToTourian, [
-        HasSpeedBooster(None, [
+        HasSpeedBooster("Ascend Restricted Zone Airlock to Sector 1 Tourian", [
             HasKeycard4()
         ]),
     ], one_way=True)
@@ -251,10 +249,10 @@ Sector6Crossroads.locations = [
     FusionLocation("Sector 6 (NOC) -- Missile Mimic Lodge", False, [
         HasVaria("Nocturnal Shaft <-> Missile Mimic Lodge Item", [
             CanBomb(),
-            CanPowerBomb()
+            CanPowerBomb(power_bomb_ammo_needed=2)
         ], [
             # Deal with Mimic
-            HasMissile(),
+            CanDo10MissileDamage(),
             CanDoAdvancedCombat()
         ])
     ]),
@@ -291,9 +289,7 @@ Sector6BeforeXBOXZone.locations = [
 
 Sector6XBOXZone.locations = [
     FusionLocation("Sector 6 (NOC) -- X-B.O.X. Arena", True, [
-        CanFightLateGameBoss(),
-        CanFightLateGameBossOnAdvanced(),
-        CanFightBossOnExpert()
+        CanFightXBOX()
     ])
 ]
 

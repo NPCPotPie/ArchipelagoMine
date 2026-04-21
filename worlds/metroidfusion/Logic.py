@@ -206,8 +206,8 @@ def unpack_requirement(
                         options,
                         parent_hard_items,
                         max(parent_energy_tanks, requirement.energy_tanks_needed),
-                        max(parent_missile_ammo, requirement.missile_ammo_needed),
-                        max(parent_power_bomb_ammo, requirement.power_bomb_ammo_needed),
+                        parent_missile_ammo + requirement.missile_ammo_needed,
+                        parent_power_bomb_ammo + requirement.power_bomb_ammo_needed,
                         debug
                     )
                     if new_possibilities:
@@ -222,12 +222,12 @@ def unpack_requirement(
                                  and_possibility_energy,
                                  and_possibility_missile_ammo,
                                  and_possibility_power_bomb_ammo) in and_possibilities:
-                                new_possibilities.append(( (nested_possibility_items | and_possibility_items),
+                                new_possibilities.append(( nested_possibility_items | and_possibility_items,
                                                            max(nested_possibility_energy, and_possibility_energy),
-                                                           max(nested_possibility_missile_ammo,
-                                                               and_possibility_missile_ammo),
-                                                           max(nested_possibility_power_bomb_ammo,
-                                                               and_possibility_power_bomb_ammo) ))
+                                                           nested_possibility_missile_ammo +
+                                                               and_possibility_missile_ammo,
+                                                           nested_possibility_power_bomb_ammo +
+                                                               and_possibility_power_bomb_ammo ))
                     elif not new_possibilities:
                         new_possibilities.extend(and_possibilities)
                 for (nested_requirement_items,
@@ -236,19 +236,16 @@ def unpack_requirement(
                      nested_requirement_power_bomb_ammo) in new_possibilities:
                     combined_items = nested_requirement_items | requirement.items_needed
                     calculated_energy = max(nested_requirement_energy, requirement.energy_tanks_needed)
-                    calculated_missile_ammo = max(nested_requirement_missile_ammo, requirement.missile_ammo_needed)
-                    calculated_power_bomb_ammo = max(nested_requirement_power_bomb_ammo,
-                                                     requirement.power_bomb_ammo_needed)
                     hard_test: bool = (parent_hard_items.issubset(combined_items))
                     possibility_exists_test: bool = ((combined_items,
                                                       calculated_energy,
-                                                      calculated_missile_ammo,
-                                                      calculated_power_bomb_ammo) in possibilities)
+                                                      nested_requirement_missile_ammo,
+                                                      nested_requirement_power_bomb_ammo) in possibilities)
                     if hard_test and not possibility_exists_test:
                         possibilities.append((combined_items,
                                               calculated_energy,
-                                              calculated_missile_ammo,
-                                              calculated_power_bomb_ammo))
+                                              nested_requirement_missile_ammo,
+                                              nested_requirement_power_bomb_ammo))
                     elif debug:
                         #print(f"Skipping Possibility: {combined_items}")
                         if not hard_test:
@@ -260,8 +257,8 @@ def unpack_requirement(
             parent_hard_items.update(requirement.hard_items_needed)
             possibilities.append(( (parent_items | requirement.items_needed),
                                    max(parent_energy_tanks, requirement.energy_tanks_needed),
-                                   max(parent_missile_ammo, requirement.missile_ammo_needed),
-                                   max(parent_power_bomb_ammo, requirement.power_bomb_ammo_needed) ))
+                                   parent_missile_ammo + requirement.missile_ammo_needed,
+                                   parent_power_bomb_ammo + requirement.power_bomb_ammo_needed ))
     else:
         #print(f"Requirement {requirement.name} disabled due to options.")
         #logging.info(f"Requirement {requirement.name} disabled due to options.")
