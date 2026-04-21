@@ -28,7 +28,7 @@ Sector1Antechamber.connections = [
 
 Sector1ChargeCoreZone.connections = [
     Connection(Sector1AfterChargeCoreZone, [
-        HasMissile("Need to Kill Beam Core X")
+        CanDamageCoreX("Need to Kill Beam Core X", [CanDamageGadora()])
     ])
 ]
 
@@ -42,7 +42,7 @@ Sector1FirstStabilizerZone.connections = [
 Sector1FourthStabilizerZone.connections = [
     Connection(Sector1ChargeCoreZone, [
         HasMorph("Enter Charge Core Zone", [
-            HasMissile("License to Kill"),
+            CanDamageCoreX("License to Kill"),
             PONRRequirement("PONR - Enter Charge Core Zone", items_needed={"Charge Beam"})
         ])
     ], one_way=True),
@@ -138,7 +138,8 @@ Sector1TourianHub.connections = [
             # Pinnacle of Movement and Avoidance
             CanDoExpertCombat(),
             CanDoAdvancedCombat(None, [
-                CanDamageToughEnemy("Kill Pirate and Kill/Stun Gerubus")
+                # Gerubus HP is between 41 and 45
+                CanDamageToughEnemy("Kill Pirate and Kill/Stun Gerubus", (90 + (2 * 45)))
             ], [
                 HasIceBeam("Freeze Ripper")
             ]),
@@ -184,25 +185,25 @@ Sector1Antechamber.locations = [
 
 Sector1ChargeCoreZone.locations = [
     FusionLocation("Sector 1 (SRX) -- Charge Core Arena -- Core X", True, [
-        CanFightEarlyGameBoss()
+        CanDamageCoreX()
     ]),
     FusionLocation("Sector 1 (SRX) -- Charge Core Arena -- Upper Item", False, [
         HasSpeedBooster("Obtain Charge Core Upper Item", [
-            CanFightEarlyGameBoss("Kill the Core X First"),
+            CanDamageCoreX("Kill the Core X First"),
             PONRRequirement("PONR - Obtain Charge Core Upper Item")
         ])
     ]),
     FusionLocation("Sector 1 (SRX) -- Watering Hole", False, [
         CanBallJump("Grab Watering Hole Item", [
             CanSpeedBoosterUnderwater(),
-            # When new trick level is ready
+            # When new trick level is ready to unleash in the YAML
             # Video proof: https://www.youtube.com/watch?v=7CrmoeqlIUk
-            # CanDoExpertShinespark("Watering Hole - The 7 Frame Window", ["Charge Beam", "Speed Booster"])
+            CanDoExpertShinespark("Watering Hole - The 7 Frame Window", [HasChargeBeam("Pseudo-Screw the Crab")])
         ], [
             CanDoAdvancedShinespark("Avoid the Crab"),
             CanDoBeginnerShinespark("Alternate Kill the Crab", [
                 HasWaveBeam(),
-                HasMissile(),
+                CanDo10MissileDamage(),
                 CanPowerBomb()
             ]),
             Requirement("Trickless - Kill the Crab", [
@@ -244,7 +245,7 @@ Sector1FourthStabilizerZone.locations = [
         CanDamageAnyGeron("Can Kill Atmospheric Stabilizer SE - Alternate", [
             HasHiJump(),
             CanDoSimpleWallJump(),
-            CanPowerBomb()
+            Requirement(hard_items_needed={"Power Bomb Data"})
         ])
     ])
 ]
@@ -264,11 +265,12 @@ Sector1SecondStabilizerZone.locations = [
 
 Sector1TourianHub.locations = [
     FusionLocation("Sector 1 (SRX) -- Animorphs Cache", False, [
-        CanDamageToughEnemyThroughWalls("Kill the Yard", [
-            # Awaiting ammo requirement implementation
-            # HasMissile()
-            CanUseSuperMissile("Kill the Gerubus and Golden Pirate"),
-            HasScrewAttack("Kill the Gerubus and Golden Pirate")
+        CanDamageToughEnemy("Kill the Yard", 60, [
+            # Kill the Gerubus
+            CanDefeatGerubus()
+        ], [
+            # Kill the Golden Pirate
+            CanDamageToughEnemy("Kill the Golden Pirate", 135, immunities={"Beam", "Power Bomb"})
         ], [
             PONRRequirement("PONR - Enter and Collect Animorphs"),
             HasSpaceJump("Fly out of Animorphs Cache"),
@@ -285,22 +287,19 @@ Sector1TourianHub.locations = [
         ], [
             # Can Kill Genesis under floor
             HasWaveBeam(),
-            CanPowerBomb()
+            CanPowerBomb(power_bomb_ammo_needed=2)
         ], [
             # Can Kill Golden Pirates
-            CanDamageToughEnemy(),
-            HasScrewAttack()
+            CanDamageToughEnemy("Kill Golden Pirates", (135 * 2), immunities={"Beam", "Power Bomb"})
         ], [
             # Do Ridley Fight
-            CanFightLateGameBoss("Ridley Trickless", [
-                CanUseAllMissileUpgrades()
-            ], [
-                CanUseAllBeamUpgrades()
-            ], energy_tanks_needed=level_4_e_tanks),
+            CanFightLateGameBoss("Ridley Trickless", energy_tanks_needed=level_4_e_tanks, boss_hp=4500,
+                                 immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"}),
             CanFightLateGameBossOnAdvanced("Ridley On Advanced", [
                 HasPlasmaBeam()
-            ]),
-            CanFightBossOnExpert("Ridley On Expert")
+            ], boss_hp=4500, immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"}),
+            CanFightBossOnExpert("Ridley On Expert", boss_hp=4500,
+                                 immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"})
         ], [
             HasSpaceJump("Can Leave Neo-Ridley Arena"),
             PONRRequirement("PONR - Neo-Ridley Arena")
@@ -316,12 +315,12 @@ Sector1TourianHub.locations = [
             CanDoSimpleWallJump()
         ], [
             # Dealing with Rippers
-            CanFreezeEnemies(),
+            CanFreezeEnemies(missile_ammo_needed=5),
             HasScrewAttack()
         ], [
             CanUseDiffusionMissile(),
             # Can be done without Diffusion. Awaiting trick identity
-            # HasMissile()
+            # HasMissile(missile_ammo_needed=3)
         ])
     ])
 ]
