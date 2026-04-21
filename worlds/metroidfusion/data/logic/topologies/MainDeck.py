@@ -90,7 +90,7 @@ ReactorZone.connections = [
     Connection(YakuzaZone, [
         HasMorph("Can Access Yakuza - Vanilla Route", [
             # 6 Zebesian (ground) and 1 Gadora
-            CanDamageToughEnemy("Can Kill Pirates and Eyedoor", [CanDamageGadora()])
+            CanDamageToughEnemy("Can Kill Pirates and Eyedoor", [CanDamageGadora()], enemy_hp=(90 * 6))
         ], [
             CanBomb("Destroy Block with Bomb"),
             CanPowerBomb("Destroy Block with Power Bomb"),
@@ -98,7 +98,7 @@ ReactorZone.connections = [
         ], [
             HasSpaceJump("Can Enter and Fly out of Yakuza's Arena"),
             PONRRequirement("PONR - Can Enter Yakuza'a Arena")
-        ], enemy_hp=(90 * 6)),
+        ]),
     ], one_way=True),
     Connection(AuxiliaryReactor, [
         HasWaveBeam("Can Open Auxiliary Gate Backwards")
