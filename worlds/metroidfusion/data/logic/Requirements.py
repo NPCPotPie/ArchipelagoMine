@@ -1547,6 +1547,28 @@ class CanDoAdvancedShinespark(HasSpeedBooster):
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return options.ShinesparkTrickDifficulty >= 2  #options.ShinesparkTrickDifficulty.option_advanced
 
+# Prepared in advance of trick setting. Currently unreachable due to lack of setting.
+class CanDoExpertShinespark(HasSpeedBooster):
+    """
+    The player can perform a shinespark with YAML option ``ShinesparkTrickDifficulty: expert``.
+
+    :param name: Defaults to "Can Do Expert Shinespark"
+    :param requirements:
+    :key items_needed:
+    :key hard_items_needed:
+    :key energy_tanks_needed:
+    :key missile_ammo_needed:
+    :key power_bomb_ammo_needed:
+    """
+    def __init__(self,
+                 name="Can Do Expert Shinespark",
+                 *requirements, **kwargs):
+        super().__init__(name, *requirements, **kwargs)
+
+    @staticmethod
+    def check_option_enabled(options: "MetroidFusionOptions") -> bool:
+        return options.ShinesparkTrickDifficulty >= 3  #options.ShinesparkTrickDifficulty.option_expert
+
 
 class CanDoSimpleWallJump(HasWallJump):
     """
