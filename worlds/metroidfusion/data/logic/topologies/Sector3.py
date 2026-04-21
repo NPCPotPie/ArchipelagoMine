@@ -24,8 +24,8 @@ Sector3Hub.connections = [
     ]),
     Connection(Sector3MainShaft, [
         HasSpeedBooster("Enter Sector 3 Main Shaft", [
-            CanDamageToughEnemy("Kill Fune", 32, immunities={"Beam", "Bomb"}),
-            CanDamageToughEnemy("Kill Namihe", 82, immunities={"Beam", "Bomb"}),
+            CanDamageToughEnemy("Kill Fune", enemy_hp=32, immunities={"Beam", "Bomb"}),
+            CanDamageToughEnemy("Kill Namihe", enemy_hp=82, immunities={"Beam", "Bomb"}),
             CanDoBeginnerShinespark("Kill the Fune/Namihe - Alternate"),
             HasMorph("Avoid the Fune/Namihe", [
                 CanFreezeEnemies(),
@@ -107,7 +107,7 @@ Sector3FieryStorageRight.connections = [
     ]),
     Connection(Sector3Hub, [
         HasVaria("Cross Monkey Bars of Fire", [
-            CanDamageToughEnemy("Kill Ceiling Sidehoppers", (24 * 2), immunities={"Beam"})
+            CanDamageToughEnemy("Kill Ceiling Sidehoppers", enemy_hp=(24 * 2), immunities={"Beam"})
         ], [
             CanLavaDive(),
             CanJumpHigh()
@@ -148,7 +148,7 @@ Sector3MainShaft.connections = [
             HasWaveBeam("Open Gate Backwards"),
             CanDoBeginnerShinespark("Shinespark to Upper Door", [
                 # Included immunities that would prevent properly charging a shinespark in the process.
-                CanDamageToughEnemy("Kill 2 Owtch in the way", (10 * 2),
+                CanDamageToughEnemy("Kill 2 Owtch in the way", enemy_hp=(10 * 2),
                                     immunities={"Screw Attack", "Power Bomb", "Bomb"})
             ]),
             CanFreezeEnemies("Developer Intended Route", [
@@ -288,14 +288,14 @@ Sector3SecurityZone.locations = [
         ])
     ]),
     FusionLocation("Sector 3 (PYR) -- Security Access", False, [
-        CanDamageToughEnemy("Kill Sidehoppers then Jump Up", (24 * 2), [
+        CanDamageToughEnemy("Kill Sidehoppers then Jump Up", [
             CanJumpHigh(),
             CanDoSimpleWallJump()
         ]),
         CanDoAdvancedShinespark("Charge from above then go below", [
             CanDoAdvancedCombat("Avoid Sidehoppers"),
             CanFreezeEnemies("Freeze the Sidehoppers", missile_ammo_needed=2)
-        ])
+        ], enemy_hp=(24 * 2))
     ])
 ]
 

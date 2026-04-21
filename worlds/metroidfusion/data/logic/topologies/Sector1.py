@@ -139,7 +139,7 @@ Sector1TourianHub.connections = [
             CanDoExpertCombat(),
             CanDoAdvancedCombat(None, [
                 # Gerubus HP is between 41 and 45
-                CanDamageToughEnemy("Kill Pirate and Kill/Stun Gerubus", (90 + (2 * 45)))
+                CanDamageToughEnemy("Kill Pirate and Kill/Stun Gerubus", enemy_hp=(90 + (2 * 45)))
             ], [
                 HasIceBeam("Freeze Ripper")
             ]),
@@ -265,19 +265,19 @@ Sector1SecondStabilizerZone.locations = [
 
 Sector1TourianHub.locations = [
     FusionLocation("Sector 1 (SRX) -- Animorphs Cache", False, [
-        CanDamageToughEnemy("Kill the Yard", 60, [
+        CanDamageToughEnemy("Kill the Yard", [
             # Kill the Gerubus
             CanDefeatGerubus()
         ], [
             # Kill the Golden Pirate
-            CanDamageToughEnemy("Kill the Golden Pirate", 135, immunities={"Beam", "Power Bomb"})
+            CanDamageToughEnemy("Kill the Golden Pirate", enemy_hp=135, immunities={"Beam", "Power Bomb"})
         ], [
             PONRRequirement("PONR - Enter and Collect Animorphs"),
             HasSpaceJump("Fly out of Animorphs Cache"),
             CanDoSimpleWallJump("Wall Jump out of Animorphs Cache", [
                 HasHiJump()
             ])
-        ])
+        ], enemy_hp=60)
     ]),
     FusionLocation("Sector 1 (SRX) -- Neo-Ridley Arena", True, [
         Requirement("Enter Neo-Ridley Arena", [
@@ -290,7 +290,7 @@ Sector1TourianHub.locations = [
             CanPowerBomb(power_bomb_ammo_needed=2)
         ], [
             # Can Kill Golden Pirates
-            CanDamageToughEnemy("Kill Golden Pirates", (135 * 2), immunities={"Beam", "Power Bomb"})
+            CanDamageToughEnemy("Kill Golden Pirates", enemy_hp=(135 * 2), immunities={"Beam", "Power Bomb"})
         ], [
             # Do Ridley Fight
             CanFightLateGameBoss("Ridley Trickless", energy_tanks_needed=level_4_e_tanks, boss_hp=4500,

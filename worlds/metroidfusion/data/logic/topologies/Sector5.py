@@ -82,7 +82,7 @@ Sector5FrozenHub.connections = [
             HasWaveBeam("Go backwards through Zeela Checkpoint", [
                 HasKeycard3()
             ], [
-                CanDamageToughEnemy("Kill Zeela", (8 * 12)),
+                CanDamageToughEnemy("Kill Zeela", enemy_hp=(8 * 12)),
                 # Use hidden ladder path
                 CanBomb(),
                 CanPowerBomb()
@@ -142,7 +142,7 @@ Sector5BeforeNightmareHub.connections = [
     ]),
     Connection(Sector5NightmareHub, [
         PONRRequirement("PONR - Drop down Flooded Tower", [
-            CanDamageToughEnemy("Kill Flooded Tower Pirate", 90, immunities={"Beam", "Bomb", "Screw Attack"})
+            CanDamageToughEnemy("Kill Flooded Tower Pirate", enemy_hp=90, immunities={"Beam", "Bomb", "Screw Attack"})
         ], energy_tanks_needed=level_3_e_tanks)
     ], one_way=True)
 ]
@@ -162,7 +162,7 @@ Sector5NightmareHub.connections = [
     Connection(Sector5NightmareZoneUpper, [
         Requirement("Zebesian Waters <-> Upper Half of Nightmare Hub", [
             # Combat
-            CanDamageToughEnemy("Kill Pirates", (90 * 5), immunities={"Beam", "Bomb", "Screw Attack"}),
+            CanDamageToughEnemy("Kill Pirates", enemy_hp=(90 * 5), immunities={"Beam", "Bomb", "Screw Attack"}),
             CanScrewAttackUnderwater(),
             CanDoExpertCombat()
         ], [
@@ -179,7 +179,7 @@ Sector5NightmareZoneUpper.connections = [
     Connection(Sector5NightmareHub, [
         PONRRequirement("PONR - Nightmare Hub Upper Half -> Zebesian Waters", [
             # Combat
-            CanDamageToughEnemy("Kill Pirates", (90 * 5), immunities={"Beam", "Bomb", "Screw Attack"}),
+            CanDamageToughEnemy("Kill Pirates", enemy_hp=(90 * 5), immunities={"Beam", "Bomb", "Screw Attack"}),
             CanScrewAttackUnderwater(),
             CanDoExpertCombat()
         ], energy_tanks_needed=level_3_e_tanks)
@@ -275,7 +275,7 @@ Sector5BeforeNightmareHub.locations = [
             ])
         ], [
             # Combat
-            CanDamageToughEnemy("Kill Pirates", (90 * 3), immunities={"Beam", "Bomb"}),
+            CanDamageToughEnemy("Kill Pirates", enemy_hp=(90 * 3), immunities={"Beam", "Bomb"}),
             CanDoExpertCombat()
         ], [
             # Climb to gates

@@ -90,7 +90,7 @@ ReactorZone.connections = [
     Connection(YakuzaZone, [
         HasMorph("Can Access Yakuza - Vanilla Route", [
             # 6 Zebesian (ground) and 1 Gadora
-            CanDamageToughEnemy("Can Kill Pirates and Eyedoor", (90 * 6), [CanDamageGadora()])
+            CanDamageToughEnemy("Can Kill Pirates and Eyedoor", [CanDamageGadora()])
         ], [
             CanBomb("Destroy Block with Bomb"),
             CanPowerBomb("Destroy Block with Power Bomb"),
@@ -98,7 +98,7 @@ ReactorZone.connections = [
         ], [
             HasSpaceJump("Can Enter and Fly out of Yakuza's Arena"),
             PONRRequirement("PONR - Can Enter Yakuza'a Arena")
-        ]),
+        ], enemy_hp=(90 * 6)),
     ], one_way=True),
     Connection(AuxiliaryReactor, [
         HasWaveBeam("Can Open Auxiliary Gate Backwards")
@@ -106,7 +106,7 @@ ReactorZone.connections = [
     Connection(Sector2NettoriZone, [
         HasSpaceJump("Can Get to Sector 2 Backdoor", [
             # Can pass them easily, but assume two will be annoying
-            CanDamageToughEnemy("Can Kill Kihunter", (80 * 2))
+            CanDamageToughEnemy("Can Kill Kihunter", enemy_hp=(80 * 2))
         ], [
             CanBomb("Traverse Tunnel with Bomb"),
             CanPowerBomb("Traverse Tunnel with Power Bomb")
@@ -272,7 +272,7 @@ OperationsDeck.locations = [
 
 ReactorZone.locations = [
     FusionLocation("Main Deck -- Silo Catwalk", False, [
-        CanDamageToughEnemy("Kill Pirates", (90 * 2)),
+        CanDamageToughEnemy("Kill Pirates", enemy_hp=(90 * 2)),
         CanDoAdvancedCombat("Avoid Pirates")
     ]),
     FusionLocation("Main Deck -- Silo Scaffolding", False, [
@@ -281,7 +281,7 @@ ReactorZone.locations = [
             CanJumpHigh(),
             CanDoAdvancedWallJump()
         ], [
-            CanDamageToughEnemy("Kill Pirates", (90 * 5)),
+            CanDamageToughEnemy("Kill Pirates", enemy_hp=(90 * 5)),
             CanDoExpertCombat("Avoid Pirates")
         ])
     ])

@@ -1286,7 +1286,6 @@ class CanDamageToughEnemy(Requirement):
     Damage methods are Charge Beam, Missiles, Bombs (not yet implemented), Power Bombs, or Screw Attack.
 
     :param name: Defaults to "Can Damage Tough Enemy".
-    :param enemy_hp: An integer representing the health of the enemy or enemies to defeat. Defaults to 1.
     :param requirements:
     :key items_needed:
     :key hard_items_needed:
@@ -1299,11 +1298,12 @@ class CanDamageToughEnemy(Requirement):
     :key immunities: A set of items this enemy is immune to damage from.
         Valid items are "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
         Defaults to None.
+    :key enemy_hp: An integer representing the health of the enemy or enemies to defeat. Defaults to 1.
     """
     def __init__(self,
                  name="Can Damage Tough Enemy",
-                 enemy_hp: int = 1,
                  *requirements, **kwargs):
+        enemy_hp = kwargs.pop('enemy_hp', 1)
         power_bomb_requirement = CanPowerBomb(power_bomb_ammo_needed=-int(-(enemy_hp / 50) // 1))
         missile_list: list[Requirement] = [
             CanDo10MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 10) // 1)),
@@ -1362,9 +1362,9 @@ class CanDefeatGerubus(CanDamageToughEnemy):
                  name = "Can Defeat Gerubus",
                  count: int = 1,
                  *requirements, **kwargs):
-        enemy_hp = 45 * count
+        kwargs['enemy_hp'] = 45 * count
         kwargs['immunities'] = {"Beam", "Charge Beam", "Bomb", "Power Bomb"}
-        super().__init__(name, enemy_hp, *requirements, **kwargs)
+        super().__init__(name, *requirements, **kwargs)
 
 
 #endregion
@@ -1882,7 +1882,8 @@ class CanFightBOX(CanDamageToughEnemy):
         requirements += ([CanJumpHigh(), CanDoSimpleWallJump()],)
         kwargs['energy_tanks_needed'] = max(kwargs.pop('energy_tanks_needed', 0), level_2_e_tanks)
         kwargs['immunities'] = {"Beam", "Bomb", "Power Bomb", "Screw Attack"}
-        super().__init__(name, 300, *requirements, **kwargs)
+        kwargs['enemy_hp'] = 300
+        super().__init__(name, *requirements, **kwargs)
 
 
 class CanClimbSector3Attic(Requirement):
@@ -2019,7 +2020,7 @@ class CanDoScizerSanctuary(Requirement):
                  name="Can Do Scizer Sanctuary",
                  *requirements, **kwargs):
         requirements += ([
-            CanDamageToughEnemy("Kill the Golden Crabs and Unlock Door", (16 * 2), [
+            CanDamageToughEnemy("Kill the Golden Crabs and Unlock Door", [
                 # Kill the caged crabs
                 HasWaveBeam(),
                 CanPowerBomb(),
@@ -2032,7 +2033,7 @@ class CanDoScizerSanctuary(Requirement):
                     CanDoAdvancedCombat("Thread the Needle"),
                     HasMorph("Enter Tunnel into Golden Crab Enclosure")
                 ], missile_ammo_needed=2)
-            ])
+            ], enemy_hp=(16 * 2))
         ],)
         super().__init__(name, *requirements, **kwargs)
 
@@ -2207,13 +2208,11 @@ class CanDamageGadora(CanDamageToughEnemy):
     def __init__(self,
                  name="Can Damage Gadora",
                  *requirements, **kwargs):
-        kwargs.pop('power_bomb_ammo_needed', None)
         kwargs['power_bomb_ammo_needed'] = None
-        kwargs.pop('immunities', None)
         kwargs['immunities'] = {"Beam", "Bomb", "Power Bomb", "Screw Attack"}
-        kwargs.pop('missile_ammo_needed', None)
         kwargs['missile_ammo_needed'] = 0
-        super().__init__(name, 24, *requirements, **kwargs)
+        kwargs['enemy_hp'] = 24
+        super().__init__(name, *requirements, **kwargs)
 
 
 class CanFightXBOX(CanDamageToughEnemy, CanDamageCoreX):
@@ -2235,4 +2234,5 @@ class CanFightXBOX(CanDamageToughEnemy, CanDamageCoreX):
         requirements += ([CanJumpHigh()],[CanPowerBomb()],)
         kwargs['energy_tanks_needed'] = max(kwargs.pop('energy_tanks_needed', 0), level_3_e_tanks)
         kwargs['immunities'] = {"Beam", "Bomb", "Power Bomb", "Screw Attack"}
-        super().__init__(name, enemy_hp=500, *requirements, **kwargs)
+        kwargs['enemy_hp'] = 500
+        super().__init__(name, *requirements, **kwargs)

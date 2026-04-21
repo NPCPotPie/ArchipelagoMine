@@ -314,7 +314,7 @@ Sector4SecurityZone.connections = [
             #future CanDoAdvancedUnderwaterWallJump()
         ], [
             # Combat - Prevent ToughEnemy block from triggering Screw Attack without Gravity Suit
-            CanDamageToughEnemy("Kill Evir and Aqua Pirates", ((80 * 2) + (90 * 2)),
+            CanDamageToughEnemy("Kill Evir and Aqua Pirates", enemy_hp=((80 * 2) + (90 * 2)),
                                 immunities={"Beam", "Bomb", "Screw Attack", "Power Bomb"}),
             CanScrewAttackUnderwater()
         ], energy_tanks_needed=level_4_e_tanks)
@@ -406,7 +406,7 @@ Sector4LowerSecurityZone.connections = [
             HasKeycard4(),
             PONRRequirement("PONR - Level 4 Security")
         ], [
-            CanDamageToughEnemy("Kill Large Skultera", (28 * 2), immunities={"Beam"})
+            CanDamageToughEnemy("Kill Large Skultera", enemy_hp=(28 * 2), immunities={"Beam"})
         ], [
             HasMorph()
         ], power_bomb_ammo_needed=3)
@@ -490,7 +490,7 @@ Sector4RightWaterZoneSave.connections = [
         ], [
             HasKeycard4()
         ], [
-            CanDamageToughEnemy("Kill Evir and Aqua Pirates", ((80 * 2) + (90 * 2)),
+            CanDamageToughEnemy("Kill Evir and Aqua Pirates", enemy_hp=((80 * 2) + (90 * 2)),
                                 immunities={"Beam", "Bomb", "Screw Attack", "Power Bomb"}),
             CanScrewAttackUnderwater()
         ], energy_tanks_needed=level_4_e_tanks)
@@ -590,9 +590,9 @@ Sector4BeforePumpControlZone.locations = [
 
 Sector4UpperZone.locations = [
     FusionLocation("Sector 4 (AQA) -- Broken Bridge", False, [
-        CanDamageToughEnemy("Obtain Broken Bridge Item", (28 * 2), [
+        CanDamageToughEnemy("Obtain Broken Bridge Item", [
             HasMorph()
-        ])
+        ], enemy_hp=(28 * 2))
     ]),
     FusionLocation("Sector 4 (AQA) -- Waterway", False, [
         CanActivatePumpControl("Waterway - Water Drained", [
@@ -671,7 +671,7 @@ Sector4SecurityZone.locations = [
     ]),
     FusionLocation("Sector 4 (AQA) -- Aquarium Pirate Tank", False, [
         CanPowerBomb("Can Obtain Aquarium Pirate Tank Item", [
-            CanDamageToughEnemy("Kill Aqua Pirates", (90 * 3), immunities={"Beam", "Bomb"}),
+            CanDamageToughEnemy("Kill Aqua Pirates", enemy_hp=(90 * 3), immunities={"Beam", "Bomb"}),
         ], [
             # Escape Requirements
             CanFreezeEnemies(None, [
