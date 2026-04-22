@@ -17,7 +17,18 @@ Sector3Hub.connections = [
             CanDoBeginnerShinespark()
         ], [
             HasVaria()
-        ])
+        ]),
+        HasVaria("Cross Monkey Bars of Fire", [
+            CanDamageToughEnemy("Kill Ceiling Sidehoppers", enemy_hp=(24 * 2), immunities={"Beam"})
+        ], [
+            CanLavaDive(),
+            CanJumpHigh()
+                 ]),
+        CanDoBeginnerShinespark("Shinespark Across Monkey Bars of Fire", [
+            CanDestroyBombBlocks()
+        ], [
+            HasVaria()
+                ])
     ], one_way=True),
     Connection(Sector3SecurityZone, [
         HasSpeedBooster()
@@ -100,7 +111,7 @@ Sector3FieryStorageRight.connections = [
         ], [
             HasVaria()
         ])
-    ])
+    ],one_way=True)
 ]
 
 Sector3FieryStorageLeft.connections = [
