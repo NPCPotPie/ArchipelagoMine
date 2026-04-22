@@ -8,18 +8,23 @@ if TYPE_CHECKING:
 class RequirementBase(ABC):
     """
     Defines a set of requirements for a Connection or Location.
-    \n The parameters are unpacked into a series of logical requirements where all housed in ``items_needed`` and one each of entries in each list housed in ``requirements`` must be met for this Requirement to be passed.
-    \n Requirements logic is: (list1 AND list2 AND list3...) where (list_requirement1 OR list_requirement2 OR list_requirement3...)
-    \n If there are any ``hard_items_needed``, the end possibilities that do not contain all of these items will be removed.
+
+    The parameters are unpacked into a series of logical requirements where all housed in ``items_needed`` and
+    one each of entries in each list housed in ``requirements`` must be met for this Requirement to be passed.
+
+    Requirements logic is: (list1 AND list2 AND list3...)
+    where (list_requirement1 OR list_requirement2 OR list_requirement3...)
+
+    If there are any ``hard_items_needed``,
+    the end possibilities that do not contain all of these items will be removed.
 
     :param name: A String to label this Requirement. Defaults to the class name.
-    :param items_needed: A list of items as Strings. Defaults to an empty list.
-    :param hard_items_needed: A list of items as Strings. Defaults to an empty list.
+    :param items_needed: A set of items as Strings. Defaults to an empty set.
+    :param hard_items_needed: A set of items as Strings. Defaults to an empty set.
     :param energy_tanks_needed: An integer number of energy tanks required. Defaults to 0.
     :param missile_ammo_needed: An integer number of missiles required. Defaults to 0.
     :param power_bomb_ammo_needed: An integer number of power bombs required. Defaults to 0.
     :param requirements: A list of lists of Requirement objects. Defaults to an empty list.
-    :param kwargs: Available keyword arguments: ``items_needed`` as set[str], ``hard_items_needed`` as set[str], ``energy_tanks_needed`` as int, ``missile_ammo_needed`` as int, ``power_bomb_ammo_needed`` as int
     """
     name: str
     items_needed: set[str]
@@ -81,7 +86,26 @@ class RequirementBase(ABC):
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return True
 
+
 class Requirement(RequirementBase):
+    """
+    Defines a single Requirement to be fulfilled that can contain sub-requirements.
+
+    :param name: The name for this Requirement. Defaults to the class name if not already provided.
+    :param requirements: Any number of lists of Requirement objects treated as sub-requirements.
+        Each list is treated as an OR logic block.
+        If there are more than one list, they are treated as list1 AND list2...
+
+    :key items_needed: A set of items that must be in the inventory.
+    :key hard_items_needed: A set of items that are absolutely required to fulfill this Requirement.
+        Affects final calculation of possibilities to fulfill this Requirement.
+    :key energy_tanks_needed: An integer representing the minimum amount of energy tanks to fulfill this Requirement.
+    :key missile_ammo_needed: An integer representing the minimum amount of missile ammo to fulfill this Requirement.
+        The final calculation will summate this with all sub-requirements.
+    :key power_bomb_ammo_needed: An integer representing the minimum amount of power bomb ammo
+        to fulfill this Requirement. The final calculation will summate this with all sub-requirements.
+    """
+
     def __init__(self,
                  name = None,
                  *requirements: list[RequirementBase], **kwargs):
@@ -94,19 +118,34 @@ class Requirement(RequirementBase):
                          *requirements,
                          **kwargs)
 
+
 class PONRRequirement(Requirement):
-    """Defines a set of requirements to be used when Point of No Returns are disabled.
-    These should always be more minimal than any surrounding requirements."""
+    """
+    Defines a set of requirements to be used when Point of No Returns are disabled.
+    These should always be more minimal than any surrounding requirements.
+
+    :param name: The name for this Requirement. Defaults to "Point of No Return Requirement"
+    :param requirements: Any number of lists of Requirement objects treated as sub-requirements.
+        Each list is treated as an OR logic block.
+        If there are more than one list, they are treated as list1 AND list2...
+
+    :key items_needed: A set of items that must be in the inventory.
+        Defaults to ``{"Point of No Return"}`` or adds that element to the passed set.
+    :key hard_items_needed: A set of items that are absolutely required to fulfill this Requirement.
+        Affects final calculation of possibilities to fulfill this Requirement.
+    :key energy_tanks_needed: An integer representing the minimum amount of energy tanks to fulfill this Requirement.
+    :key missile_ammo_needed: An integer representing the minimum amount of missile ammo to fulfill this Requirement.
+        The final calculation will summate this with all sub-requirements.
+    :key power_bomb_ammo_needed: An integer representing the minimum amount of power bomb ammo
+        to fulfill this Requirement. The final calculation will summate this with all sub-requirements.
+    """
 
     def __init__(self,
                  name = "Point of No Return Requirement",
                  *requirements: list[RequirementBase],
                  **kwargs):
-        items_needed: set[str] = kwargs.pop('items_needed', None)
-        if items_needed is None:
-            items_needed = {"Point of No Return"}
-        elif "Point of No Return" not in items_needed:
-            items_needed.add("Point of No Return")
+        items_needed: set[str] = kwargs.pop('items_needed', {"Point of No Return"})
+        items_needed.add("Point of No Return")
         kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 

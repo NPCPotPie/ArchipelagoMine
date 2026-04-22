@@ -79,14 +79,18 @@ OperationsDeckElevatorTop.connections = [
 
 OperationsDeck.connections = [
     Connection(VentilationZone, [
-        HasMissile("Can Break Ventilation Cap")
+        HasMissile("Can Break Ventilation Cap", [
+            CanDamageSmallGeron(),
+            CanDamageAnyGeron()
+        ], missile_ammo_needed=1)
     ], one_way=True)
 ]
 
 ReactorZone.connections = [
     Connection(YakuzaZone, [
         HasMorph("Can Access Yakuza - Vanilla Route", [
-            CanDamageToughEnemy("Can Kill Kihunter, Pirate, and Eyedoor")
+            # 6 Zebesian (ground) and 1 Gadora
+            CanDamageToughEnemy("Can Kill Pirates and Eyedoor", [CanDamageGadora()], enemy_hp=(90 * 6))
         ], [
             CanBomb("Destroy Block with Bomb"),
             CanPowerBomb("Destroy Block with Power Bomb"),
@@ -101,7 +105,8 @@ ReactorZone.connections = [
     ]),
     Connection(Sector2NettoriZone, [
         HasSpaceJump("Can Get to Sector 2 Backdoor", [
-            CanDamageToughEnemy("Can Kill Kihunter")
+            # Can pass them easily, but assume two will be annoying
+            CanDamageToughEnemy("Can Kill Kihunter", enemy_hp=(80 * 2))
         ], [
             CanBomb("Traverse Tunnel with Bomb"),
             CanPowerBomb("Traverse Tunnel with Power Bomb")
@@ -174,7 +179,7 @@ UpperArachnusArena.connections = [
 
 VentilationZone.connections = [
     Connection(UpperArachnusArena, [
-        CanDamageToughEnemy("Enter Arachnus Arena through Eyedoor", [
+        CanDamageGadora("Enter Arachnus Arena through Eyedoor", [
             HasMorph("Can Leave Arachnus Arena"),
             PONRRequirement("PONR - Can Enter Arachnus Fight")
         ])
@@ -237,7 +242,7 @@ MainDeckHub.locations = [
     FusionLocation("Main Deck -- Genesis Speedway", False, [
         CanPowerBomb("Can Enter Genesis Speedway Tunnel", [
             CanBallJump()
-        ])
+        ], power_bomb_ammo_needed=2)
     ]),
     FusionLocation("Main Deck -- Quarantine Bay", False, []),
     FusionLocation("Main Deck -- Station Entrance", False, [
@@ -255,7 +260,7 @@ NexusStorage.locations = [
         CanBallJump("Can Access Nexus Storage Item", [
             PONRRequirement("PONR - Collect Nexus Storage Item",
                             hard_items_needed={"Hi-Jump"}),
-            CanBomb(),
+            Requirement(hard_items_needed={"Bomb Data"}),
             CanPowerBomb()
         ])
     ])
@@ -267,7 +272,8 @@ OperationsDeck.locations = [
 
 ReactorZone.locations = [
     FusionLocation("Main Deck -- Silo Catwalk", False, [
-        CanDamageToughEnemy("Kill Pirates")
+        CanDamageToughEnemy("Kill Pirates", enemy_hp=(90 * 2)),
+        CanDoAdvancedCombat("Avoid Pirates")
     ]),
     FusionLocation("Main Deck -- Silo Scaffolding", False, [
         HasMorph("Grab Silo Scaffolding Item", [
@@ -275,7 +281,7 @@ ReactorZone.locations = [
             CanJumpHigh(),
             CanDoAdvancedWallJump()
         ], [
-            CanDamageToughEnemy("Kill Pirates"),
+            CanDamageToughEnemy("Kill Pirates", enemy_hp=(90 * 5)),
             CanDoExpertCombat("Avoid Pirates")
         ])
     ])
@@ -290,7 +296,7 @@ SectorHubElevatorTop.locations = [
 UpperArachnusArena.locations = [
     FusionLocation("Main Deck -- Arachnus Arena -- Upper Item", False, []),
     FusionLocation("Main Deck -- Attic", False, [
-        HasMissile("Blast Open the Ceiling")
+        HasMissile("Blast Open the Ceiling", missile_ammo_needed=1)
     ]),
 ]
 
@@ -301,7 +307,7 @@ VentilationZone.locations = [
 
 YakuzaZone.locations = [
     FusionLocation("Main Deck -- Yakuza Arena", True, [
-        CanFightMidGameBoss(),
-        CanFightMidGameBossOnAdvanced()
+        CanFightMidGameBoss(boss_hp=1000, immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"}),
+        CanFightMidGameBossOnAdvanced(boss_hp=1000, immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"}),
     ])
 ]
