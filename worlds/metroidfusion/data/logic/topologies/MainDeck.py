@@ -110,6 +110,8 @@ ReactorZone.connections = [
         ], [
             CanBomb("Traverse Tunnel with Bomb"),
             CanPowerBomb("Traverse Tunnel with Power Bomb")
+        ], [
+            CanDo10MissileDamage()
         ])
     ], one_way=True)
 ]
