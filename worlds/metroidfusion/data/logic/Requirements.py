@@ -1333,14 +1333,14 @@ class CanDamageToughEnemy(Requirement):
             if not {"Charge Beam"}.issubset(immunities):
                 end_list.append(CanChargedWaveShot())
         else:
-            if not {"Power Bomb"}.issubset(immunities) and not {"Missile"}.issubset(immunities):
-                blended_list: list[Requirement] = []
-                while max_pb_ammo_value - 1 > 0:
-                    max_pb_ammo_value -= 1
-                    blended_list.append(CanPowerBomb(None, [
-                        AnyMissileRequirement(None, enemy_hp - (max_pb_ammo_value * 50))
-                    ], power_bomb_ammo_needed=max_pb_ammo_value))
-                end_list.extend(blended_list)
+            # if not {"Power Bomb"}.issubset(immunities) and not {"Missile"}.issubset(immunities):
+            #     blended_list: list[Requirement] = []
+            #     while max_pb_ammo_value - 1 > 0:
+            #         max_pb_ammo_value -= 1
+            #         blended_list.append(CanPowerBomb(None, [
+            #             AnyMissileRequirement(None, enemy_hp - (max_pb_ammo_value * 50))
+            #         ], power_bomb_ammo_needed=max_pb_ammo_value))
+            #     end_list.extend(blended_list)
             if not {"Power Bomb"}.issubset(immunities):
                 end_list.append(max_power_bomb_requirement)
             if not {"Missile"}.issubset(immunities):
