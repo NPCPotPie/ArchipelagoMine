@@ -16,7 +16,8 @@ Sector6Hub.connections = [
     Connection(Sector6Crossroads, [
         CanDamageMediumGeron(),
         CanDamageAnyGeron(),
-        CanDoBeginnerShinespark()
+        CanDoBeginnerShinespark(),
+        HasScrewAttack()
     ]),
     Connection(Sector6TubeLeft, [
         PONRRequirement("PONR - Enter Sector 6 West Tube", [
