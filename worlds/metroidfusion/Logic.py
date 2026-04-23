@@ -33,12 +33,33 @@ class LogicObject:
                                            self.energy_tanks,
                                            self.missile_ammo,
                                            self.power_bomb_ammo):
-            while "Wall Jump Boots" in requirement_list:
-                requirement_list.remove("Wall Jump Boots")
-            while "Nothing" in requirement_list:
-                requirement_list.remove("Nothing")
-            while "Point of No Return" in requirement_list:
-                requirement_list.remove("Point of No Return")
+            # Remove placeholder values in item list.
+            for item in requirement_list.copy():
+                match item:
+                    case "Wall Jump Boots":
+                        requirement_list.remove("Wall Jump Boots")
+                    case "Nothing":
+                        requirement_list.remove("Nothing")
+                    case "Point of No Return":
+                        requirement_list.remove("Point of No Return")
+                    # Tricks
+                    case "Wall Jump Trick - Beginner":
+                        requirement_list.remove("Wall Jump Trick - Beginner")
+                    case "Wall Jump Trick - Advanced":
+                        requirement_list.remove("Wall Jump Trick - Advanced")
+                    case "Shinespark Trick - Beginner":
+                        requirement_list.remove("Shinespark Trick - Beginner")
+                    case "Shinespark Trick - Advanced":
+                        requirement_list.remove("Shinespark Trick - Advanced")
+                    case "Shinespark Trick - Expert":
+                        requirement_list.remove("Shinespark Trick - Expert")
+                    case "Combat - Advanced":
+                        requirement_list.remove("Combat - Advanced")
+                    case "Combat - Expert":
+                        requirement_list.remove("Combat - Expert")
+                    case _:
+                        if item not in requirement_list:
+                            raise Exception(f"Item {item} not in requirements")
             if energy_tanks_value > 0:
                 if self.options.ElevatorShuffle.value > self.options.ElevatorShuffle.option_none:
                     energy_tanks_value = energy_tanks_value // 2
@@ -147,8 +168,8 @@ def create_logic_rule(
             logging.info("]")
         return possibilities
     else:
-        #print(f"Requirement {requirement.name} disabled due to options.")
-        #logging.info(f"Requirement {requirement.name} disabled due to options.")
+        print(f"Requirement {requirement.name} disabled due to options.")
+        logging.info(f"Requirement {requirement.name} disabled due to options.")
         return []
 
 def unpack_requirement(
@@ -188,8 +209,8 @@ def unpack_requirement(
                 cont_permute: bool = False
                 for nested_requirement in requirements_permutation:
                     if not nested_requirement.check_option_enabled(options):
-                        #print(f"Skipping permutation: {requirements_permutation}")
-                        #print(f"Requirement: '{nested_requirement.name}' disabled due to options.")
+                        print(f"Skipping permutation: {requirements_permutation}")
+                        print(f"Requirement: '{nested_requirement.name}' disabled due to options.")
                         cont_permute = True
                 # If ANY requirement in this permutation is disabled, skip providing its possibilities
                 if cont_permute:
@@ -247,7 +268,7 @@ def unpack_requirement(
                                               nested_requirement_missile_ammo,
                                               nested_requirement_power_bomb_ammo))
                     elif debug:
-                        #print(f"Skipping Possibility: {combined_items}")
+                        print(f"Skipping Possibility: {combined_items}")
                         if not hard_test:
                             print(f"Does not contain all of: {parent_hard_items}")
                         elif possibility_exists_test:
@@ -260,7 +281,7 @@ def unpack_requirement(
                                    parent_missile_ammo + requirement.missile_ammo_needed,
                                    parent_power_bomb_ammo + requirement.power_bomb_ammo_needed ))
     else:
-        #print(f"Requirement {requirement.name} disabled due to options.")
-        #logging.info(f"Requirement {requirement.name} disabled due to options.")
+        print(f"Requirement {requirement.name} disabled due to options.")
+        logging.info(f"Requirement {requirement.name} disabled due to options.")
         return []
     return possibilities

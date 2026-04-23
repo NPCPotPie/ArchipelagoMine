@@ -224,38 +224,26 @@ Sector2ZazabiZone.locations = [
         ]),
     ]),
     FusionLocation("Sector 2 (TRO) -- Zazabi Arena", True, [
-        CanFightEarlyGameBoss("Fight Zazabi", [
-            CanJumpHigh(),
-            PONRRequirement("PONR - Fight Zazabi"),
-        ], [
-            CanDoAdvancedCombat("Avoid being sucked"),
-            CanBomb("Escape being sucked")
-        ], boss_hp=100, immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"})
+        CanFightZazabi()
     ]),
     FusionLocation("Sector 2 (TRO) -- Zazabi Arena Access", False, []),
     FusionLocation("Sector 2 (TRO) -- Zazabi Speedway -- Lower Item", False, [
-        CanFightEarlyGameBoss("Kill Zazabi and Enter Zazabi Speedway", [
+        CanFightZazabi("Kill Zazabi and Enter Zazabi Speedway", [
             HasSpaceJump()
         ], [
             HasScrewAttack()
         ], [
             HasSpeedBooster()
-        ], [
-            CanDoAdvancedCombat("Avoid being sucked"),
-            CanBomb("Escape being sucked")
-        ], boss_hp=100, immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"}),
+        ]),
     ]),
     FusionLocation("Sector 2 (TRO) -- Zazabi Speedway -- Upper Item", False, [
-        CanFightEarlyGameBoss("Kill Zazabi and Enter Zazabi Speedway", [
+        CanFightZazabi("Kill Zazabi and Enter Zazabi Speedway", [
             HasSpaceJump()
-        ],[
-            HasScrewAttack()
-        ],[
-            HasSpeedBooster()
         ], [
-            CanDoAdvancedCombat("Avoid being sucked"),
-            CanBomb("Escape being sucked")
-        ], boss_hp=100, immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"}),
+            HasScrewAttack()
+        ], [
+            HasSpeedBooster()
+        ]),
     ])
 ]
 

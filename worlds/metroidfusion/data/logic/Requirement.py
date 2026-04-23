@@ -69,7 +69,7 @@ class RequirementBase(ABC):
         return_string += f"HardItemsNeeded: [{', '.join(self.hard_items_needed)}]\n"
         return_string += f"EnergyTanks: {self.energy_tanks_needed}\n"
         return_string += f"MissileAmmo: {self.missile_ammo_needed}\n"
-        return_string += f"PowerBombAmmo: {self.power_bomb_ammo_needed}"
+        return_string += f"PowerBombAmmo: {self.power_bomb_ammo_needed}\n"
         return_string += "Requirements: ["
         if self.requirements:
             for req_list in self.requirements:
