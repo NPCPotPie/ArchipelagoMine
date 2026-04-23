@@ -201,32 +201,37 @@ AuxiliaryReactor.locations = [
 
 HabitationDeck.locations = [
     FusionLocation("Main Deck -- Habitation Deck -- Animals", True, [
-        HasKeycard2("Enter Habitation Deck", [
-            HasSpaceJump("Vanilla Route to Animals Terminal with Space Jump", [
-                HasSpeedBooster()
-            ]),
-            CanFreezeEnemies("Vanilla Route to Animals Terminal without Space Jump", [
+        HasKeycard2("Enter Habitation Deck for Animals", [
+            # Habitation Deck Entrance Options
+            HasWaveBeam("Backwards Gates from Habitation Deck Foyer"),
+            HasSpaceJump("Fly to Top of Habitation Deck Foyer"),
+            CanFreezeEnemies("Freeze Fune/Namihe to Climb Habitation Deck Foyer", [
                 HasHiJump(),
                 CanDoAdvancedWallJump()
-            ], [
-                HasSpeedBooster()
-            ]),
-            CanFreezeEnemies("Go Backwards through Gates on Lower Floor", [
-                CanJumpHigh(),
-                CanDoSimpleWallJump()
-            ], [
-                HasWaveBeam()
-            ]),
+            ], missile_ammo_needed=2),
+        ], [
+            # Traversal of Main Habitation Deck
+            HasWaveBeam("Backwards Gates"),
+            HasSpeedBooster("Vanilla Route")
+        ], [
+            # Habitation Ventilation
+            HasSpaceJump("Fly to Top of Habitation Ventilation"),
+            CanFreezeEnemies("Freeze Fune/Namihe to Climb Habitation Ventilation", missile_ammo_needed=3)
         ])
     ]),
     FusionLocation("Main Deck -- Habitation Deck -- Lower Item", False, [
-        HasKeycard2("Enter Habitation Deck", [
-            HasSpaceJump("Vanilla Route to Animals with Space Jump"),
-            HasWaveBeam("Go Backwards through Gates on Lower Floor"),
-            CanFreezeEnemies("Vanilla Route to Animals without Space Jump", [
+        HasKeycard2("Enter Habitation Deck for Lower Item", [
+            # Habitation Deck Entrance Options
+            HasWaveBeam("Backwards Gates from Habitation Deck Foyer"),
+            HasSpaceJump("Fly to Top of Habitation Deck Foyer"),
+            CanFreezeEnemies("Freeze Fune/Namihe to Climb Habitation Deck Foyer", [
                 HasHiJump(),
                 CanDoAdvancedWallJump()
-            ])
+            ], missile_ammo_needed=2),
+        ], [
+            # Traversal of Main Habitation Deck
+            HasWaveBeam("Backwards Gates"),
+            HasSpeedBooster("Vanilla Route")
         ])
     ])
 ]
