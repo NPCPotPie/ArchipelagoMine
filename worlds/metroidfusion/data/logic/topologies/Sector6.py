@@ -324,7 +324,7 @@ Sector6BeforeVariaCoreXZone.locations = [
     FusionLocation("Sector 6 (NOC) -- Zozoro Wine Cellar", False, [
         Requirement("Can Obtain Zozoro Wine Cellar Item", [
             CanBomb(),
-            CanPowerBomb()
+            CanPowerBomb(power_bomb_ammo_needed=2)
         ], [
             CanJumpHigh(),
             CanFreezeEnemies(),
