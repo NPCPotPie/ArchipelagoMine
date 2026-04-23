@@ -242,7 +242,7 @@ Sector4UpperWaterZone.connections = [
             ]),
             HasKeycard4("Vanilla Game Sequence Break - Skip Diffusion", [
                 # Get to Upper Security Bypass to charge the initial shinespark
-                HasMissile("Climb Cheddar Bay first", [
+                CanDo10MissileDamage("Climb Cheddar Bay first", [
                     CanDestroyBombBlocksUnderwater(),
                     CanPowerBomb(),
                     HasHiJump("Spring Ball and Bomb", [
@@ -347,7 +347,7 @@ Sector4SecurityZone.connections = [
                                   hard_items_needed={"Space Jump"}),
             HasKeycard4("Vanilla Game Sequence Break - Skip Diffusion - Partial", [
                 # Get to Upper Security Bypass to charge the initial shinespark
-                HasMissile("Climb Cheddar Bay first", [
+                CanDo10MissileDamage("Climb Cheddar Bay first", [
                     CanDestroyBombBlocksUnderwater(),
                     CanPowerBomb(),
                     HasHiJump("Spring Ball and Bomb", [
@@ -370,9 +370,9 @@ Sector4SecurityZone.connections = [
         ])
     ]),
     Connection(Sector4UpperWaterZone, [
-        HasKeycard4("Vanilla Game Sequence Break - Skip Diffusion - Partial", [
+        HasKeycard4("Vanilla Game Sequence Break - Skip Diffusion", [
             # Get to Upper Security Bypass to charge the initial shinespark
-            HasMissile("Climb Cheddar Bay first", [
+            CanDo10MissileDamage("Climb Cheddar Bay first", [
                 CanDestroyBombBlocksUnderwater(),
                 CanPowerBomb(),
                 HasHiJump("Spring Ball and Bomb", [
@@ -388,7 +388,7 @@ Sector4SecurityZone.connections = [
             ])
         ], [
             # Trick level
-            CanDoAdvancedShinespark(None, [
+            CanDoExpertShinespark(None, [
                 HasGravity()
             ]),
         ], [
@@ -396,8 +396,13 @@ Sector4SecurityZone.connections = [
             HasSpaceJump(None, [
                 HasHiJump()
             ]),
+        ]),
+        CanScrewAttackUnderwater("Go through Cargo Hold Nook", [
+            HasMorph()
+        ], [
+            HasSpaceJump()
         ])
-    ])
+    ], one_way=True)
 ]
 
 Sector4LowerSecurityZone.connections = [
