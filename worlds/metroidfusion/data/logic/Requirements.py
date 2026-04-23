@@ -1326,12 +1326,6 @@ class CanDamageToughEnemy(Requirement):
         if {"Charge Beam", "Missile", "Bomb", "Power Bomb", "Screw Attack"}.issubset(immunities):
             raise ValueError("Cannot make a Requirement for a beam-resistant enemy immune to all attack forms!")
         max_power_bomb_requirement = CanPowerBomb(power_bomb_ammo_needed=max_pb_ammo_value)
-        blended_list: list[Requirement] = []
-        while max_pb_ammo_value - 1 > 0:
-            max_pb_ammo_value -= 1
-            blended_list.append(CanPowerBomb(None, [
-                AnyMissileRequirement(None, enemy_hp - (max_pb_ammo_value * 50))
-            ], power_bomb_ammo_needed=max_pb_ammo_value))
         end_list: list[Requirement] = []
         if kwargs.pop('behind_wall', False):
             if not {"Power Bomb"}.issubset(immunities):
@@ -1339,7 +1333,13 @@ class CanDamageToughEnemy(Requirement):
             if not {"Charge Beam"}.issubset(immunities):
                 end_list.append(CanChargedWaveShot())
         else:
-            if not {"Power Bomb", "Missile"}.issubset(immunities):
+            if not {"Power Bomb"}.issubset(immunities) and not {"Missile"}.issubset(immunities):
+                blended_list: list[Requirement] = []
+                while max_pb_ammo_value - 1 > 0:
+                    max_pb_ammo_value -= 1
+                    blended_list.append(CanPowerBomb(None, [
+                        AnyMissileRequirement(None, enemy_hp - (max_pb_ammo_value * 50))
+                    ], power_bomb_ammo_needed=max_pb_ammo_value))
                 end_list.extend(blended_list)
             if not {"Power Bomb"}.issubset(immunities):
                 end_list.append(max_power_bomb_requirement)
