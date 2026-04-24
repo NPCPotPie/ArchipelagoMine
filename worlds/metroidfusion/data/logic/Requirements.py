@@ -1416,7 +1416,7 @@ class CanFightBoss(CanDamageCoreX):
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Boss",
