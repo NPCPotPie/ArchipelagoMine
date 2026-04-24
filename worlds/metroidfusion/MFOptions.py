@@ -87,6 +87,7 @@ class WallJumpTrickDifficulty(Choice):
     option_none = 0
     option_beginner = 1
     option_advanced = 2
+    # option_expert = 3
     default = 0
 
 class ShinesparkTrickDifficulty(Choice):

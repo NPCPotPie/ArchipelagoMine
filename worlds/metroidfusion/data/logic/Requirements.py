@@ -1631,6 +1631,31 @@ class CanDoAdvancedWallJump(HasWallJump):
         return options.WallJumpTrickDifficulty >= 2  #options.WallJumpTrickDifficulty.option_advanced
 
 
+class CanDoExpertWallJump(HasWallJump):
+    """
+    The player can perform a wall jump with YAML option ``WallJumpTrickDifficulty: expert``.
+
+    :param name: Defaults to "Can Do Expert Wall Jump"
+    :param requirements:
+    :key items_needed:
+    :key hard_items_needed:
+    :key energy_tanks_needed:
+    :key missile_ammo_needed:
+    :key power_bomb_ammo_needed:
+    """
+    def __init__(self,
+                 name="Can Do Expert Wall Jump",
+                 *requirements, **kwargs):
+        items_needed: set[str] = kwargs.pop('items_needed', {"Wall Jump Trick - Expert"})
+        items_needed.add("Wall Jump Trick - Expert")
+        kwargs['items_needed'] = items_needed
+        super().__init__(name, *requirements, **kwargs)
+
+    @staticmethod
+    def check_option_enabled(options: "MetroidFusionOptions") -> bool:
+        return options.WallJumpTrickDifficulty >= 3  #options.WallJumpTrickDifficulty.option_expert
+
+
 class CanDoAdvancedCombat(Requirement):
     """
     The player can perform advanced combat maneuvers with YAML option ``CombatDifficulty: advanced``.

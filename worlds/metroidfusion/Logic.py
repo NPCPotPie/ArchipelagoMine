@@ -4,7 +4,7 @@ import logging
 
 from BaseClasses import CollectionState
 from .data.logic.Requirement import Requirement
-from .Items import valid_item_names
+from .Items import valid_item_names, placeholder_names
 
 if TYPE_CHECKING:
     from worlds.metroidfusion import MetroidFusionOptions
@@ -35,31 +35,10 @@ class LogicObject:
                                            self.power_bomb_ammo):
             # Remove placeholder values in item list.
             for item in requirement_list.copy():
-                match item:
-                    case "Wall Jump Boots":
-                        requirement_list.remove("Wall Jump Boots")
-                    case "Nothing":
-                        requirement_list.remove("Nothing")
-                    case "Point of No Return":
-                        requirement_list.remove("Point of No Return")
-                    # Tricks
-                    case "Wall Jump Trick - Beginner":
-                        requirement_list.remove("Wall Jump Trick - Beginner")
-                    case "Wall Jump Trick - Advanced":
-                        requirement_list.remove("Wall Jump Trick - Advanced")
-                    case "Shinespark Trick - Beginner":
-                        requirement_list.remove("Shinespark Trick - Beginner")
-                    case "Shinespark Trick - Advanced":
-                        requirement_list.remove("Shinespark Trick - Advanced")
-                    case "Shinespark Trick - Expert":
-                        requirement_list.remove("Shinespark Trick - Expert")
-                    case "Combat - Advanced":
-                        requirement_list.remove("Combat - Advanced")
-                    case "Combat - Expert":
-                        requirement_list.remove("Combat - Expert")
-                    case _:
-                        if item not in requirement_list:
-                            raise Exception(f"Item {item} not in requirements")
+                if item in placeholder_names and item in requirement_list:
+                    requirement_list.remove(item)
+                elif item not in requirement_list:
+                    raise Exception(f"Item {item} not in requirements")
             if energy_tanks_value > 0:
                 if self.options.ElevatorShuffle.value > self.options.ElevatorShuffle.option_none:
                     energy_tanks_value = energy_tanks_value // 2
