@@ -2131,6 +2131,7 @@ class CanGetToTrainingAerie(Requirement):
         requirements += ([
             HasSpaceJump(),
             CanFreezeEnemies(missile_ammo_needed=2),
+            # Video proof: https://youtu.be/Qe9eMPmoUcU?si=1sAjemYzoZWeI1Jg
             CanDoBeginnerShinespark(None, [
                 HasKeycard3()
             ], [
