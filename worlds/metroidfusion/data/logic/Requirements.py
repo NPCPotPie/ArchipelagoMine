@@ -2134,7 +2134,9 @@ class CanGetToTrainingAerie(Requirement):
             CanDoBeginnerShinespark(None, [
                 HasKeycard3()
             ], [
-                CanDoAdvancedWallJump()
+                CanDoExpertWallJump()
+            ], [
+                HasHiJump()
             ])
         ],)
         super().__init__(name, *requirements, **kwargs)
