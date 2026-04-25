@@ -214,10 +214,11 @@ class MetroidFusionWorld(World):
             for connection in origin_region_data.connections:
                 connecting_region = self.get_region(connection.destination.name)
                 logic_object = LogicObject(self.player, self.options)
-                print(f"{'One way connection' if connection.one_way else 'Two way connection'}: "
-                        f"{origin_region.name} to {connecting_region.name}")
-                logging.info(f"{'One way connection' if connection.one_way else 'Two way connection'}: "
-                             f"{origin_region.name} to {connecting_region.name}")
+                if self.debug:
+                    # print(f"{'One way connection' if connection.one_way else 'Two way connection'}: "
+                    #         f"{origin_region.name} to {connecting_region.name}")
+                    logging.info(f"{'One way connection' if connection.one_way else 'Two way connection'}: "
+                                 f"{origin_region.name} to {connecting_region.name}")
                 (logic_object.requirements,
                  logic_object.energy_tanks,
                  logic_object.missile_ammo,
@@ -284,9 +285,10 @@ class MetroidFusionWorld(World):
             self.region_map[source] = destination
             self.region_map[destination] = source
             self.spoiler_region_map[source] = destination
-            #for source, destination in self.spoiler_region_map.items():
-                #print(f"{source} <-> {destination}")
-                #logging.info(f"{source} <-> {destination}")
+            if self.debug:
+                for source, destination in self.spoiler_region_map.items():
+                    # print(f"{source} <-> {destination}")
+                    logging.info(f"{source} <-> {destination}")
             from Utils import visualize_regions
             visualize_regions(self.get_region("Menu"), f"fusiondiagram{self.player}.puml")
 
@@ -371,8 +373,9 @@ class MetroidFusionWorld(World):
             if item.name == "Infant Metroid" and len(metroid_bosses) > 0:
                 boss_location = metroid_bosses.pop()
                 self.get_location(boss_location).place_locked_item(item)
-                #print(f"Placed Infant Metroid at {boss_location}")
-                #logging.info(f"Placed Infant Metroid at {boss_location}")
+                if self.debug:
+                    # print(f"Placed Infant Metroid at {boss_location}")
+                    logging.info(f"Placed Infant Metroid at {boss_location}")
             else:
                 self.multiworld.itempool.append(item)
 
@@ -381,8 +384,9 @@ class MetroidFusionWorld(World):
             ap_location = self.get_location(location.name)
             location_data = get_location_data_by_name(location.name)
             logic_object = LogicObject(self.player, self.options)
-            print(f"\n{location.name} requirements:")
-            logging.info(f"\n{location.name} requirements:")
+            if self.debug:
+                # print(f"\n{location.name} requirements:")
+                logging.info(f"\n{location.name} requirements:")
             (logic_object.requirements,
              logic_object.energy_tanks,
              logic_object.missile_ammo,
