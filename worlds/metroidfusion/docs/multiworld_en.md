@@ -44,10 +44,16 @@ started automatically (if you associated the extension to the emulator as recomm
 
 ### Connect to the Multiserver
 
+To connect the client to the multiserver simply put `<address>:<port>` in the textfield on top and press enter (if the
+server uses a password, type in the bottom textfield `/connect <address>:<port> [password]`)
+
+When the emulator starts up with your patch file, it should load the patched game and connect a "Lua Console" 
+automatically to the AP client. If the "Lua Console" is not connecting to your client, close it and continue with the 
+steps below.
+
 Once both the client and the emulator are started, you must connect them. Within the emulator click on the "Tools"
 menu and select "Lua Console". Click the folder button or press Ctrl+O to open a Lua script.
 
 Navigate to your Archipelago install folder and open `data/lua/connector_bizhawk_generic.lua`.
 
-To connect the client to the multiserver simply put `<address>:<port>` on the textfield on top and press enter (if the
-server uses password, type in the bottom textfield `/connect <address>:<port> [password]`)
+Once connected, enjoy playing your randomized game of Metroid Fusion!
