@@ -38,8 +38,9 @@ When you join a multiworld game, you will be asked to provide your YAML file to 
 the host will provide you with either a link to download your data file, or with a zip file containing everyone's data
 files. Your data file should have a `.apmetfus` extension.
 
-Double-click on your `.apmetfus` file to start your client and start the ROM patch process. Once the process is finished, the client and the emulator will be started automatically (if you associated the extension
-to the emulator as recommended).
+Double-click on your `.apmetfus` file to start your client and start the ROM patch process. Once the process is 
+finished, the client and the emulator will be started automatically (if you associated the extension to the emulator as 
+recommended).
 
 ### Connect to the Multiserver
 
