@@ -1325,29 +1325,27 @@ class CanDamageToughEnemy(Requirement):
             assert immunity in {"Charge Beam", "Missile", "Bomb", "Power Bomb", "Screw Attack"}
         if {"Charge Beam", "Missile", "Bomb", "Power Bomb", "Screw Attack"}.issubset(immunities):
             raise ValueError("Cannot make a Requirement for a beam-resistant enemy immune to all attack forms!")
-        max_power_bomb_requirement = CanPowerBomb(power_bomb_ammo_needed=max_pb_ammo_value)
         end_list: list[Requirement] = []
         if kwargs.pop('behind_wall', False):
-            if not {"Power Bomb"}.issubset(immunities):
-                end_list.append(max_power_bomb_requirement)
-            if not {"Charge Beam"}.issubset(immunities):
+            if "Power Bomb" not in immunities:
+                end_list.append(CanPowerBomb(power_bomb_ammo_needed=max_pb_ammo_value))
+            if "Charge Beam" not in immunities:
                 end_list.append(CanChargedWaveShot())
         else:
-            # if not {"Power Bomb"}.issubset(immunities) and not {"Missile"}.issubset(immunities):
-            #     blended_list: list[Requirement] = []
-            #     while max_pb_ammo_value - 1 > 0:
-            #         max_pb_ammo_value -= 1
-            #         blended_list.append(CanPowerBomb(None, [
-            #             AnyMissileRequirement(None, enemy_hp - (max_pb_ammo_value * 50))
-            #         ], power_bomb_ammo_needed=max_pb_ammo_value))
-            #     end_list.extend(blended_list)
-            if not {"Power Bomb"}.issubset(immunities):
-                end_list.append(max_power_bomb_requirement)
-            if not {"Missile"}.issubset(immunities):
+            # if {"Power Bomb", "Missile"}.isdisjoint(immunities):
+            #     end_list.extend([
+            #         CanPowerBomb(None, [
+            #             AnyMissileRequirement(None, enemy_hp - (pb_ammo * 50))
+            #         ], power_bomb_ammo_needed=pb_ammo)
+            #         for pb_ammo in range(1, max_pb_ammo_value)
+            #     ])
+            if "Power Bomb" not in immunities:
+                end_list.append(CanPowerBomb(power_bomb_ammo_needed=max_pb_ammo_value))
+            if "Missile" not in immunities:
                 end_list.append(AnyMissileRequirement(None, enemy_hp))
-            if not {"Charge Beam"}.issubset(immunities):
+            if "Charge Beam" not in immunities:
                 end_list.append(HasChargeBeam())
-            if not {"Screw Attack"}.issubset(immunities):
+            if "Screw Attack" not in immunities:
                 end_list.append(HasScrewAttack())
             # Bomb not implemented here due to masochistic and tedious nature. Awaiting masochist difficulty settings.
             # if not {"Bomb"}.issubset(immunities):
@@ -1427,7 +1425,7 @@ class CanFightBoss(CanDamageCoreX):
         requirements_list: list[Requirement] = [
             CanDamageToughEnemy("Push Boss into Core X state", enemy_hp=kwargs.pop('boss_hp', 1), immunities=immunities)
         ]
-        if not {"Beam"}.issubset(immunities):
+        if "Beam" not in immunities:
             requirements_list.append(Requirement("Push Boss into Core X state - Beam Only"))
         requirements += (requirements_list,)
         super().__init__(name, *requirements, **kwargs)
@@ -1928,11 +1926,11 @@ class CanFightBOX(CanDamageToughEnemy):
         super().__init__(name, *requirements, **kwargs)
 
 
-class CanClimbSector3Attic(Requirement):
+class CanClimbSector3AlcoveRight(Requirement):
     """
-    The player can access the upper section in Sector 3 - Alcove.
+    The player can access the door from the bottom of Sector 3 - Alcove.
 
-    :param name: Defaults to "Can Climb Sector 3 Attic"
+    :param name: Defaults to "Can Climb Sector 3 Alcove Right"
     :param requirements:
     :key items_needed:
     :key hard_items_needed:
@@ -1941,21 +1939,58 @@ class CanClimbSector3Attic(Requirement):
     :key power_bomb_ammo_needed:
     """
     def __init__(self,
-                 name="Can Climb Sector 3 Attic",
+                 name="Can Climb Sector 3 Alcove Right",
                  *requirements, **kwargs):
         requirements += ([
-            CanDestroyBombBlocks()
+            # From below the items
+            CanBomb(),
+            CanPowerBomb()
         ], [
-            HasHiJump("Wall Jump Good",
-                      [CanDoAdvancedWallJump()]),
-            HasSpaceJump("Fly through Bomb Blocks",
-                         items_needed={"Screw Attack"}),
-            CanActivatePillar(),
-            CanFreezeEnemies("Step on Sidehopper", [
-                CanBomb("Bomb without killing your platform",
-                        items_needed={"Hi-Jump"}),
-                HasScrewAttack("Needed a stool")
-            ], [CanDoSimpleWallJump()])
+            # From bottom right section
+            HasSpaceJump(),
+            CanFreezeEnemies("Use Sidehopper as platform", [
+                CanDoSimpleWallJump(),
+                HasHiJump()
+            ]),
+            CanDoAdvancedWallJump("Wall Jumping without Sidehopper", [
+                HasHiJump(),
+                CanBallJump("Jump out of tunnel, then Wall Jump")
+            ])
+        ], [
+            # Dealing with Sidehoppers
+            CanDamageToughEnemy("Kill Sidehoppers", enemy_hp=(24 * 3)),
+            CanFreezeEnemies("Freeze Sidehoppers", missile_ammo_needed=3),
+            CanDoAdvancedCombat("Dodge Sidehoppers")
+        ],)
+        super().__init__(name, *requirements, **kwargs)
+
+
+class CanClimbSector3AlcoveLeft(Requirement):
+    """
+    The player can access the upper middle pocket from the bottom of Sector 3 - Alcove.
+
+    :param name: Defaults to "Can Climb Sector 3 Alcove Left"
+    :param requirements:
+    :key items_needed:
+    :key hard_items_needed:
+    :key energy_tanks_needed:
+    :key missile_ammo_needed:
+    :key power_bomb_ammo_needed:
+    """
+    def __init__(self,
+                 name="Can Climb Sector 3 Alcove Left",
+                 *requirements, **kwargs):
+        requirements += ([
+            # Get height to destroy bomb blocks
+            HasScrewAttack("Use Screw Attack", [
+                HasSpaceJump("Fly"),
+                CanDoAdvancedWallJump("Wall Jump Good", [
+                    HasHiJump()
+                ]),
+                CanActivatePillar("Start from on Pillar")
+            ]),
+            CanPowerBomb("Lay Waste and Use Pillar"),
+            CanBomb("Use Bombs with Pillar")
         ],)
         super().__init__(name, *requirements, **kwargs)
 
