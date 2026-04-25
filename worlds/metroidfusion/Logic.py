@@ -33,12 +33,10 @@ class LogicObject:
                                            self.energy_tanks,
                                            self.missile_ammo,
                                            self.power_bomb_ammo):
-            # Remove placeholder values in item list.
-            for item in requirement_list.copy():
-                if item in placeholder_names and item in requirement_list:
-                    requirement_list.remove(item)
-                elif item not in requirement_list:
-                    raise Exception(f"Item {item} not in requirements")
+            # Remove placeholder values in item list and re-validate
+            requirement_list -= placeholder_names
+            for item in requirement_list:
+                assert item in valid_item_names, f"Item {item} is not valid"
             if energy_tanks_value > 0:
                 if self.options.ElevatorShuffle.value > self.options.ElevatorShuffle.option_none:
                     energy_tanks_value = energy_tanks_value // 2
