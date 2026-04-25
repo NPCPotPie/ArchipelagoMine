@@ -89,8 +89,9 @@ def create_logic_rule_for_list(
             energy_tanks_list.append(energy_tanks_in_rule)
             missile_ammo_list.append(missile_ammo_in_rule)
             power_bomb_ammo_list.append(power_bomb_ammo_in_rule)
-    print("Create logic rule for list...")
-    logging.info("Create logic rule for list...")
+    if debug:
+        # print("Create logic rule for list...")
+        logging.info("Create logic rule for list...")
     for (requirement,
          energy_tanks,
          missiles,
@@ -98,18 +99,19 @@ def create_logic_rule_for_list(
                              energy_tanks_list,
                              missile_ammo_list,
                              power_bomb_ammo_list):
-        print("Logic rule:")
-        print(f"Requirements: {requirement}")
-        print(f"Energy Tanks: {energy_tanks}")
-        print(f"Missiles: {missiles}")
-        print(f"Power Bombs: {power_bombs}")
-        print("===\n")
-        logging.info("Logic rule:")
-        logging.info(f"Requirements: {requirement}")
-        logging.info(f"Energy Tanks: {energy_tanks}")
-        logging.info(f"Missiles: {missiles}")
-        logging.info(f"Power Bombs: {power_bombs}")
-        logging.info("===\n")
+        if debug:
+            # print("Logic rule:")
+            # print(f"Requirements: {requirement}")
+            # print(f"Energy Tanks: {energy_tanks}")
+            # print(f"Missiles: {missiles}")
+            # print(f"Power Bombs: {power_bombs}")
+            # print("===\n")
+            logging.info("Logic rule:")
+            logging.info(f"Requirements: {requirement}")
+            logging.info(f"Energy Tanks: {energy_tanks}")
+            logging.info(f"Missiles: {missiles}")
+            logging.info(f"Power Bombs: {power_bombs}")
+            logging.info("===\n")
     return (requirements_list,
             energy_tanks_list,
             missile_ammo_list,
@@ -133,21 +135,29 @@ def create_logic_rule(
             0,
             debug)
         if debug:
-            print("Create logic rule...")
-            print(f"Requirement: {requirement.name}")
-            print("Requirements List: [")
+            # print("Create logic rule...")
+            # print(f"Requirement: {requirement.name}")
+            # print("Requirements List: [")
+            # for requirements_list, energy_tanks, missiles, power_bombs in possibilities:
+            #     print(f"\t{requirements_list}, ")
+            #     print(f"\t\tEnergy Tanks: {energy_tanks}, ")
+            #     print(f"\t\tMissiles: {missiles}, ")
+            #     print(f"\t\tPower Bombs: {power_bombs}")
+            # print("]")
+            # print(f"Hard Requirements: {hard_items}")
+            logging.info("Create logic rule...")
+            logging.info(f"Requirement: {requirement.name}")
+            logging.info("Requirements List: [")
             for requirements_list, energy_tanks, missiles, power_bombs in possibilities:
-                print(f"\t{requirements_list}, ")
-                print(f"\t\tEnergy Tanks: {energy_tanks}, ")
-                print(f"\t\tMissiles: {missiles}, ")
-                print(f"\t\tPower Bombs: {power_bombs}")
-            print("]")
-            print(f"Hard Requirements: {hard_items}")
-            logging.info(f"  {requirement}")
+                logging.info(f"\t{requirements_list}, ")
+                logging.info(f"\t\tEnergy Tanks: {energy_tanks}, ")
+                logging.info(f"\t\tMissiles: {missiles}, ")
+                logging.info(f"\t\tPower Bombs: {power_bombs}")
             logging.info("]")
+            logging.info(f"Hard Requirements: {hard_items}")
         return possibilities
     else:
-        print(f"Requirement {requirement.name} disabled due to options.")
+        # print(f"Requirement {requirement.name} disabled due to options.")
         logging.info(f"Requirement {requirement.name} disabled due to options.")
         return []
 
@@ -162,16 +172,17 @@ def unpack_requirement(
         parent_power_bomb_ammo: int = 0,
         debug = False) -> list[tuple[set[str], int, int, int]]:
     """Unpacks a requirement into a list of possible item sets each paired with an integer of energy tanks"""
-    logging.info(f"Requirement {requirement.name}. "
-                 f"Items needed {requirement.items_needed}. "
-                 f"Sub-requirements {requirement.requirements}. "
-                 f"Hard requirements {requirement.hard_items_needed}. "
-                 f"Possibilities {possibilities}. "
-                 f"Parent items {parent_items}. "
-                 f"Parent hard requirements {parent_hard_items}. "
-                 f"Parent Energy Tanks Needed {parent_energy_tanks}. "
-                 f"Parent Missile Ammo {parent_missile_ammo}. "
-                 f"Parent Power Bomb Ammo {parent_power_bomb_ammo}.")
+    if debug:
+        logging.info(f"Requirement {requirement.name}. "
+                     f"Items needed {requirement.items_needed}. "
+                     f"Sub-requirements {requirement.requirements}. "
+                     f"Hard requirements {requirement.hard_items_needed}. "
+                     f"Possibilities {possibilities}. "
+                     f"Parent items {parent_items}. "
+                     f"Parent hard requirements {parent_hard_items}. "
+                     f"Parent Energy Tanks Needed {parent_energy_tanks}. "
+                     f"Parent Missile Ammo {parent_missile_ammo}. "
+                     f"Parent Power Bomb Ammo {parent_power_bomb_ammo}.")
     # Is the Requirement's YAML option enabled?
     if requirement.check_option_enabled(options):
         # Validate item names
@@ -188,9 +199,12 @@ def unpack_requirement(
                 cont_permute: bool = False
                 for nested_requirement in requirements_permutation:
                     if not nested_requirement.check_option_enabled(options):
-                        print(f"Skipping permutation: {requirements_permutation}")
-                        print(f"Requirement: '{nested_requirement.name}' disabled due to options.")
                         cont_permute = True
+                        if debug:
+                            # print(f"Skipping permutation: {requirements_permutation}")
+                            # print(f"Requirement: '{nested_requirement.name}' disabled due to options.")
+                            logging.info(f"Skipping permutation {requirements_permutation}")
+                            logging.info(f"Requirement: '{nested_requirement.name}' disabled due to options.")
                 # If ANY requirement in this permutation is disabled, skip providing its possibilities
                 if cont_permute:
                     continue
@@ -247,11 +261,14 @@ def unpack_requirement(
                                               nested_requirement_missile_ammo,
                                               nested_requirement_power_bomb_ammo))
                     elif debug:
-                        print(f"Skipping Possibility: {combined_items}")
+                        # print(f"Skipping Possibility: {combined_items}")
+                        logging.info(f"Skipping Possibility: {combined_items}")
                         if not hard_test:
-                            print(f"Does not contain all of: {parent_hard_items}")
+                            # print(f"Does not contain all of: {parent_hard_items}")
+                            logging.info(f"Does not contain all of: {parent_hard_items}")
                         elif possibility_exists_test:
-                            print(f"Possibility already existed when attempting to add to list")
+                            # print(f"Possibility already existed when attempting to add to list")
+                            logging.info(f"Possibility already existed when attempting to add to list")
                 parent_hard_items = current_hard_items.copy()
         elif requirement.items_needed:
             parent_hard_items.update(requirement.hard_items_needed)
@@ -260,7 +277,7 @@ def unpack_requirement(
                                    parent_missile_ammo + requirement.missile_ammo_needed,
                                    parent_power_bomb_ammo + requirement.power_bomb_ammo_needed ))
     else:
-        print(f"Requirement {requirement.name} disabled due to options.")
+        # print(f"Requirement {requirement.name} disabled due to options.")
         logging.info(f"Requirement {requirement.name} disabled due to options.")
         return []
     return possibilities
