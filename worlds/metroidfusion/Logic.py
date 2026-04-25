@@ -35,8 +35,8 @@ class LogicObject:
                                            self.power_bomb_ammo):
             # Remove placeholder values in item list and re-validate
             requirement_list -= placeholder_names
-            for item in requirement_list:
-                assert item in valid_item_names, f"Item {item} is not valid"
+            assert all([item in valid_item_names for item in requirement_list]), \
+                f"Invalid item name in: {requirement_list}"
             if energy_tanks_value > 0:
                 if self.options.ElevatorShuffle.value > self.options.ElevatorShuffle.option_none:
                     energy_tanks_value = energy_tanks_value // 2
