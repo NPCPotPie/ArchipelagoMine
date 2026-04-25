@@ -1989,7 +1989,7 @@ class CanClimbSector3AlcoveLeft(Requirement):
                 ]),
                 CanActivatePillar("Start from on Pillar")
             ]),
-            CanPowerBomb("Lay Waste and Use Pillar"),
+            CanPowerBomb("Lay Waste and Use Pillar", power_bomb_ammo_needed=2),
             CanBomb("Use Bombs with Pillar")
         ],)
         super().__init__(name, *requirements, **kwargs)
