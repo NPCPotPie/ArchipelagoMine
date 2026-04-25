@@ -1311,7 +1311,7 @@ class CanDamageToughEnemy(Requirement):
     :key behind_wall: A boolean toggling requirement behavior to treat the enemy behind a wall. Defaults to False.
     :key immunities: A set of items this enemy is immune to damage from.
         Valid items are "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     :key enemy_hp: An integer representing the health of the enemy or enemies to defeat. Defaults to 1.
     """
     def __init__(self,
@@ -1445,7 +1445,7 @@ class CanFightEarlyGameBoss(CanFightBoss):
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Early Game Boss",
@@ -1468,7 +1468,7 @@ class CanFightMidGameBoss(CanFightBoss, CanUseSuperMissile, HasChargeBeam):
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Mid Game Boss",
@@ -1491,7 +1491,7 @@ class CanFightLateGameBoss(CanFightMidGameBoss, HasPlasmaBeam, HasSpaceJump):
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Late Game Boss",
@@ -1718,7 +1718,7 @@ class CanFightMidGameBossOnAdvanced(CanDoAdvancedCombat, CanFightBoss, HasCharge
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Mid Game Boss On Advanced",
@@ -1741,7 +1741,7 @@ class CanFightLateGameBossOnAdvanced(CanDoAdvancedCombat, CanFightMidGameBoss):
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Late Game Boss on Advanced",
@@ -1764,7 +1764,7 @@ class CanFightBossOnExpert(CanDoExpertCombat, CanFightBoss, HasChargeBeam):
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Boss on Expert",
