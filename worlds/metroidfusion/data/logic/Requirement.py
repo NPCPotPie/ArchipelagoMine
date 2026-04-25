@@ -54,11 +54,7 @@ class RequirementBase(ABC):
         if hard_items_needed is None:
             hard_items_needed = set()
         self.hard_items_needed = hard_items_needed
-        reqs: list[list[Self]] = []
-        for requirement in requirements:
-            if requirement:
-                reqs.append(requirement)
-        self.requirements = reqs
+        self.requirements = [requirement for requirement in requirements]
         self.energy_tanks_needed = energy_tanks_needed
         self.missile_ammo_needed = missile_ammo_needed
         self.power_bomb_ammo_needed = power_bomb_ammo_needed
@@ -72,8 +68,7 @@ class RequirementBase(ABC):
         return_string += f"PowerBombAmmo: {self.power_bomb_ammo_needed}\n"
         return_string += "Requirements: ["
         if self.requirements:
-            for req_list in self.requirements:
-                return_string += f"\n\t[{', '.join(req.name for req in req_list)}]"
+            return_string += f"\n\t[{', '.join(req.name for req_list in self.requirements for req in req_list)}]"
             return_string += "\n]"
         else:
             return_string += "]"
