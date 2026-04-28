@@ -1704,7 +1704,7 @@ class CanDoExpertCombat(Requirement):
         return options.CombatDifficulty >= 2  #options.CombatDifficulty.option_expert
 
 
-class CanFightMidGameBossOnAdvanced(CanDoAdvancedCombat, CanFightBoss, HasChargeBeam):
+class CanFightMidGameBossOnAdvanced(CanDoAdvancedCombat, CanFightBoss):
     """
     The player can fight a mid-game boss and win with YAML option ``CombatDifficulty: advanced``.
 
@@ -1750,7 +1750,7 @@ class CanFightLateGameBossOnAdvanced(CanDoAdvancedCombat, CanFightMidGameBoss):
         super().__init__(name, *requirements, **kwargs)
 
 
-class CanFightBossOnExpert(CanDoExpertCombat, CanFightBoss, HasChargeBeam):
+class CanFightBossOnExpert(CanDoExpertCombat, CanFightBoss):
     """
     The player can fight any boss and win with YAML option ``CombatDifficulty: expert``.
 
