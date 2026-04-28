@@ -322,6 +322,7 @@ Sector3BoilerZone.locations = [
         CanPowerBomb("Grab Lava Maze Item", [
             CanLavaDive()
             # Awaiting damage run logic
+            # HasVaria(energy_tanks_needed=4)
         ])
     ]),
     FusionLocation("Sector 3 (PYR) -- Main Boiler Control Room -- Boiler", True, [
