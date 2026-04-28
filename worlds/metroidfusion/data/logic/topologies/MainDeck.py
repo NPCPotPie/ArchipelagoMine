@@ -15,7 +15,8 @@ from ..VariableConnection import VariableConnection
 AuxiliaryReactor.connections = [
     Connection(ReactorZone, [], one_way=True),
     Connection(YakuzaZone, [
-        PONRRequirement()
+        PONRRequirement("PONR - Yakuza Entry Backwards"),
+        HasSpaceJump()
     ], one_way=True)
 ]
 
