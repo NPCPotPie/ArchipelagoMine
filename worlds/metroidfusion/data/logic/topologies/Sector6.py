@@ -344,7 +344,8 @@ Sector6AfterVariaCoreXZone.locations = [
     FusionLocation("Sector 6 (NOC) -- Twin Caverns West -- Lower Item", False, [
         HasMorph("Can Obtain Twin Caverns West Lower Item", [
             CanJumpHigh(),
-            Requirement("Jump Good")
+            # Requires a trick to make logic able to think it's possible.
+            #future CanDoAdvancedMovement("Jump Good")
         ])
     ]),
     FusionLocation("Sector 6 (NOC) -- Twin Caverns West -- Upper Item", False, [])
