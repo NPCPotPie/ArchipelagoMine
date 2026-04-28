@@ -98,7 +98,7 @@ ReactorZone.connections = [
             HasWaveBeam("Destroy Block with Wave Beam")
         ], [
             HasSpaceJump("Can Enter and Fly out of Yakuza's Arena"),
-            PONRRequirement("PONR - Can Enter Yakuza'a Arena")
+            PONRRequirement("PONR - Can Enter Yakuza's Arena")
         ]),
     ], one_way=True),
     Connection(AuxiliaryReactor, [
