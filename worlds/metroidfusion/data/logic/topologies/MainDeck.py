@@ -317,5 +317,6 @@ YakuzaZone.locations = [
     FusionLocation("Main Deck -- Yakuza Arena", True, [
         CanFightMidGameBoss(boss_hp=1000, immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"}),
         CanFightMidGameBossOnAdvanced(boss_hp=1000, immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"}),
+        CanFightBossOnExpert(boss_hp=1000, immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"})
     ])
 ]
