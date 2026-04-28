@@ -57,8 +57,7 @@ Sector5TopLeftBigRoom.connections = [
 Sector5FrozenHub.connections = [
     Connection(Sector5DataRoom, [
         HasVaria("Top of Arctic Containment -> Data Room", [
-            HasKeycard3(),
-            PONRRequirement("PONR - Arctic Containment -> Data Room")
+            HasKeycard3()
         ])
     ], one_way=True),
     Connection(Sector5BeforeNightmareHub, [
