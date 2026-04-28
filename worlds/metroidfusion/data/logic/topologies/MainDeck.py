@@ -102,8 +102,18 @@ ReactorZone.connections = [
         ]),
     ], one_way=True),
     Connection(AuxiliaryReactor, [
-        HasWaveBeam("Can Open Auxiliary Gate Backwards")
-    ]),
+        HasWaveBeam("Can Open Auxiliary Gate Backwards"),
+        HasMorph("Can Skip Yakuza - Vanilla Route", [
+            # 6 Zebesian (ground) and 1 Gadora
+            CanDamageToughEnemy("Can Kill Pirates and Eyedoor", [CanDamageGadora()], enemy_hp=(90 * 6))
+        ], [
+            CanBomb("Destroy Block with Bomb"),
+            CanPowerBomb("Destroy Block with Power Bomb"),
+            HasWaveBeam("Destroy Block with Wave Beam")
+        ], [
+            HasSpaceJump("Can Skip Yakuza Fight")
+        ])
+    ], one_way=True),
     Connection(Sector2NettoriZone, [
         HasSpaceJump("Can Get to Sector 2 Backdoor", [
             # Can pass them easily, but assume two will be annoying
