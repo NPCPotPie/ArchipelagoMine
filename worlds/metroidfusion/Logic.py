@@ -230,7 +230,11 @@ def unpack_requirement(
                             logging.info(f"\tPossibility already existed when attempting to add to list")
                 parent_hard_items = current_hard_items.copy()
                 parent_items = current_parent_items.copy()
-        elif requirement.items_needed:
+        elif (requirement.items_needed
+              or requirement.hard_items_needed
+              or requirement.energy_tanks_needed
+              or requirement.missile_ammo_needed
+              or requirement.power_bomb_ammo_needed):
             parent_hard_items |= requirement.hard_items_needed
             possibilities.append(( parent_items | requirement.items_needed,
                                    max(parent_energy_tanks, requirement.energy_tanks_needed),
