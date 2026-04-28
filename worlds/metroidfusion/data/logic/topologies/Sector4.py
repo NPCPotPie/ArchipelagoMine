@@ -223,7 +223,9 @@ Sector4UpperWaterZone.connections = [
             #future CanDoSimpleUnderwaterWallJump()
         ], [
             CanActivatePumpControl(),
-            Requirement("Pump Control Not Active - Damage Run",
+            HasGravity("Damage Run - Get to Pump Control Door from Cargo Hold",
+                       energy_tanks_needed=level_1_e_tanks),
+            HasVaria("Damage Run - Get to Pump Control Door from Cargo Hold - Water Physics",
                         energy_tanks_needed=level_2_e_tanks)
         ])
     ]),
