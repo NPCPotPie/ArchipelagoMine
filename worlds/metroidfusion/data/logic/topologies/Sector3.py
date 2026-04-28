@@ -307,7 +307,8 @@ Sector3MainShaft.locations = [
             #     #future CanDoAdvancedJumpBombJump()
             # ]),
             PONRRequirement("PONR - Namihe's Lair - Shinespark", [
-                CanDoAdvancedShinespark()
+                # Video proof: https://www.youtube.com/watch?v=4LkNz-cjgUI
+                CanDoExpertShinespark()
             ])
         ])
     ]),
