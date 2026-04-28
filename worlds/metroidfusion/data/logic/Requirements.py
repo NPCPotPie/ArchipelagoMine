@@ -2040,7 +2040,13 @@ class CanGetSovaProcessingItem(HasMorph):
     def __init__(self,
                  name="Can Get Sova Processing Item",
                  *requirements, **kwargs):
-        requirements += ([HasSpaceJump(), CanFreezeEnemies(missile_ammo_needed=4)],)
+        requirements += ([
+            HasSpaceJump(),
+            CanFreezeEnemies(missile_ammo_needed=4),
+            CanDoAdvancedShinespark("Diagonal-Right Shinespark", [
+                CanLavaDive()
+            ])
+        ],)
         super().__init__(name, *requirements, **kwargs)
 
 
