@@ -179,7 +179,7 @@ Sector6RestrictedZone.connections = [
         ], [
             HasKeycard4()
         ])
-    ]),
+    ], one_way=True),
     Connection(Sector6RestrictedZoneElevatorToTourian, [
         HasSpeedBooster("Ascend Restricted Zone Airlock to Sector 1 Tourian", [
             HasKeycard4()
