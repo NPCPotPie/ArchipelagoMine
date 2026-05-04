@@ -1155,11 +1155,39 @@ class CanDo10MissileDamage(HasMissile):
         kwargs['missile_ammo_needed'] = kwargs.pop('missile_ammo_needed', 1)
         super().__init__(name, *requirements, **kwargs)
 
+class AnyMissileRequirement(HasMissile):
+    """
+    The player can defeat enemies with total health ``enemy_hp`` using any combination of missile upgrades.
+
+    :param name: Defaults to "Can Clear With Missiles"
+    :param enemy_hp: Defaults to 1
+    :param requirements:
+    :key items_needed:
+    :key hard_items_needed:
+    :key energy_tanks_needed:
+    :key missile_ammo_needed: Automatically calculated based on ``enemy_hp``
+    :key power_bomb_ammo_needed:
+    """
+    def __init__(self,
+                 name="Can Clear With Missiles",
+                 enemy_hp: int = 1,
+                 *requirements, **kwargs):
+        requirements += ([
+            CanDo10MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 10) // 1)),
+            CanDo15MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 15) // 1)),
+            CanDo20MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 20) // 1)),
+            CanDo25MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 25) // 1)),
+            CanDo30MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 30) // 1)),
+            CanDo35MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 35) // 1)),
+            CanDo40MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 40) // 1)),
+            CanDo45MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 45) // 1))
+        ],)
+        super().__init__(name, *requirements, **kwargs)
 
 #endregion
 
 #region Enemy Requirements
-class CanDamageSmallGeron(HasMissile):
+class CanDamageSmallGeron(AnyMissileRequirement):
     """
     The player can kill a Small Geron weak to any Missiles.
 
@@ -1174,15 +1202,7 @@ class CanDamageSmallGeron(HasMissile):
     def __init__(self,
                  name="Can Damage Small Geron",
                  *requirements, **kwargs):
-        kwargs.pop('missile_ammo_needed', 1)
-        requirements += ([
-            CanDo30MissileDamage(),
-            CanDo25MissileDamage(missile_ammo_needed=2),
-            CanDo20MissileDamage(missile_ammo_needed=2),
-            CanDo15MissileDamage(missile_ammo_needed=2),
-            CanDo10MissileDamage(missile_ammo_needed=3)
-        ],)
-        super().__init__(name, *requirements, **kwargs)
+        super().__init__(name, 30, *requirements, **kwargs)
 
 
 class CanDamageMediumGeron(CanUseSuperMissile):
@@ -1200,7 +1220,6 @@ class CanDamageMediumGeron(CanUseSuperMissile):
     def __init__(self,
                  name="Can Damage Medium Geron",
                  *requirements, **kwargs):
-        kwargs.pop('missile_ammo_needed', 1)
         requirements += ([
             CanDo45MissileDamage(missile_ammo_needed=2),
             CanDo40MissileDamage(missile_ammo_needed=3),
@@ -1244,13 +1263,8 @@ class CanDamageStabilizer(Requirement):
     def __init__(self,
                  name="Can Damage Stabilizer",
                  *requirements, **kwargs):
-        kwargs.pop('missile_ammo_needed', 1)
         requirements += ([
-            CanDo30MissileDamage(),
-            CanDo25MissileDamage(),
-            CanDo20MissileDamage(missile_ammo_needed=2),
-            CanDo15MissileDamage(missile_ammo_needed=2),
-            CanDo10MissileDamage(missile_ammo_needed=3),
+            AnyMissileRequirement(None, 21),
             HasChargeBeam()
         ],)
         super().__init__(name, *requirements, **kwargs)
@@ -1282,7 +1296,7 @@ class CanDamageAnyGeron(Requirement):
 
 class CanDamageToughEnemy(Requirement):
     """
-    The player can defeat a beam-resistant enemy.
+    The player can defeat beam-resistant enemies with total health ``enemy_hp``.
     Damage methods are Charge Beam, Missiles, Bombs (not yet implemented), Power Bombs, or Screw Attack.
 
     :param name: Defaults to "Can Damage Tough Enemy".
@@ -1291,54 +1305,49 @@ class CanDamageToughEnemy(Requirement):
     :key hard_items_needed:
     :key energy_tanks_needed:
     :key missile_ammo_needed: Auto-calculates minimum missiles based on ``enemy_hp`` and missile upgrades.
-        Disables missile requirement if set to None.
+        Disables missile requirement if ``immunities`` contains "Missile".
     :key power_bomb_ammo_needed: Auto-calculates minimum power bombs needed based on ``enemy_hp``.
-        Disables power bomb requirement if set to None.
+        Disables power bomb requirement if ``immunities`` contains "Power Bomb".
     :key behind_wall: A boolean toggling requirement behavior to treat the enemy behind a wall. Defaults to False.
     :key immunities: A set of items this enemy is immune to damage from.
         Valid items are "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     :key enemy_hp: An integer representing the health of the enemy or enemies to defeat. Defaults to 1.
     """
     def __init__(self,
                  name="Can Damage Tough Enemy",
                  *requirements, **kwargs):
-        enemy_hp = kwargs.pop('enemy_hp', 1)
-        power_bomb_requirement = CanPowerBomb(power_bomb_ammo_needed=-int(-(enemy_hp / 50) // 1))
-        missile_list: list[Requirement] = [
-            CanDo10MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 10) // 1)),
-            CanDo15MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 15) // 1)),
-            CanDo20MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 20) // 1)),
-            CanDo25MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 25) // 1)),
-            CanDo30MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 30) // 1)),
-            CanDo35MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 35) // 1)),
-            CanDo40MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 40) // 1)),
-            CanDo45MissileDamage(missile_ammo_needed=-int(-(enemy_hp / 45) // 1))
-        ]
-        end_list: list[Requirement] = []
+        enemy_hp: int = kwargs.pop('enemy_hp', 1)
+        max_pb_ammo_value = -int(-(enemy_hp / 50) // 1)
         immunities: set[str] = kwargs.pop('immunities', set())
         immunities.discard("Beam")
-        pbs: bool = kwargs.pop('power_bomb_ammo_needed', 0) is not None
-        missiles: bool = kwargs.pop('missile_ammo_needed', 0) is not None
         for immunity in immunities:
             assert immunity in {"Charge Beam", "Missile", "Bomb", "Power Bomb", "Screw Attack"}
         if {"Charge Beam", "Missile", "Bomb", "Power Bomb", "Screw Attack"}.issubset(immunities):
             raise ValueError("Cannot make a Requirement for a beam-resistant enemy immune to all attack forms!")
-        elif kwargs.pop('behind_wall', False):
-            if not {"Power Bomb"}.issubset(immunities) and pbs:
-                end_list.append(power_bomb_requirement)
-            if not {"Charge Beam"}.issubset(immunities):
+        end_list: list[Requirement] = []
+        if kwargs.pop('behind_wall', False):
+            if "Power Bomb" not in immunities:
+                end_list.append(CanPowerBomb(power_bomb_ammo_needed=max_pb_ammo_value))
+            if "Charge Beam" not in immunities:
                 end_list.append(CanChargedWaveShot())
         else:
-            if not {"Power Bomb"}.issubset(immunities) and pbs:
-                end_list.append(power_bomb_requirement)
-            if not {"Charge Beam"}.issubset(immunities):
+            # if {"Power Bomb", "Missile"}.isdisjoint(immunities):
+            #     end_list.extend([
+            #         CanPowerBomb(None, [
+            #             AnyMissileRequirement(None, enemy_hp - (pb_ammo * 50))
+            #         ], power_bomb_ammo_needed=pb_ammo)
+            #         for pb_ammo in range(1, max_pb_ammo_value)
+            #     ])
+            if "Power Bomb" not in immunities:
+                end_list.append(CanPowerBomb(power_bomb_ammo_needed=max_pb_ammo_value))
+            if "Missile" not in immunities:
+                end_list.append(AnyMissileRequirement(None, enemy_hp))
+            if "Charge Beam" not in immunities:
                 end_list.append(HasChargeBeam())
-            if not {"Screw Attack"}.issubset(immunities):
+            if "Screw Attack" not in immunities:
                 end_list.append(HasScrewAttack())
-            if not {"Missile"}.issubset(immunities) and missiles:
-                end_list.extend(missile_list)
-            # Bomb not implemented due to masochistic and tedious nature. Awaiting masochist difficulty settings.
+            # Bomb not implemented here due to masochistic and tedious nature. Awaiting masochist difficulty settings.
             # if not {"Bomb"}.issubset(immunities):
             #     end_list.append(CanDoMasochistCombat())
         requirements += (end_list,)
@@ -1362,8 +1371,10 @@ class CanDefeatGerubus(CanDamageToughEnemy):
                  name = "Can Defeat Gerubus",
                  count: int = 1,
                  *requirements, **kwargs):
-        kwargs['enemy_hp'] = 45 * count
-        kwargs['immunities'] = {"Beam", "Charge Beam", "Bomb", "Power Bomb"}
+        kwargs.update({
+            'enemy_hp': 45 * count,
+            'immunities': {"Beam", "Charge Beam", "Bomb", "Power Bomb"}
+        })
         super().__init__(name, *requirements, **kwargs)
 
 
@@ -1403,18 +1414,18 @@ class CanFightBoss(CanDamageCoreX):
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Boss",
                  *requirements, **kwargs):
-        immunities = kwargs.pop('immunities', set())
+        immunities: set[str] = kwargs.pop('immunities', set())
         for immunity in immunities:
             assert immunity in {"Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", "Screw Attack"}
         requirements_list: list[Requirement] = [
             CanDamageToughEnemy("Push Boss into Core X state", enemy_hp=kwargs.pop('boss_hp', 1), immunities=immunities)
         ]
-        if not {"Beam"}.issubset(immunities):
+        if "Beam" not in immunities:
             requirements_list.append(Requirement("Push Boss into Core X state - Beam Only"))
         requirements += (requirements_list,)
         super().__init__(name, *requirements, **kwargs)
@@ -1434,7 +1445,7 @@ class CanFightEarlyGameBoss(CanFightBoss):
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Early Game Boss",
@@ -1457,7 +1468,7 @@ class CanFightMidGameBoss(CanFightBoss, CanUseSuperMissile, HasChargeBeam):
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Mid Game Boss",
@@ -1480,7 +1491,7 @@ class CanFightLateGameBoss(CanFightMidGameBoss, HasPlasmaBeam, HasSpaceJump):
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Late Game Boss",
@@ -1508,6 +1519,9 @@ class CanDoBeginnerShinespark(HasSpeedBooster):
     def __init__(self,
                  name="Can Do Beginner Shinespark",
                  *requirements, **kwargs):
+        items_needed: set[str] = kwargs.pop('items_needed', {"Shinespark Trick - Beginner"})
+        items_needed.add("Shinespark Trick - Beginner")
+        kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
     @staticmethod
@@ -1530,6 +1544,9 @@ class CanDoAdvancedShinespark(HasSpeedBooster):
     def __init__(self,
                  name="Can Do Advanced Shinespark",
                  *requirements, **kwargs):
+        items_needed: set[str] = kwargs.pop('items_needed', {"Shinespark Trick - Advanced"})
+        items_needed.add("Shinespark Trick - Advanced")
+        kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
     @staticmethod
@@ -1552,6 +1569,9 @@ class CanDoExpertShinespark(HasSpeedBooster):
     def __init__(self,
                  name="Can Do Expert Shinespark",
                  *requirements, **kwargs):
+        items_needed: set[str] = kwargs.pop('items_needed', {"Shinespark Trick - Expert"})
+        items_needed.add("Shinespark Trick - Expert")
+        kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
     @staticmethod
@@ -1574,6 +1594,9 @@ class CanDoSimpleWallJump(HasWallJump):
     def __init__(self,
                  name="Can Do Simple Wall Jump",
                  *requirements, **kwargs):
+        items_needed: set[str] = kwargs.pop('items_needed', {"Wall Jump Trick - Beginner"})
+        items_needed.add("Wall Jump Trick - Beginner")
+        kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
     @staticmethod
@@ -1596,11 +1619,39 @@ class CanDoAdvancedWallJump(HasWallJump):
     def __init__(self,
                  name="Can Do Advanced Wall Jump",
                  *requirements, **kwargs):
+        items_needed: set[str] = kwargs.pop('items_needed', {"Wall Jump Trick - Advanced"})
+        items_needed.add("Wall Jump Trick - Advanced")
+        kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
     @staticmethod
     def check_option_enabled(options: "MetroidFusionOptions") -> bool:
         return options.WallJumpTrickDifficulty >= 2  #options.WallJumpTrickDifficulty.option_advanced
+
+
+class CanDoExpertWallJump(HasWallJump):
+    """
+    The player can perform a wall jump with YAML option ``WallJumpTrickDifficulty: expert``.
+
+    :param name: Defaults to "Can Do Expert Wall Jump"
+    :param requirements:
+    :key items_needed:
+    :key hard_items_needed:
+    :key energy_tanks_needed:
+    :key missile_ammo_needed:
+    :key power_bomb_ammo_needed:
+    """
+    def __init__(self,
+                 name="Can Do Expert Wall Jump",
+                 *requirements, **kwargs):
+        items_needed: set[str] = kwargs.pop('items_needed', {"Wall Jump Trick - Expert"})
+        items_needed.add("Wall Jump Trick - Expert")
+        kwargs['items_needed'] = items_needed
+        super().__init__(name, *requirements, **kwargs)
+
+    @staticmethod
+    def check_option_enabled(options: "MetroidFusionOptions") -> bool:
+        return options.WallJumpTrickDifficulty >= 3  #options.WallJumpTrickDifficulty.option_expert
 
 
 class CanDoAdvancedCombat(Requirement):
@@ -1618,6 +1669,9 @@ class CanDoAdvancedCombat(Requirement):
     def __init__(self,
                  name="Can Do Advanced Combat",
                  *requirements, **kwargs):
+        items_needed: set[str] = kwargs.pop('items_needed', {"Combat - Advanced"})
+        items_needed.add("Combat - Advanced")
+        kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
     @staticmethod
@@ -1640,6 +1694,9 @@ class CanDoExpertCombat(Requirement):
     def __init__(self,
                  name="Can Do Expert Combat",
                  *requirements, **kwargs):
+        items_needed: set[str] = kwargs.pop('items_needed', {"Combat - Expert"})
+        items_needed.add("Combat - Expert")
+        kwargs['items_needed'] = items_needed
         super().__init__(name, *requirements, **kwargs)
 
     @staticmethod
@@ -1647,7 +1704,7 @@ class CanDoExpertCombat(Requirement):
         return options.CombatDifficulty >= 2  #options.CombatDifficulty.option_expert
 
 
-class CanFightMidGameBossOnAdvanced(CanFightBoss, HasChargeBeam):
+class CanFightMidGameBossOnAdvanced(CanDoAdvancedCombat, CanFightBoss):
     """
     The player can fight a mid-game boss and win with YAML option ``CombatDifficulty: advanced``.
 
@@ -1661,7 +1718,7 @@ class CanFightMidGameBossOnAdvanced(CanFightBoss, HasChargeBeam):
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Mid Game Boss On Advanced",
@@ -1669,12 +1726,8 @@ class CanFightMidGameBossOnAdvanced(CanFightBoss, HasChargeBeam):
         kwargs['energy_tanks_needed'] = max(kwargs.pop('energy_tanks_needed', 0), level_1_e_tanks)
         super().__init__(name, *requirements, **kwargs)
 
-    @staticmethod
-    def check_option_enabled(options: "MetroidFusionOptions") -> bool:
-        return options.CombatDifficulty >= 1  #options.CombatDifficulty.option_advanced
 
-
-class CanFightLateGameBossOnAdvanced(CanFightMidGameBoss):
+class CanFightLateGameBossOnAdvanced(CanDoAdvancedCombat, CanFightMidGameBoss):
     """
     The player can fight a late game boss and win with YAML option ``CombatDifficulty: advanced``.
 
@@ -1688,7 +1741,7 @@ class CanFightLateGameBossOnAdvanced(CanFightMidGameBoss):
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Late Game Boss on Advanced",
@@ -1696,12 +1749,8 @@ class CanFightLateGameBossOnAdvanced(CanFightMidGameBoss):
         kwargs['energy_tanks_needed'] = max(kwargs.pop('energy_tanks_needed', 0), level_2_e_tanks)
         super().__init__(name, *requirements, **kwargs)
 
-    @staticmethod
-    def check_option_enabled(options: "MetroidFusionOptions") -> bool:
-        return options.CombatDifficulty >= 1  #options.CombatDifficulty.option_advanced
 
-
-class CanFightBossOnExpert(CanFightBoss, HasChargeBeam):
+class CanFightBossOnExpert(CanDoExpertCombat, CanFightBoss):
     """
     The player can fight any boss and win with YAML option ``CombatDifficulty: expert``.
 
@@ -1715,16 +1764,12 @@ class CanFightBossOnExpert(CanFightBoss, HasChargeBeam):
     :key boss_hp: Defines how much health must be depleted on the boss to push it into the Core X state. Defaults to 1.
     :key immunities: A set of damage methods the boss is immune to.
         Valid categories are "Beam", "Charge Beam", "Missile", "Bomb", "Power Bomb", and "Screw Attack".
-        Defaults to None.
+        Defaults to an empty set.
     """
     def __init__(self,
                  name="Can Fight Boss on Expert",
                  *requirements, **kwargs):
         super().__init__(name, *requirements, **kwargs)
-
-    @staticmethod
-    def check_option_enabled(options: "MetroidFusionOptions") -> bool:
-        return options.CombatDifficulty >= 2  #options.CombatDifficulty.option_expert
 
 
 class SectorHubLevel1KeycardRequirement(HasKeycard1):
@@ -1757,7 +1802,7 @@ class SectorHubLevel1KeycardRequirement(HasKeycard1):
             return options.GameMode == 0  #options.GameMode.option_vanilla
 
 
-class SectorHubLevel1And2KeycardRequirement(HasKeycard1, HasKeycard2):
+class SectorHubLevel1And2KeycardRequirement(SectorHubLevel1KeycardRequirement, HasKeycard2):
     """
     The player can access Sector Hub Elevators normally locked behind Level 1 Security Doors and Level 2 Security Doors.
 
@@ -1778,13 +1823,6 @@ class SectorHubLevel1And2KeycardRequirement(HasKeycard1, HasKeycard2):
                  name="Sector Hub Level 1 and 2 Keycard Requirement",
                  *requirements, **kwargs):
         super().__init__(name, *requirements, **kwargs)
-
-    @staticmethod
-    def check_option_enabled(options: "MetroidFusionOptions"):
-        if options.GameMode == options.GameMode.option_custom:
-            return not options.OpenSectorElevators
-        else:
-            return options.GameMode == 0  #options.GameMode.option_vanilla
 
 
 # endregion
@@ -1880,17 +1918,19 @@ class CanFightBOX(CanDamageToughEnemy):
                  name="Can Fight BOX",
                  *requirements, **kwargs):
         requirements += ([CanJumpHigh(), CanDoSimpleWallJump()],)
-        kwargs['energy_tanks_needed'] = max(kwargs.pop('energy_tanks_needed', 0), level_2_e_tanks)
-        kwargs['immunities'] = {"Beam", "Bomb", "Power Bomb", "Screw Attack"}
-        kwargs['enemy_hp'] = 300
+        kwargs.update({
+            'energy_tanks_needed': max(kwargs.pop('energy_tanks_needed', 0), level_2_e_tanks),
+            'immunities': {"Beam", "Bomb", "Power Bomb", "Screw Attack"},
+            'enemy_hp': 300,
+        })
         super().__init__(name, *requirements, **kwargs)
 
 
-class CanClimbSector3Attic(Requirement):
+class CanClimbSector3AlcoveRight(Requirement):
     """
-    The player can access the upper section in Sector 3 - Alcove.
+    The player can access the door from the bottom of Sector 3 - Alcove.
 
-    :param name: Defaults to "Can Climb Sector 3 Attic"
+    :param name: Defaults to "Can Climb Sector 3 Alcove Right"
     :param requirements:
     :key items_needed:
     :key hard_items_needed:
@@ -1899,21 +1939,58 @@ class CanClimbSector3Attic(Requirement):
     :key power_bomb_ammo_needed:
     """
     def __init__(self,
-                 name="Can Climb Sector 3 Attic",
+                 name="Can Climb Sector 3 Alcove Right",
                  *requirements, **kwargs):
         requirements += ([
-            CanDestroyBombBlocks()
+            # From below the items
+            CanBomb(),
+            CanPowerBomb()
         ], [
-            HasHiJump("Wall Jump Good",
-                      [CanDoAdvancedWallJump()]),
-            HasSpaceJump("Fly through Bomb Blocks",
-                         items_needed={"Screw Attack"}),
-            CanActivatePillar(),
-            CanFreezeEnemies("Step on Sidehopper", [
-                CanBomb("Bomb without killing your platform",
-                        items_needed={"Hi-Jump"}),
-                HasScrewAttack("Needed a stool")
-            ], [CanDoSimpleWallJump()])
+            # From bottom right section
+            HasSpaceJump(),
+            CanFreezeEnemies("Use Sidehopper as platform", [
+                CanDoSimpleWallJump(),
+                HasHiJump()
+            ]),
+            CanDoAdvancedWallJump("Wall Jumping without Sidehopper", [
+                HasHiJump(),
+                CanBallJump("Jump out of tunnel, then Wall Jump")
+            ])
+        ], [
+            # Dealing with Sidehoppers
+            CanDamageToughEnemy("Kill Sidehoppers", enemy_hp=(24 * 3)),
+            CanFreezeEnemies("Freeze Sidehoppers", missile_ammo_needed=3),
+            CanDoAdvancedCombat("Dodge Sidehoppers")
+        ],)
+        super().__init__(name, *requirements, **kwargs)
+
+
+class CanClimbSector3AlcoveLeft(Requirement):
+    """
+    The player can access the upper middle pocket from the bottom of Sector 3 - Alcove.
+
+    :param name: Defaults to "Can Climb Sector 3 Alcove Left"
+    :param requirements:
+    :key items_needed:
+    :key hard_items_needed:
+    :key energy_tanks_needed:
+    :key missile_ammo_needed:
+    :key power_bomb_ammo_needed:
+    """
+    def __init__(self,
+                 name="Can Climb Sector 3 Alcove Left",
+                 *requirements, **kwargs):
+        requirements += ([
+            # Get height to destroy bomb blocks
+            HasScrewAttack("Use Screw Attack", [
+                HasSpaceJump("Fly"),
+                CanDoAdvancedWallJump("Wall Jump Good", [
+                    HasHiJump()
+                ]),
+                CanActivatePillar("Start from on Pillar")
+            ]),
+            CanPowerBomb("Lay Waste and Use Pillar", power_bomb_ammo_needed=2),
+            CanBomb("Use Bombs with Pillar")
         ],)
         super().__init__(name, *requirements, **kwargs)
 
@@ -1963,7 +2040,13 @@ class CanGetSovaProcessingItem(HasMorph):
     def __init__(self,
                  name="Can Get Sova Processing Item",
                  *requirements, **kwargs):
-        requirements += ([HasSpaceJump(), CanFreezeEnemies(missile_ammo_needed=4)],)
+        requirements += ([
+            HasSpaceJump(),
+            CanFreezeEnemies(missile_ammo_needed=4),
+            CanDoAdvancedShinespark("Diagonal-Right Shinespark", [
+                CanLavaDive()
+            ])
+        ],)
         super().__init__(name, *requirements, **kwargs)
 
 
@@ -2114,10 +2197,13 @@ class CanGetToTrainingAerie(Requirement):
         requirements += ([
             HasSpaceJump(),
             CanFreezeEnemies(missile_ammo_needed=2),
+            # Video proof: https://youtu.be/Qe9eMPmoUcU?si=1sAjemYzoZWeI1Jg
             CanDoBeginnerShinespark(None, [
                 HasKeycard3()
             ], [
-                CanDoAdvancedWallJump()
+                CanDoExpertWallJump()
+            ], [
+                HasHiJump()
             ])
         ],)
         super().__init__(name, *requirements, **kwargs)
@@ -2208,10 +2294,10 @@ class CanDamageGadora(CanDamageToughEnemy):
     def __init__(self,
                  name="Can Damage Gadora",
                  *requirements, **kwargs):
-        kwargs['power_bomb_ammo_needed'] = None
-        kwargs['immunities'] = {"Beam", "Bomb", "Power Bomb", "Screw Attack"}
-        kwargs['missile_ammo_needed'] = 0
-        kwargs['enemy_hp'] = 24
+        kwargs.update({
+            'immunities': {"Beam", "Bomb", "Power Bomb", "Screw Attack"},
+            'enemy_hp': 24
+        })
         super().__init__(name, *requirements, **kwargs)
 
 
@@ -2219,7 +2305,7 @@ class CanFightXBOX(CanDamageToughEnemy, CanDamageCoreX):
     """
     The player can fight BOX 2 and win. X-B.O.X. has 500 HP.
 
-    :param name: Defaults to "Can Fight BOX"
+    :param name: Defaults to "Can Fight X-B.O.X."
     :param requirements:
     :key items_needed:
     :key hard_items_needed:
@@ -2232,7 +2318,39 @@ class CanFightXBOX(CanDamageToughEnemy, CanDamageCoreX):
                  name = "Can Fight X-B.O.X.",
                  *requirements, **kwargs):
         requirements += ([CanJumpHigh()],[CanPowerBomb()],)
-        kwargs['energy_tanks_needed'] = max(kwargs.pop('energy_tanks_needed', 0), level_3_e_tanks)
-        kwargs['immunities'] = {"Beam", "Bomb", "Power Bomb", "Screw Attack"}
-        kwargs['enemy_hp'] = 500
+        kwargs.update({
+            'energy_tanks_needed': max(kwargs.pop('energy_tanks_needed', 0), level_3_e_tanks),
+            'immunities': {"Beam", "Bomb", "Power Bomb", "Screw Attack"},
+            'enemy_hp': 500
+        })
+        super().__init__(name, *requirements, **kwargs)
+
+
+class CanFightZazabi(CanDamageCoreX):
+    """
+    The player can fight Zazabi and win. Zazabi has an arbitrary health value equivalent to 2 projectile strikes per
+    each of 3 body segments and 4 projectile strikes for the head, totaling to 10 projectile strikes.
+
+    :param name: Defaults to "Can Fight Zazabi"
+    :param requirements:
+    :key items_needed:
+    :key hard_items_needed:
+    :key energy_tanks_needed: Defaults to minimum value ``level_1_e_tanks``, or 3
+    :key missile_ammo_needed: Defaults to 10
+    :key power_bomb_ammo_needed: Disabled. Zazabi is immune to Power Bombs
+    """
+    def __init__(self,
+                 name="Can Fight Zazabi",
+                 *requirements, **kwargs):
+        requirements += ([
+            HasChargeBeam(),
+            CanDo10MissileDamage(missile_ammo_needed=10)
+        ], [
+            CanBomb("Escape the succ"),
+            CanDoAdvancedCombat("Don't be succ'd")
+        ], [
+            PONRRequirement("PONR - Fight Zazabi"),
+            CanJumpHigh()
+        ],)
+        kwargs['energy_tanks_needed'] = max(kwargs.pop('energy_tanks_needed', 0), level_1_e_tanks)
         super().__init__(name, *requirements, **kwargs)

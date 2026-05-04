@@ -207,7 +207,7 @@ Sector3LowerAttic.connections = [
         ], power_bomb_ammo_needed=2)
     ], one_way=True),
     Connection(Sector3UpperAttic, [
-        CanClimbSector3Attic()
+        CanClimbSector3AlcoveRight()
     ])
 ]
 
@@ -222,16 +222,12 @@ Sector3UpperAttic.connections = [
         ])
     ]),
     Connection(Sector3LowerAttic, [
-        PONRRequirement("PONR - Sector 3 Upper Attic - Shinespark", [
+        PONRRequirement("PONR - Sector 3 Descend Alcove", [
             CanDestroyBombBlocks()
         ], [
-            HasSpeedBooster()
+            HasSpeedBooster("Shinespark into Alcove middle upper pocket"),
+            HasMorph("Crawl through tunnel below")
         ]),
-        PONRRequirement("PONR - Sector 3 Upper Attic - Drop to Lower Path", [
-            CanDestroyBombBlocks()
-        ], [
-            HasMorph()
-        ])
     ], one_way=True),
 ]
 
@@ -311,7 +307,8 @@ Sector3MainShaft.locations = [
             #     #future CanDoAdvancedJumpBombJump()
             # ]),
             PONRRequirement("PONR - Namihe's Lair - Shinespark", [
-                CanDoAdvancedShinespark()
+                # Video proof: https://www.youtube.com/watch?v=4LkNz-cjgUI
+                CanDoExpertShinespark()
             ])
         ])
     ]),
@@ -325,6 +322,7 @@ Sector3BoilerZone.locations = [
         CanPowerBomb("Grab Lava Maze Item", [
             CanLavaDive()
             # Awaiting damage run logic
+            # HasVaria(energy_tanks_needed=4)
         ])
     ]),
     FusionLocation("Sector 3 (PYR) -- Main Boiler Control Room -- Boiler", True, [
@@ -353,10 +351,20 @@ Sector3BOXZone.locations = [
 
 Sector3LowerAttic.locations = [
     FusionLocation("Sector 3 (PYR) -- Alcove -- Lower Item", False, [
-        CanClimbSector3Attic()
+        CanClimbSector3AlcoveRight("Speed Booster from Deserted Runway", [
+            HasSpeedBooster()
+        ]),
+        CanClimbSector3AlcoveLeft("Climb from below")
     ]),
     FusionLocation("Sector 3 (PYR) -- Alcove -- Upper Item", False, [
-        CanPowerBomb()
+        CanClimbSector3AlcoveRight("Speed Booster from Deserted Runway", [
+            HasSpeedBooster()
+        ], [
+            CanPowerBomb()
+        ]),
+        CanClimbSector3AlcoveLeft("Climb from below", [
+            CanPowerBomb()
+        ])
     ]),
 ]
 

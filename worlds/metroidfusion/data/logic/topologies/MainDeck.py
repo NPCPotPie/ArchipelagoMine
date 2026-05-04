@@ -15,7 +15,8 @@ from ..VariableConnection import VariableConnection
 AuxiliaryReactor.connections = [
     Connection(ReactorZone, [], one_way=True),
     Connection(YakuzaZone, [
-        PONRRequirement()
+        PONRRequirement("PONR - Yakuza Entry Backwards"),
+        HasSpaceJump()
     ], one_way=True)
 ]
 
@@ -97,12 +98,22 @@ ReactorZone.connections = [
             HasWaveBeam("Destroy Block with Wave Beam")
         ], [
             HasSpaceJump("Can Enter and Fly out of Yakuza's Arena"),
-            PONRRequirement("PONR - Can Enter Yakuza'a Arena")
+            PONRRequirement("PONR - Can Enter Yakuza's Arena")
         ]),
     ], one_way=True),
     Connection(AuxiliaryReactor, [
-        HasWaveBeam("Can Open Auxiliary Gate Backwards")
-    ]),
+        HasWaveBeam("Can Open Auxiliary Gate Backwards"),
+        HasMorph("Can Skip Yakuza - Vanilla Route", [
+            # 6 Zebesian (ground) and 1 Gadora
+            CanDamageToughEnemy("Can Kill Pirates and Eyedoor", [CanDamageGadora()], enemy_hp=(90 * 6))
+        ], [
+            CanBomb("Destroy Block with Bomb"),
+            CanPowerBomb("Destroy Block with Power Bomb"),
+            HasWaveBeam("Destroy Block with Wave Beam")
+        ], [
+            HasSpaceJump("Can Skip Yakuza Fight")
+        ])
+    ], one_way=True),
     Connection(Sector2NettoriZone, [
         HasSpaceJump("Can Get to Sector 2 Backdoor", [
             # Can pass them easily, but assume two will be annoying
@@ -110,6 +121,8 @@ ReactorZone.connections = [
         ], [
             CanBomb("Traverse Tunnel with Bomb"),
             CanPowerBomb("Traverse Tunnel with Power Bomb")
+        ], [
+            CanDo10MissileDamage()
         ])
     ], one_way=True)
 ]
@@ -199,32 +212,37 @@ AuxiliaryReactor.locations = [
 
 HabitationDeck.locations = [
     FusionLocation("Main Deck -- Habitation Deck -- Animals", True, [
-        HasKeycard2("Enter Habitation Deck", [
-            HasSpaceJump("Vanilla Route to Animals Terminal with Space Jump", [
-                HasSpeedBooster()
-            ]),
-            CanFreezeEnemies("Vanilla Route to Animals Terminal without Space Jump", [
+        HasKeycard2("Enter Habitation Deck for Animals", [
+            # Habitation Deck Entrance Options
+            HasWaveBeam("Backwards Gates from Habitation Deck Foyer"),
+            HasSpaceJump("Fly to Top of Habitation Deck Foyer"),
+            CanFreezeEnemies("Freeze Fune/Namihe to Climb Habitation Deck Foyer", [
                 HasHiJump(),
                 CanDoAdvancedWallJump()
-            ], [
-                HasSpeedBooster()
-            ]),
-            CanFreezeEnemies("Go Backwards through Gates on Lower Floor", [
-                CanJumpHigh(),
-                CanDoSimpleWallJump()
-            ], [
-                HasWaveBeam()
-            ]),
+            ], missile_ammo_needed=2),
+        ], [
+            # Traversal of Main Habitation Deck
+            HasWaveBeam("Backwards Gates"),
+            HasSpeedBooster("Vanilla Route")
+        ], [
+            # Habitation Ventilation
+            HasSpaceJump("Fly to Top of Habitation Ventilation"),
+            CanFreezeEnemies("Freeze Fune/Namihe to Climb Habitation Ventilation", missile_ammo_needed=3)
         ])
     ]),
     FusionLocation("Main Deck -- Habitation Deck -- Lower Item", False, [
-        HasKeycard2("Enter Habitation Deck", [
-            HasSpaceJump("Vanilla Route to Animals with Space Jump"),
-            HasWaveBeam("Go Backwards through Gates on Lower Floor"),
-            CanFreezeEnemies("Vanilla Route to Animals without Space Jump", [
+        HasKeycard2("Enter Habitation Deck for Lower Item", [
+            # Habitation Deck Entrance Options
+            HasWaveBeam("Backwards Gates from Habitation Deck Foyer"),
+            HasSpaceJump("Fly to Top of Habitation Deck Foyer"),
+            CanFreezeEnemies("Freeze Fune/Namihe to Climb Habitation Deck Foyer", [
                 HasHiJump(),
                 CanDoAdvancedWallJump()
-            ])
+            ], missile_ammo_needed=2),
+        ], [
+            # Traversal of Main Habitation Deck
+            HasWaveBeam("Backwards Gates"),
+            HasSpeedBooster("Vanilla Route")
         ])
     ])
 ]
@@ -309,5 +327,6 @@ YakuzaZone.locations = [
     FusionLocation("Main Deck -- Yakuza Arena", True, [
         CanFightMidGameBoss(boss_hp=1000, immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"}),
         CanFightMidGameBossOnAdvanced(boss_hp=1000, immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"}),
+        CanFightBossOnExpert(boss_hp=1000, immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"})
     ])
 ]

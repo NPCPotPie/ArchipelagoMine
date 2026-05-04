@@ -221,7 +221,8 @@ Sector1FirstStabilizerZone.locations = [
             PONRRequirement("PONR - Collect Atmospheric Stabilizer NE Item"),
             CanDamageStabilizer("Atmospheric Stabilizer NE - Vanilla"),
             CanDamageAnyGeron("Atmospheric Stabilizer NE - Alternate"),
-            CanDoAdvancedShinespark("Atmospheric Stabilizer NE - Shinespark"),
+            # Video proof: https://www.youtube.com/watch?v=I9YH_s989sQ
+            CanDoExpertShinespark("Atmospheric Stabilizer NE - Shinespark"),
         ])
     ]),
     FusionLocation("Sector 1 (SRX) -- Hornoad Hole", False, [

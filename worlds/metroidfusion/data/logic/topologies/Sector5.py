@@ -57,8 +57,7 @@ Sector5TopLeftBigRoom.connections = [
 Sector5FrozenHub.connections = [
     Connection(Sector5DataRoom, [
         HasVaria("Top of Arctic Containment -> Data Room", [
-            HasKeycard3(),
-            PONRRequirement("PONR - Arctic Containment -> Data Room")
+            HasKeycard3()
         ])
     ], one_way=True),
     Connection(Sector5BeforeNightmareHub, [
@@ -142,7 +141,9 @@ Sector5BeforeNightmareHub.connections = [
     ]),
     Connection(Sector5NightmareHub, [
         PONRRequirement("PONR - Drop down Flooded Tower", [
-            CanDamageToughEnemy("Kill Flooded Tower Pirate", enemy_hp=90, immunities={"Beam", "Bomb", "Screw Attack"})
+            CanDamageToughEnemy("Kill Pirates", enemy_hp=(90 * 5), immunities={"Beam", "Bomb", "Screw Attack"}),
+            CanScrewAttackUnderwater(),
+            CanDoExpertCombat()
         ], energy_tanks_needed=level_3_e_tanks)
     ], one_way=True)
 ]
@@ -358,7 +359,10 @@ Sector5NightmareHub.locations = [
         ], [
             CanFreezeEnemies(missile_ammo_needed=8),
             CanDoBeginnerShinespark(),
-            CanJumpHighUnderwater(None, hard_items_needed={"Space Jump"})
+            CanJumpHighUnderwater(None, hard_items_needed={"Space Jump"}),
+            CanDoExpertCombat("Shoot Missile Block and Grab Ledge in one motion during PONR drop", [
+                PONRRequirement("PONR - Mini-Fridge")
+            ])
         ], energy_tanks_needed=level_3_e_tanks)
     ])
 ]
