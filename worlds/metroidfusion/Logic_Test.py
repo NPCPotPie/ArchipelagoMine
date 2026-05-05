@@ -4,6 +4,7 @@ from .data.logic.Requirements import *
 from .Logic import create_logic_rule_for_list, create_logic_rule
 from test.bases import WorldTestBase
 from .MFOptions import MetroidFusionOptions
+from time import perf_counter
 
 class FusionLogicTest(WorldTestBase):
     game = "Metroid Fusion"
@@ -59,24 +60,58 @@ class FusionLogicTest(WorldTestBase):
     }
 
     def individual_logic_test(self) -> None:
-        test_label: str = "Hard Requirements"
-        print(f"Logic Test: {test_label}")
+        print("===\nLogic Unit Test\n===")
+        start = perf_counter()
         reqs: list[Requirement] = [
             # Copy or write a Requirement in this area to test
+            Requirement("Enter Neo-Ridley Arena", [
+                # Destroy Bomb Wall
+                CanBomb(),
+                CanPowerBomb()
+            ], [
+                # Can Kill Genesis under floor
+                HasWaveBeam(),
+                CanPowerBomb(power_bomb_ammo_needed=2)
+            ], [
+                # Can Kill Golden Pirates
+                CanDamageToughEnemy("Kill Golden Pirates", enemy_hp=(135 * 2),
+                                    immunities={"Beam", "Power Bomb"})
+            ], [
+                # Do Ridley Fight
+                CanFightLateGameBoss("Ridley Trickless", energy_tanks_needed=level_4_e_tanks, boss_hp=4500,
+                                     immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"}),
+                CanFightLateGameBossOnAdvanced("Ridley On Advanced", [
+                    HasPlasmaBeam()
+                ], boss_hp=4500, immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"}),
+                CanFightBossOnExpert("Ridley On Expert", boss_hp=4500,
+                                     immunities={"Beam", "Bomb", "Power Bomb", "Screw Attack"})
+            ], [
+                HasSpaceJump("Can Leave Neo-Ridley Arena"),
+                PONRRequirement("PONR - Neo-Ridley Arena")
+            ])
+        ]
+        expected_results: list[tuple[set[str], int, int, int]] = [
+            # Type out expected results to be produced here.
+            # (Items Set, Energy Tanks, Missile Ammo, Power Bomb Ammo)
+            # All in this list will attempt to match results of the above Requirements list.
 
         ]
-        expected_requirements = [
-            # Type out expected sets of item combinations to be produced here.
-            # All sets in this list will attempt to be asserted and print an error to console if it doesn't exist.
-
-        ]
-        rules, energy_tanks = create_logic_rule_for_list(reqs, MetroidFusionOptions(**self.options), True)
-        for expected_requirement in expected_requirements:
-            try:
-                assert expected_requirement in rules
-            except AssertionError:
-                print(f"{expected_requirement} is not here!")
+        setup = perf_counter()
+        (rules,
+         energy_tanks,
+         missiles,
+         power_bombs) = create_logic_rule_for_list(reqs, MetroidFusionOptions(**self.options), True)
+        generate = perf_counter()
+        for (expected_requirement,
+             expected_energy,
+             expected_missiles,
+             expected_power_bombs) in expected_results:
+            assert expected_requirement in rules, f"{expected_requirement} is not here!"
+        validate = perf_counter()
         print("===\nEnd of Test\n===")
+        print(f"Setup in {(setup - start) * 1000:.3f} ms")
+        print(f"Rule generation in {(generate - setup) * 1000:.3f} ms")
+        print(f"Validation in {(validate - generate) * 1000:.3f} ms")
 
 def main():
     test = FusionLogicTest()
