@@ -113,7 +113,7 @@ offworld_sprites: dict[str, dict[str, SpriteNames]] = {
         "SpaceJump": SpriteNames.SpaceJump,
         "ScrewAttack": SpriteNames.ScrewAttack
     },
-    "Metroid Zero Mission": {
+    "Metroid: Zero Mission": {
         "Energy Tank": SpriteNames.EnergyTank,
         "Missile Tank": SpriteNames.MissileTank,
         "Super Missile Tank": SpriteNames.SuperMissiles,
