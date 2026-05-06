@@ -24,16 +24,28 @@ Sector3Hub.connections = [
     ]),
     Connection(Sector3MainShaft, [
         HasSpeedBooster("Enter Sector 3 Main Shaft", [
-            CanDamageToughEnemy("Kill the Fune/Namihe"),
+            CanDamageToughEnemy("Kill Fune", enemy_hp=32, immunities={"Beam", "Bomb"}),
+            CanDamageToughEnemy("Kill Namihe", enemy_hp=82, immunities={"Beam", "Bomb"}),
             CanDoBeginnerShinespark("Kill the Fune/Namihe - Alternate"),
-            HasMorph("Avoid the Fune/Namihe"),
+            HasMorph("Avoid the Fune/Namihe", [
+                CanFreezeEnemies(),
+                CanDoAdvancedCombat()
+            ]),
             HasWaveBeam("Open the Gate Backwards")
         ], [
             PONRRequirement("PONR - Enter Sector 3 Main Shaft"),
             CanDestroyBombBlocks(None, [
                 HasMorph()
             ]),
-            HasKeycard2()
+            HasKeycard2("Loop through Garbage Chute", [
+                CanLavaDive()
+            ], [
+                CanScrewAttackUnderwater()
+            ], [
+                CanSpeedBoosterUnderwater()
+            ], [
+                HasMorph("Return through Bob's Abode or Alcove")
+            ])
         ])
     ], one_way=True),
     Connection(Sector3BobZone, [
@@ -57,7 +69,13 @@ Sector3Hub.connections = [
     Connection(Sector3LowerAttic, [
         HasMorph("Enter Attic from Sector 3 Entrance", [
             HasSpaceJump(),
-            CanDoBeginnerShinespark()
+            CanDoBeginnerShinespark(),
+            # Video proof: https://www.youtube.com/watch?v=c8_2jq1NWUQ
+            CanFreezeEnemies("Manipulate Geruta", [
+                CanDoAdvancedCombat(),
+                CanDoAdvancedWallJump(),
+                HasHiJump()
+            ])
         ], [
             HasScrewAttack()
         ])
@@ -89,8 +107,7 @@ Sector3FieryStorageRight.connections = [
     ]),
     Connection(Sector3Hub, [
         HasVaria("Cross Monkey Bars of Fire", [
-            CanDamageToughEnemy(),
-            HasScrewAttack()
+            CanDamageToughEnemy("Kill Ceiling Sidehoppers", enemy_hp=(24 * 2), immunities={"Beam"})
         ], [
             CanLavaDive(),
             CanJumpHigh()
@@ -112,17 +129,10 @@ Sector3FieryStorageLeft.connections = [
 ]
 
 Sector3MainShaft.connections = [
-    # Connecting to Sector 3 Hub is not possible without connecting to other Zones first.
-
-    # Connection(Sector3Hub, [
-    #     PONRRequirement(["Morph Ball"], [CanDestroyBombBlocks]),
-    #     Requirement(["Morph Ball", "Speed Booster"], [CanDestroyBombBlocks]),
-    #     CanDamageMediumGeron(["Morph Ball", "Level 2 Keycard"], [CanDestroyBombBlocks]),
-    #     CanDamageAnyGeron(["Morph Ball", "Level 2 Keycard"], [CanDestroyBombBlocks])
-    # ], one_way=True),
     Connection(Sector3BoilerZone, [
         HasKeycard2(None, [
             HasVaria()
+            # Awaiting damage run logic
         ])
     ]),
     Connection(Sector3BobZone, [
@@ -137,7 +147,9 @@ Sector3MainShaft.connections = [
             HasSpaceJump("Fly to Upper Door"),
             HasWaveBeam("Open Gate Backwards"),
             CanDoBeginnerShinespark("Shinespark to Upper Door", [
-                CanDamageToughEnemy()
+                # Included immunities that would prevent properly charging a shinespark in the process.
+                CanDamageToughEnemy("Kill 2 Owtch in the way", enemy_hp=(10 * 2),
+                                    immunities={"Screw Attack", "Power Bomb", "Bomb"})
             ]),
             CanFreezeEnemies("Developer Intended Route", [
                 HasHiJump()
@@ -192,10 +204,10 @@ Sector3LowerAttic.connections = [
     Connection(Sector3Hub, [
         CanDestroyBombBlocks("Sector 3 Lower Attic - Exit Left", [
             HasMorph()
-        ])
+        ], power_bomb_ammo_needed=2)
     ], one_way=True),
     Connection(Sector3UpperAttic, [
-        CanClimbSector3Attic()
+        CanClimbSector3AlcoveRight()
     ])
 ]
 
@@ -210,25 +222,21 @@ Sector3UpperAttic.connections = [
         ])
     ]),
     Connection(Sector3LowerAttic, [
-        PONRRequirement("PONR - Sector 3 Upper Attic - Shinespark", [
+        PONRRequirement("PONR - Sector 3 Descend Alcove", [
             CanDestroyBombBlocks()
         ], [
-            HasSpeedBooster()
+            HasSpeedBooster("Shinespark into Alcove middle upper pocket"),
+            HasMorph("Crawl through tunnel below")
         ]),
-        PONRRequirement("PONR - Sector 3 Upper Attic - Drop to Lower Path", [
-            CanDestroyBombBlocks()
-        ], [
-            HasMorph()
-        ])
     ], one_way=True),
 ]
 
 Sector3SovaProcessing.connections = [
     Connection(Sector3UpperAttic, [
         CanLavaDive("Ascend Sector 3 Garbage Chute", [
-            HasScrewAttack()
+            CanScrewAttackUnderwater()
         ], [
-            HasSpeedBooster()
+            CanSpeedBoosterUnderwater()
         ])
     ], one_way=True)
 ]
@@ -246,7 +254,7 @@ Sector3FieryStorageLeft.locations = [
                 CanDoAdvancedWallJump()
             ]),
             # It is possible to wall jump up where the pillar is without extending it.
-            # #future CanDoExpertWallJump()
+            #future CanDoExpertWallJump()
         ], [
             HasSpeedBooster()
         ]),
@@ -258,8 +266,11 @@ Sector3TubeLeft.locations = [
         CanBomb("Spring Ball and Bomb", [
             HasHiJump()
         ]),
-        CanPowerBomb(),
-        HasScrewAttack()
+        CanPowerBomb(power_bomb_ammo_needed=2),
+        HasScrewAttack(),
+        PONRRequirement("PONR - Obtain Major on Sector 3 Tube", [
+            CanPowerBomb(power_bomb_ammo_needed=1)
+        ])
     ])
 ]
 
@@ -277,7 +288,10 @@ Sector3SecurityZone.locations = [
             CanJumpHigh(),
             CanDoSimpleWallJump()
         ]),
-        CanDoAdvancedShinespark("Charge from above then go below")
+        CanDoAdvancedShinespark("Charge from above then go below", [
+            CanDoAdvancedCombat("Avoid Sidehoppers"),
+            CanFreezeEnemies("Freeze the Sidehoppers", missile_ammo_needed=2)
+        ], enemy_hp=(24 * 2))
     ])
 ]
 
@@ -285,7 +299,7 @@ Sector3MainShaft.locations = [
     FusionLocation("Sector 3 (PYR) -- Namihe's Lair", False, [
         CanPowerBomb("Enter Namihe's Lair and Grab Item", [
             HasHiJump(),
-            CanFreezeEnemies(),
+            CanFreezeEnemies(missile_ammo_needed=2),
             # PONRRequirement("PONR - Namihe's Lair - No Witnesses", [
             #     HasScrewAttack(),
             #     CanDamageToughEnemy()
@@ -293,7 +307,8 @@ Sector3MainShaft.locations = [
             #     #future CanDoAdvancedJumpBombJump()
             # ]),
             PONRRequirement("PONR - Namihe's Lair - Shinespark", [
-                CanDoAdvancedShinespark()
+                # Video proof: https://www.youtube.com/watch?v=4LkNz-cjgUI
+                CanDoExpertShinespark()
             ])
         ])
     ]),
@@ -306,6 +321,8 @@ Sector3BoilerZone.locations = [
     FusionLocation("Sector 3 (PYR) -- Lava Maze", False, [
         CanPowerBomb("Grab Lava Maze Item", [
             CanLavaDive()
+            # Awaiting damage run logic
+            # HasVaria(energy_tanks_needed=4)
         ])
     ]),
     FusionLocation("Sector 3 (PYR) -- Main Boiler Control Room -- Boiler", True, [
@@ -322,7 +339,7 @@ Sector3BobZone.locations = [
 
 Sector3BOXZone.locations = [
     FusionLocation("Sector 3 (PYR) -- Data Room", True, [
-        CanFightBOX(None, [
+        CanFightBOX("Fight BOX to unlock Data Room", [
             HasKeycard2()
         ])
     ]),
@@ -334,10 +351,20 @@ Sector3BOXZone.locations = [
 
 Sector3LowerAttic.locations = [
     FusionLocation("Sector 3 (PYR) -- Alcove -- Lower Item", False, [
-        CanClimbSector3Attic()
+        CanClimbSector3AlcoveRight("Speed Booster from Deserted Runway", [
+            HasSpeedBooster()
+        ]),
+        CanClimbSector3AlcoveLeft("Climb from below")
     ]),
     FusionLocation("Sector 3 (PYR) -- Alcove -- Upper Item", False, [
-        CanPowerBomb()
+        CanClimbSector3AlcoveRight("Speed Booster from Deserted Runway", [
+            HasSpeedBooster()
+        ], [
+            CanPowerBomb()
+        ]),
+        CanClimbSector3AlcoveLeft("Climb from below", [
+            CanPowerBomb()
+        ])
     ]),
 ]
 

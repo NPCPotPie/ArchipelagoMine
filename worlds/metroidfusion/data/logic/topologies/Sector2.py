@@ -28,7 +28,7 @@ Sector2Hub.connections = [
     ], one_way=True),
     Connection(Sector2ZazabiZoneUpper, [
         CanBomb(),
-        CanPowerBomb()
+        CanPowerBomb(power_bomb_ammo_needed=2)
     ]),
     Connection(Sector2NettoriZone, [
         HasMorph("Can Enter Hub Power Bomb Tunnel", [
@@ -42,22 +42,19 @@ Sector2Hub.connections = [
 
 Sector2LeftSide.connections = [
     Connection(Sector2Hub, [
-        HasMorph("Climb Zig-Zag-Zone from Maintenance Wing", [
-            CanBomb(),
-            CanPowerBomb()
+        CanBallJump("Maintenance Wing -> Data Courtyard", [
+            CanBomb(None, [HasScrewAttack()]),
+            CanPowerBomb(power_bomb_ammo_needed=4)
         ], [
-            HasSpaceJump(None, [
-                HasScrewAttack(),
-                CanPowerBomb()
-            ]),
+            HasSpaceJump(),
             CanDoAdvancedWallJump(None, [
                 HasHiJump()
             ])
         ])
-    ]),
+    ], one_way=True),
     Connection(Sector2ZazabiZone, [
         CanBomb(),
-        CanPowerBomb()
+        CanPowerBomb(power_bomb_ammo_needed=4)
     ], one_way=True)
 ]
 
@@ -71,8 +68,8 @@ Sector2TubeRight.connections = [
 
 Sector2ZazabiZone.connections = [
     Connection(Sector2LeftSide, [
-        Requirement("Climb Maintenance Wing", [
-            CanBomb(),
+        Requirement("Climb Cultivation Station to Zig-Zag-Zone", [
+            CanBomb("Spring Ball Bomb", [HasHiJump()]),
             CanPowerBomb(),
             HasScrewAttack()
         ], [
@@ -85,6 +82,9 @@ Sector2ZazabiZone.connections = [
             # Required if coming from Cathedral
             CanFreezeEnemies(),
             CanJumpHigh()
+        ], [
+            PONRRequirement("PONR - To Zig-Zag-Zone"),
+            CanBallJump()
         ])
     ], one_way=True),
     Connection(Sector2NettoriZone, [
@@ -93,7 +93,7 @@ Sector2ZazabiZone.connections = [
     Connection(Sector2ZazabiZoneUpper, [
         Requirement("Climb Cathedral", [
             CanBomb(),
-            CanPowerBomb()
+            CanPowerBomb(power_bomb_ammo_needed=2)
         ], [
             CanJumpHigh()
         ])
@@ -102,10 +102,13 @@ Sector2ZazabiZone.connections = [
 
 Sector2ZazabiZoneUpper.connections = [
     Connection(Sector2ZazabiZone, [
-        PONRRequirement("PONR - Drop Down Cathedral", [
+        Requirement("Drop Down Cathedral",[
             CanBomb(),
             CanPowerBomb()
-        ]),
+        ],[
+            CanJumpHigh(),
+            PONRRequirement("PONR - Drop Down Cathedral")
+        ])
     ], one_way=True)
 ]
 
@@ -127,7 +130,7 @@ Sector2Hub.locations = [
     FusionLocation("Sector 2 (TRO) -- Kago Room", False, [
         CanJumpHigh(),
         HasScrewAttack(),
-        CanFreezeEnemies(),
+        CanFreezeEnemies(missile_ammo_needed=3),
         CanDoBeginnerShinespark()
     ]),
     FusionLocation("Sector 2 (TRO) -- Level 1 Security Room", True, [
@@ -139,6 +142,7 @@ Sector2Hub.locations = [
     ]),
     FusionLocation("Sector 2 (TRO) -- Lobby Cache", False, [
         HasKeycard1("Can Collect Lobby Cache", [
+            # These bomb blocks don't return once broken, even on room reload.
             CanBomb(),
             CanPowerBomb()
         ])
@@ -148,7 +152,7 @@ Sector2Hub.locations = [
 Sector2LeftSide.locations = [
     FusionLocation("Sector 2 (TRO) -- Zig-Zag-Zone", False, [
         HasMorph("Can Obtain Zig-Zag-Zone Item", [
-            CanActivatePillar(),
+            CanActivatePillar(power_bomb_ammo_needed=2),
             CanJumpHigh()
         ])
     ])
@@ -156,8 +160,8 @@ Sector2LeftSide.locations = [
 
 Sector2NettoriZone.locations = [
     FusionLocation("Sector 2 (TRO) -- Nettori Arena", True, [
-        CanFightMidGameBoss(),
-        CanFightMidGameBossOnAdvanced()
+        CanFightMidGameBoss(boss_hp=2000, immunities={"Beam", "Bomb", "Screw Attack"}),
+        CanFightMidGameBossOnAdvanced(boss_hp=2000, immunities={"Beam", "Bomb", "Screw Attack"})
     ]),
     FusionLocation("Sector 2 (TRO) -- Overgrown Cache", False, [
         HasMorph()
@@ -175,7 +179,7 @@ Sector2ZazabiZone.locations = [
         Requirement("Can Obtain Cultivation Station Item", [
             # Need to break a chain of bomb blocks. Satisfies CanActivatePillar
             CanBomb(),
-            CanPowerBomb()
+            CanPowerBomb(power_bomb_ammo_needed=3)
         ], [
             # Required when coming from Cathedral
             CanFreezeEnemies(),
@@ -184,7 +188,7 @@ Sector2ZazabiZone.locations = [
     ]),
     FusionLocation("Sector 2 (TRO) -- Oasis", False, [
         CanJumpHigh(),
-        CanFreezeEnemies()
+        CanFreezeEnemies(missile_ammo_needed=5)
     ]),
     FusionLocation("Sector 2 (TRO) -- Oasis Storage", False, [
         HasMorph("Can Obtain Oasis Storage Item", [
@@ -226,14 +230,11 @@ Sector2ZazabiZone.locations = [
         ]),
     ]),
     FusionLocation("Sector 2 (TRO) -- Zazabi Arena", True, [
-        CanFightEarlyGameBoss("Fight Zazabi", [
-            CanJumpHigh(),
-            PONRRequirement("PONR - Fight Zazabi"),
-        ])
+        CanFightZazabi()
     ]),
     FusionLocation("Sector 2 (TRO) -- Zazabi Arena Access", False, []),
     FusionLocation("Sector 2 (TRO) -- Zazabi Speedway -- Lower Item", False, [
-        CanFightEarlyGameBoss("Kill Zazabi and Enter Zazabi Speedway", [
+        CanFightZazabi("Kill Zazabi and Enter Zazabi Speedway", [
             HasSpaceJump()
         ], [
             HasScrewAttack()
@@ -242,11 +243,11 @@ Sector2ZazabiZone.locations = [
         ]),
     ]),
     FusionLocation("Sector 2 (TRO) -- Zazabi Speedway -- Upper Item", False, [
-        CanFightEarlyGameBoss("Kill Zazabi and Enter Zazabi Speedway", [
+        CanFightZazabi("Kill Zazabi and Enter Zazabi Speedway", [
             HasSpaceJump()
-        ],[
+        ], [
             HasScrewAttack()
-        ],[
+        ], [
             HasSpeedBooster()
         ]),
     ])
@@ -260,6 +261,6 @@ Sector2ZazabiZoneUpper.locations = [
             HasMorph()
         ]),
         CanBomb(),
-        CanPowerBomb()
+        CanPowerBomb(power_bomb_ammo_needed=2)
     ])
 ]
