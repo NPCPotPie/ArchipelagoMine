@@ -82,6 +82,9 @@ Sector2ZazabiZone.connections = [
             # Required if coming from Cathedral
             CanFreezeEnemies(),
             CanJumpHigh()
+        ], [
+            PONRRequirement("PONR - To Zig-Zag-Zone"),
+            CanBallJump()
         ])
     ], one_way=True),
     Connection(Sector2NettoriZone, [
@@ -99,10 +102,13 @@ Sector2ZazabiZone.connections = [
 
 Sector2ZazabiZoneUpper.connections = [
     Connection(Sector2ZazabiZone, [
-        PONRRequirement("PONR - Drop Down Cathedral", [
+        Requirement("Drop Down Cathedral",[
             CanBomb(),
             CanPowerBomb()
-        ]),
+        ],[
+            CanJumpHigh(),
+            PONRRequirement("PONR - Drop Down Cathedral")
+        ])
     ], one_way=True)
 ]
 
