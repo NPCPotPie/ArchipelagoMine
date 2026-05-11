@@ -173,6 +173,10 @@ def unpack_requirement(
             # Permute the requirements lists
             requirements_product: list[list[Requirement]] = list(itertools_product(*requirement.requirements))
             for requirements_permutation in requirements_product:
+                if debug:
+                    print(f"Evaluating permutation: ["
+                          f"{", ".join(nested_requirement.name 
+                                       for nested_requirement in requirements_permutation)}]")
                 # Check if all requirements in permutation have enabled options
                 if not all([nested_requirement.check_option_enabled(options)
                         for nested_requirement in requirements_permutation]):
@@ -230,11 +234,7 @@ def unpack_requirement(
                             logging.info(f"\tPossibility already existed when attempting to add to list")
                 parent_hard_items = current_hard_items.copy()
                 parent_items = current_parent_items.copy()
-        elif (requirement.items_needed
-              or requirement.hard_items_needed
-              or requirement.energy_tanks_needed
-              or requirement.missile_ammo_needed
-              or requirement.power_bomb_ammo_needed):
+        else:
             parent_hard_items |= requirement.hard_items_needed
             possibilities.append(( parent_items | requirement.items_needed,
                                    max(parent_energy_tanks, requirement.energy_tanks_needed),
