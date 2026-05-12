@@ -26,14 +26,16 @@ class LogicObject:
     def logic_rule(self, state: CollectionState) -> bool:
         if not self.requirements:
             return True
+        if self.yaml_enabled and all(not flag for flag in self.yaml_enabled):
+            return False
         expression = None
         for (requirement_list,
              energy_tanks_value,
              missile_ammo_value,
              power_bomb_ammo_value) in zip(self.requirements,
-                                           self.energy_tanks,
-                                           self.missile_ammo,
-                                           self.power_bomb_ammo):
+                                        self.energy_tanks,
+                                        self.missile_ammo,
+                                        self.power_bomb_ammo):
             # Remove placeholder values in item list and re-validate
             requirement_list -= placeholder_names
             assert all([item in valid_item_names for item in requirement_list]), \
