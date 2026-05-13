@@ -170,6 +170,8 @@ def unpack_requirement(
                      f"Parent Energy Tanks Needed {parent_energy_tanks}. "
                      f"Parent Missile Ammo {parent_missile_ammo}. "
                      f"Parent Power Bomb Ammo {parent_power_bomb_ammo}.")
+    # Is the Requirement's YAML option enabled?
+    yaml_enabled: bool = requirement.check_option_enabled(options)
     # Validate item names
     assert all([item_needed in valid_item_names
                 for item_needed in requirement.items_needed]), requirement
@@ -185,8 +187,8 @@ def unpack_requirement(
                       f"{", ".join(nested_requirement.name 
                                    for nested_requirement in requirements_permutation)}]")
             # Check if all requirements in permutation have enabled options
-            if any(requirement.check_option_enabled(options) and [not nested_requirement.check_option_enabled(options)
-                    for nested_requirement in requirements_permutation]):
+            if not yaml_enabled or any([not nested_requirement.check_option_enabled(options)
+                                         for nested_requirement in requirements_permutation]):
                 if debug:
                     print(f"Permutation disabled due to options: ["
                           f"{requirement.name}, {", ".join(nested_requirement.name 
@@ -242,8 +244,6 @@ def unpack_requirement(
             parent_hard_items = current_hard_items.copy()
             parent_items = current_parent_items.copy()
     else:
-        # Is the Requirement's YAML option enabled?
-        yaml_enabled: bool = requirement.check_option_enabled(options)
         if debug and not yaml_enabled:
             print(f"Requirement {requirement.name} disabled due to options.")
             logging.info(f"Requirement {requirement.name} disabled due to options.")
