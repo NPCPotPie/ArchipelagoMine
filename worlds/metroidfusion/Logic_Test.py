@@ -1,3 +1,4 @@
+from worlds.stardew_valley.content.override import override
 from .data.logic.Requirement import Requirement, PONRRequirement
 from .data.logic.Requirements import *
 
@@ -64,11 +65,7 @@ class FusionLogicTest(WorldTestBase):
         start = perf_counter()
         reqs: list[Requirement] = [
             # Copy or write a Requirement in this area to test
-            PONRRequirement("PONR - Shinespark to Fiery Storage", [
-                CanDoBeginnerShinespark()
-            ], [
-                HasVaria()
-            ])
+
         ]
         expected_results: list[tuple[set[str], int, int, int]] = [
             # Type out expected results to be produced here.
