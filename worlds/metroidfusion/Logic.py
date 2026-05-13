@@ -134,8 +134,8 @@ def create_logic_rule(
             (f"\t({requirements_list},\n"
              f"\t\tEnergy Tanks: {energy_tanks},\n"
              f"\t\tMissiles: {missiles},\n"
-             f"\t\tPower Bombs: {power_bombs})"
-             f"\t\tEnabled: {yaml_enabled}")
+             f"\t\tPower Bombs: {power_bombs},\n"
+             f"\t\tEnabled: {yaml_enabled})")
             for requirements_list, energy_tanks, missiles, power_bombs, yaml_enabled in possibilities
         ]
         debug_string = ("Create logic rule...\n"
