@@ -185,14 +185,14 @@ def unpack_requirement(
                       f"{", ".join(nested_requirement.name 
                                    for nested_requirement in requirements_permutation)}]")
             # Check if all requirements in permutation have enabled options
-            if not all([nested_requirement.check_option_enabled(options)
+            if any(requirement.check_option_enabled(options) and [not nested_requirement.check_option_enabled(options)
                     for nested_requirement in requirements_permutation]):
                 if debug:
                     print(f"Permutation disabled due to options: ["
-                          f"{", ".join(nested_requirement.name 
+                          f"{requirement.name}, {", ".join(nested_requirement.name 
                                        for nested_requirement in requirements_permutation)}]")
                     logging.info(f"Permutation disabled due to options: ["
-                                 f"{", ".join(nested_requirement.name 
+                                 f"{requirement.name}, {", ".join(nested_requirement.name 
                                               for nested_requirement in requirements_permutation)}]")
             # Save state of parent's hard_items_needed
             current_hard_items = parent_hard_items.copy()
