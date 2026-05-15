@@ -1,4 +1,3 @@
-from worlds.stardew_valley.content.override import override
 from .data.logic.Requirement import Requirement, PONRRequirement
 from .data.logic.Requirements import *
 
