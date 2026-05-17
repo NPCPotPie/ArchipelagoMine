@@ -298,18 +298,18 @@ Sector3SecurityZone.locations = [
 Sector3MainShaft.locations = [
     FusionLocation("Sector 3 (PYR) -- Namihe's Lair", False, [
         CanPowerBomb("Enter Namihe's Lair and Grab Item", [
-            HasHiJump(),
-            CanFreezeEnemies(missile_ammo_needed=2),
-            # PONRRequirement("PONR - Namihe's Lair - No Witnesses", [
-            #     HasScrewAttack(),
-            #     CanDamageToughEnemy()
-            # ], [
-            #     #future CanDoAdvancedJumpBombJump()
-            # ]),
-            PONRRequirement("PONR - Namihe's Lair - Shinespark", [
-                # Video proof: https://www.youtube.com/watch?v=4LkNz-cjgUI
-                CanDoExpertShinespark()
-            ])
+            CanJumpHigh(),
+            PONRRequirement("PONR - Namihe's Lair Item", [
+                CanDoExpertShinespark("PONR - Namihe's Lair - Shinespark"),
+                CanFreezeEnemies("PONR - Namihe's Lair - Frozen Platform",
+                                 missile_ammo_needed=2)
+                # Requirement("PONR - Namihe's Lair - No Witnesses", [
+                #     HasScrewAttack(),
+                #     CanDamageToughEnemy()
+                # ], [
+                #     #future CanDoAdvancedJumpBombJump()
+                # ])
+            ]),
         ])
     ]),
     FusionLocation("Sector 3 (PYR) -- Processing Access", False, [
