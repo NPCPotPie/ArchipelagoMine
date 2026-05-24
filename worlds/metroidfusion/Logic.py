@@ -1,4 +1,3 @@
-from itertools import product as itertools_product
 from typing import TYPE_CHECKING
 import logging
 
