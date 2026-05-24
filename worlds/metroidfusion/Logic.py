@@ -116,7 +116,6 @@ def create_logic_rule(
         requirement: Requirement,
         options: "MetroidFusionOptions",
         debug: bool = False) -> list[tuple[set[str], int, int, int, bool]]:
-    hard_items: set[str] = set()
     possibilities: list[tuple[set[str], int, int, int, bool]] = requirement.unpack(options, debug=debug)
     # Validate all item names in possibilities before proceeding
     assert all([item_needed in valid_item_names
@@ -134,7 +133,6 @@ def create_logic_rule(
         debug_string = ("Create logic rule...\n"
                         f"Requirement: {requirement.name}\n"
                         f"Item Possibilities: [\n{",\n".join(sub_requirements_debug_string)}\n]\n"
-                        f"Hard Requirements: {{{", ".join(hard_items)}}}\n"
                         f"Enabled: {requirement.check_option_enabled(options)}")
         print(debug_string)
         logging.info(debug_string)
