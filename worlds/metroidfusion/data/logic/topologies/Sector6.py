@@ -99,7 +99,9 @@ Sector6BeforeXBOXZone.connections = [
             HasScrewAttack("Ascend X-B.O.X. Garage", [
                 CanJumpHigh()
             ]),
-            HasWaveBeam("Exit to Restricted Zone"),
+            HasWaveBeam("Exit through Restricted Zone", [
+                HasSpeedBooster()
+            ]),
             PONRRequirement("PONR - Enter X-B.O.X. Arena")
         ], energy_tanks_needed=level_4_e_tanks)
     ], one_way=True)
