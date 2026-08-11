@@ -162,6 +162,8 @@ Sector6XBOXSave.connections = [
             PONRRequirement("PONR - Exit to Restricted Zone")
         ], [
             HasKeycard4()
+        ], [
+            HasMorph()
         ]),
     ], one_way=True)
 ]
