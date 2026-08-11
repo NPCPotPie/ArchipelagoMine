@@ -85,13 +85,10 @@ Sector6Catacombs.connections = [
     ], one_way=True),
     Connection(Sector6BeforeVariaCoreXZone, [
         Requirement("Catacombs -> Pre-Varia Core X Zone", [
-            CanBomb(),
-            CanPowerBomb()
-        ], [
-            HasKeycard2("Can pass through Sector 6 Data", [
-                HasVaria()
+            CanPowerBomb(power_bomb_ammo_needed=2),
+            PONRRequirement("PONR - Catacombs -> Pre-Varia Core X Zone", [
+                CanBomb()
             ]),
-            PONRRequirement("PONR - Catacombs -> Pre-Varia Core X Zone")
         ])
     ], one_way=True)
 ]
